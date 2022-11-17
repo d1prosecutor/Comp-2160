@@ -150,8 +150,8 @@ Boolean insertItem(Container *tempContainer, char *newString)
             // assert that the item was inserted
             assert(contains(tempContainer, newString));
 
-            // Reset the iterator to the beginning of the list
-            tempContainer->iterator = tempContainer->top;
+            // Invalidate the iterator because a new item has been inserted
+            tempContainer->iterator = NULL;
         }
         else
         {
@@ -168,68 +168,6 @@ Boolean insertItem(Container *tempContainer, char *newString)
         exit(1);
     }
 }
-
-// Boolean insertItem(Container *tempContainer, char *newString)
-// {
-//     assert(NULL != tempContainer);
-//     assert(NULL != newString);
-
-//     Boolean inserted = false;
-
-//     Node *newNode = malloc(sizeof(Node));
-
-//     if (NULL != newNode)
-//     {
-//         newNode->data = newString;
-//         newNode->next = NULL;
-
-//         // Check that the newly created Node is valid
-//         checkList(tempContainer, newNode);
-
-//         if (NULL != tempContainer)
-//         {
-//             // If the linked list is empty, insert at top
-//             if (NULL == tempContainer->top)
-//             {
-//                 tempContainer->top = newNode;
-//             }
-//             else
-//             {
-//                 // if not empty, iterate till last position is reached then insert as the last item
-//                 Node *curr = tempContainer->top;
-//                 Node *prev = NULL;
-
-//                 while (NULL != curr)
-//                 {
-//                     checkList(tempContainer, curr);
-
-//                     prev = curr;
-//                     curr = curr->next;
-//                 }
-
-//                 prev->next = newNode;
-//             }
-
-//             inserted = true;
-
-//             // Update the size of the container
-//             tempContainer->size++;
-
-//             // Validate that the size of the container is still valid
-//             assert(tempContainer->size >= 0);
-
-//             // assert that the item was inserted
-//             assert(contains(tempContainer, newString));
-//         }
-
-//         return inserted;
-//     }
-//     else
-//     {
-//         printf("No memory available\n");
-//         exit(1);
-//     }
-// }
 
 /*******************************************************************
  * deleteItem
@@ -288,10 +226,10 @@ Boolean deleteItem(Container *tempContainer, char *deleteString)
 
             // clear the contents of the node deleted
             free(curr);
-        }
 
-        // Reset the iterator to the beginning of the list
-        tempContainer->iterator = tempContainer->top;
+            // If the item was found and deleted, invalidate the iterator
+            tempContainer->iterator = NULL;
+        }
     }
 
     // Verify that the item is no longer (or was not) in the list
@@ -369,7 +307,7 @@ char *firstItem(Container *tempContainer)
         {
             assert(NULL != tempContainer->top);
 
-            // Sets the iterator to the first item in the list(starts iterating through the list)
+            // Sets/Resets the iterator to the first item in the list(starts iterating through the list)
             tempContainer->iterator = tempContainer->top;
 
             // Invariant on the iterator which is currently the first item in the list
@@ -412,18 +350,12 @@ char *nextItem(Container *tempContainer)
             // Invariant on the iterator which is currently the next item in the list
             checkList(tempContainer, tempContainer->iterator);
 
+            // Update the result to the data of the next item if the iterator is still within the list,
+            // otherwise the iterator has gone through all the items in the list and the result should be null
             if (NULL != tempContainer->iterator)
             {
                 result = tempContainer->iterator->data;
             }
-            else
-            {
-                result = firstItem(tempContainer);
-            }
-        }
-        else
-        {
-            result = firstItem(tempContainer);
         }
     }
 
