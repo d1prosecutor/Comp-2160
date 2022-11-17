@@ -2,7 +2,7 @@ Set1.o
 	The are_Equal method is incorrect (It reports that some (2) sets are not equal when they in fact are equal)
 		Error with same set (twice - same pointer), sets sontaining same elements(different pointers), 2 empty sets
 	The are_Disjoint method is incorrect (It reports that some (2) sets are not disjoint when they in fact are disjoint)
-		Error with a non-empty and an empty set, 2 empty sets, two disjointed non empty sets.
+		Error with a non-empty and an empty set, 2 empty sets, two disjointed non-empty sets.
 	The union method is incorrect (the result of the method differs from what should be the union of the sets)
 		Because the are_Equal method is incorrect and I tested the union method using the are_Equal method which contains errors
 	The symmetric difference method is incorrect (the result of the method differs from what should be the symmetric difference of the sets)
@@ -28,6 +28,13 @@ Set2.o
 				
 Set3.o
 	The are_Disjoint method is incorrect (It reports that some (2) sets are not disjoint when they in fact are disjoint)
-		Error with a non-empty and an empty set, two disjointed non empty sets.
+		Error with a non-empty and an empty set, two disjointed non-empty sets.
 	The symmetric difference method is incorrect (the result of the method differs from what should be the symmetric difference of the sets)
 		Error with cases where the two sets are non-empty (works if t least one of the sets is empty)
+
+Set4.o
+	The are_Disjoint method is incorrect (It reports that some (2) sets are disjoint when they in fact aren't)
+		Error with same set (twice - same pointer), in General two non-disjointed non-empty sets.
+		
+Set5.o
+	

@@ -336,6 +336,10 @@ int main()
     insertItem(validSet1, 1);
     insertItem(validSet1, 3);
 
+    // Making equalSet contain the same elements as validSet1 once again
+    insertItem(equalSet, 1);
+    insertItem(equalSet, 3);
+
     //----------------------------------------------------------------
     printf("\n\n**************** TESTING ARE_EQUAL (Typical Cases) ****************\n");
 
@@ -383,8 +387,11 @@ int main()
     insertItem(disjointSet, -5);
     insertItem(disjointSet, -6);
 
-    printf("\nThis test should FAIL because validSet1 and validSet2 have some common elements and thus are NOT disjoint\n");
+    printf("\nThis test should FAIL because validSet1 and validSet2 have some common elements and thus are not disjoint\n");
     testAreDisjoint(validSet1, validSet2, true);
+
+    printf("\nThis test should FAIL because validSet1 and equalSet have exactly the same elements and thus are not disjoint\n");
+    testAreDisjoint(validSet1, equalSet, true);
 
     printf("\nThis test should PASS because validSet1 and disjointSet have no common elements and thus are disjoint\n");
     testAreDisjoint(validSet1, disjointSet, true);
@@ -394,7 +401,7 @@ int main()
     printf("\nThis test should FAIL because validSet1 and validSet1 are the same Set and thus are NOT disjoint (contain same elements)\n");
     testAreDisjoint(validSet1, validSet1, true);
 
-    printf("\nThis test should PASS because one of the sets is empty and thus the sets are Disjoint\n");
+    printf("\nThis test should PASS because one of the sets is empty and thus they are Disjoint\n");
     testAreDisjoint(validSet1, emptySet1, true);
 
     printf("\nThis test should PASS because emptySet1 and emptySet1 have no elements, thus no common elements and are thus, disjoint\n");
