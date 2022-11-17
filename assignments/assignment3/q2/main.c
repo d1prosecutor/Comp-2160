@@ -265,7 +265,7 @@ int main()
     //---------------------------------------------------------------
     printf("\n\n**************** TESTING INSERT_ITEM (Typical Cases) *****************\n");
 
-    printf("\nRecreating validSet1 (because it was aslo destroyed)...........\n");
+    printf("\nRecreating validSet1 (because it was also destroyed)...........\n");
 
     validSet1 = newSet();
 
@@ -373,12 +373,11 @@ int main()
     printf("\nThis test should FAIL because validSet1 and emptySet don't have the same elements (validSet1 contains elements)\n");
     testAreEqual(validSet1, emptySet1, true);
 
-    // testAreEqual(validSet1, invalidSet, true);
-
-    printf("\nThis test should PASS because emptySet and emptySet have the same elements (no elements)\n");
+    printf("\nThis test should PASS because emptySet1 and emptySet1 (empty sets with the same memory address) have the same elements (no elements)\n");
     testAreEqual(emptySet1, emptySet1, true);
-    // testAreEqual(emptySet, invalidSet, true);
-    // testAreEqual(invalidSet, invalidSet, true);
+
+    printf("\nThis test should PASS because emptySet1 and emptySet2 (empty sets with the different memory address) have the same elements (no elements)\n");
+    testAreEqual(emptySet1, emptySet2, true);
 
     //----------------------------------------------------------------
     printf("\n\n*************** TESTING ARE_DISJOINT (Typical Case) *************\n");
@@ -399,17 +398,18 @@ int main()
     testAreDisjoint(validSet1, disjointSet, true);
 
     printf("\n\n********** TESTING ARE_DISJOINT (Empty/Edge Case) *********\n");
+
     printf("\nThis test should FAIL because validSet1 and validSet1 are the same Set and thus are NOT disjoint (contain same elements)\n");
     testAreDisjoint(validSet1, validSet1, true);
 
     printf("\nThis test should PASS because one of the sets is empty and thus the sets are Disjoint\n");
     testAreDisjoint(validSet1, emptySet1, true);
-    // testAreDisjoint(validSet1, invalidSet, true);
 
-    printf("\nThis test should PASS because emptySet and emptySet have no elements, thus no common elements and are thus, disjoint\n");
+    printf("\nThis test should PASS because emptySet1 and emptySet1 have no elements, thus no common elements and are thus, disjoint\n");
     testAreDisjoint(emptySet1, emptySet1, true);
-    // testAreDisjoint(emptySet, invalidSet, true);
-    // testAreDisjoint(invalidSet, invalidSet, true);
+
+    printf("\nThis test should PASS because emptySet1 and emptySet2 have no elements, thus no common elements and are thus, disjoint\n");
+    testAreDisjoint(emptySet1, emptySet2, true);
 
     //----------------------------------------------------------------
     printf("\n\n**************** TESTING UNION_OF (Typical Cases) ****************\n");
@@ -439,21 +439,18 @@ int main()
     testUnionOf(validSet1, validSet2, unionSet);
 
     printf("\n\n********** TESTING UNION_OF (Empty/Edge Cases) *********\n");
+
     printf("\nThis test should PASS because validSet1 and validSet1 are the same Set and thus the union is the same Set (contains same elements as validSet1)\n");
     testUnionOf(validSet1, validSet1, validSet1);
 
     printf("\nThis test should PASS because the union of validSet1 and emptySet is validSet1\n");
     testUnionOf(validSet1, emptySet1, validSet1);
 
-    // testUnionOf(validSet1, invalidSet, validSet1);
-
     printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is the emptySet(-emptySet1, all having the same memory address)\n");
     testUnionOf(emptySet1, emptySet1, emptySet1);
 
     printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is the emptySet(-emptySet2, with a different memory adress from emptySet1)\n");
     testUnionOf(emptySet1, emptySet1, emptySet2);
-    // testUnionOf(emptySet, invalidSet, emptySet);
-    // testUnionOf(invalidSet, invalidSet, NULL);
 
     //----------------------------------------------------------------
     printf("\n\n**************** TESTING SYMMETRIC_DIFFERENCE (Typical Cases) ****************\n");
