@@ -329,7 +329,7 @@ int main()
     testRemoveItem(validSet1, 6, true);
 
     removeItem(equalSet, 1);
-    removeItem(equalSet, 2);
+    removeItem(equalSet, 3);
 
     printf("\nThis test should PASS because equalSet contains all the elements that validSet1 should contain after deletion\n");
     testAreEqual(equalSet, validSet1, true);
@@ -524,25 +524,26 @@ int main()
 
     //----------------------------------------------------------------
     printf("\n\n**************** TESTING VALIDATE_MEM_USE (Typical Cases) ****************\n");
-    printf("\nThis test should FAIL because validSet1, validSet2, unionSet, disjointSet, symmetricDifference set, emptySet1, and emptySet2 are still in use\n");
+    printf("\nThis test should FAIL because equalSet,validSet1, validSet2, unionSet, disjointSet, symmetricDifference set, emptySet1, and emptySet2 are still in use\n");
     testValidateMemUse(true);
 
     printf("\nDeleting emptySet1.........\n");
     deleteSet(emptySet1);
-    printf("\nThis test should FAIL because validSet1, validSet2, unionSet, disjointSet, symmetricDifference set, and emptySet2 are still in use\n");
+    printf("\nThis test should FAIL because equalSet, validSet1, validSet2, unionSet, disjointSet, symmetricDifference set, and emptySet2 are still in use\n");
     testValidateMemUse(true);
 
     printf("\nDeleting symmDiffSet.........\n");
     deleteSet(symmDiffSet);
-    printf("\nThis test should FAIL because validSet1, validSet2, unionSet, disjointSet, and emptySet2 are still in use\n");
+    printf("\nThis test should FAIL because equalSet, validSet1, validSet2, unionSet, disjointSet, and emptySet2 are still in use\n");
     testValidateMemUse(true);
 
     printf("\nDeleting unionSet......\n");
     deleteSet(unionSet);
-    printf("\nThis test should FAIL because validSet1, validSet2, disjointSet, and emptySet2 are still in use\n");
+    printf("\nThis test should FAIL because equalSet, validSet1, validSet2, disjointSet, and emptySet2 are still in use\n");
     testValidateMemUse(true);
 
     printf("\nDeleting all the sets still in use..........\n");
+    deleteSet(equalSet);
     deleteSet(disjointSet);
     deleteSet(emptySet2);
     deleteSet(validSet2);
@@ -552,7 +553,7 @@ int main()
     testValidateMemUse(true);
 
     //-----------------------------------------------------------------
-    printf("\n SUMMARY OF THE TESTS\n");
+    printf("\n*********    SUMMARY OF THE TESTS   ************\n");
     printf("\nTotal number of tests EXECUTED: %d", testsExecuted);
     printf("\nNumber of tests PASSED: %d", (testsExecuted - testsFailed));
     printf("\nNumber of tests FAILED: %d\n", testsFailed);
