@@ -198,11 +198,11 @@ void testValidateMemUse(Boolean expected)
 
     if (result == expected)
     {
-        printf("\nThere are no existing Set objects\n");
+        printf("\nSUCCESS, There are no existing Set objects !!!\n");
     }
     else
     {
-        printf("\nThere are existing Set objects\n");
+        printf("\n!!! ERROR, There are existing Set objects\n");
         testsFailed++;
     }
     testsExecuted++;
@@ -446,10 +446,10 @@ int main()
     printf("\nThis test should PASS because the union of validSet1 and emptySet is validSet1\n");
     testUnionOf(validSet1, emptySet1, validSet1);
 
-    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is the emptySet(-emptySet1, all having the same memory address)\n");
+    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is the emptySet1 (all having the same memory address)\n");
     testUnionOf(emptySet1, emptySet1, emptySet1);
 
-    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is the emptySet(-emptySet2, with a different memory adress from emptySet1)\n");
+    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is also the emptySet2 (with a different memory adress from emptySet1)\n");
     testUnionOf(emptySet1, emptySet1, emptySet2);
 
     //----------------------------------------------------------------
@@ -508,10 +508,10 @@ int main()
     printf("\nThis test should PASS because the symmetric Difference of any non-empty Set (validSet1) and an empty Set is the non-empty Set(validSet1)\n");
     testSymmetricDifferenceOf(validSet1, emptySet1, validSet1);
 
-    printf("\nThis test should PASS because the symmetric difference of two empty Sets(emptySet1 and emptySet1) is the emptySet(emptySet1- all having same memory address)\n");
+    printf("\nThis test should PASS because the symmetric difference of emptySet1 and emptySet1 is the emptySet1 (all having same memory address)\n");
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet1);
 
-    printf("\nThis test should PASS because the symmetric difference of two empty Sets(emptySet1 and emptySet1) is the emptySet(emptySet2- with different memory address)\n");
+    printf("\nThis test should PASS because the symmetric difference of emptySet1 and emptySet1 is the emptySet2 (with different memory address)\n");
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet2);
 
     //----------------------------------------------------------------

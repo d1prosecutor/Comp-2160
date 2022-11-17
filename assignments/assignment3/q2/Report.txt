@@ -30,4 +30,4 @@ Set3.o
 	The are_Disjoint method is incorrect (It reports that some (2) sets are not disjoint when they in fact are disjoint)
 		Error with a non-empty and an empty set, two disjointed non empty sets.
 	The symmetric difference method is incorrect (the result of the method differs from what should be the symmetric difference of the sets)
-		Error with cases where the two sets are non-empty
+		Error with cases where the two sets are non-empty (works if t least one of the sets is empty)
