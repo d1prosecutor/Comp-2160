@@ -224,11 +224,14 @@ void printContainer(Container *testContainer)
             printf("Contents of My Container: \"%s\"", firstWord);
 
             char *nextString = nextItem(testContainer);
-            while (nextString != firstWord)
+            while (NULL != nextString)
             {
                 printf(", \"%s\"", nextString);
                 nextString = nextItem(testContainer);
             }
+
+            // reset the containers iterator to the beginning of the list after printing to avoid affecting test codes
+            firstItem(testContainer);
         }
         else
         {
