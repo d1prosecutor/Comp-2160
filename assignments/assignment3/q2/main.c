@@ -508,16 +508,11 @@ int main()
     printf("\nThis test should PASS because the symmetric Difference of any non-empty Set (validSet1) and an empty Set is the non-empty Set(validSet1)\n");
     testSymmetricDifferenceOf(validSet1, emptySet1, validSet1);
 
-    // testSymmetricDifferenceOf(validSet1, invalidSet, validSet1);
-
     printf("\nThis test should PASS because the symmetric difference of two empty Sets(emptySet1 and emptySet1) is the emptySet(emptySet1- all having same memory address)\n");
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet1);
 
     printf("\nThis test should PASS because the symmetric difference of two empty Sets(emptySet1 and emptySet1) is the emptySet(emptySet2- with different memory address)\n");
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet2);
-
-    // testSymmetricDifferenceOf(emptySet, invalidSet, emptySet);
-    // testSymmetricDifferenceOf(invalidSet, invalidSet, NULL);
 
     //----------------------------------------------------------------
     printf("\n\n**************** TESTING VALIDATE_MEM_USE (Typical Cases) ****************\n");
