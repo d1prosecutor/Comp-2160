@@ -542,7 +542,7 @@ int main()
     testValidateMemUse(true);
 
     //-----------------------------------------------------------------
-    // Print summary of the Tests
+    printf("\n SUMMARY OF THE TESTS\n");
     printf("\nTotal number of tests EXECUTED: %d", testsExecuted);
     printf("\nNumber of tests PASSED: %d", (testsExecuted - testsFailed));
     printf("\nNumber of tests FAILED: %d\n", testsFailed);
