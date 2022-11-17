@@ -269,6 +269,15 @@ int main()
 
     validSet1 = newSet();
 
+    printf("\nRecreating equalSet which contains all the elements that should be in validSet aftrr inserting...........\n");
+    Set *equalSet = newSet();
+
+    insertItem(equalSet, 1);
+    insertItem(equalSet, 2);
+    insertItem(equalSet, 3);
+    insertItem(equalSet, 4);
+    insertItem(equalSet, 5);
+
     printf("\nThese tests should all PASS\n\n");
 
     printf("Inserting '1'\n");
@@ -305,9 +314,8 @@ int main()
 
     printf("\n\n********** TESTING INSERT_ITEM(Edge Cases) *********\n");
 
-    // printf("\nInserting any random number into the invalid Set \n");
-    // printf("\nThis test should FAIL because the Set (invalidSet) is NUll and can't be inserted into\n");
-    // testInsertItem(invalidSet, 1, true);
+    printf("\nThis test should PASS because equalSet contains all the elements that validSet1 should contain after insertion\n");
+    testAreEqual(equalSet, validSet1, true);
 
     //-----------------------------------------------------------------
     printf("\n\n************** TESTING REMOVE_ITEM (Typical Cases) **************\n");
@@ -320,15 +328,16 @@ int main()
     testRemoveItem(validSet1, 0, true);
     testRemoveItem(validSet1, 6, true);
 
+    removeItem(equalSet, 1);
+    removeItem(equalSet, 2);
+    printf("\nThis test should PASS because equalSet contains all the elements that validSet1 should contain after deletion\n");
+    testAreEqual(equalSet, validSet1, true);
+
     printf("\n\n********** TESTING REMOVE_ITEM (Empty/Edge Cases) *********\n");
 
     printf("\nDeleting any random number from the empty Set \n");
     printf("\nThis test should FAIL because the set (emptySet) is empty so there's nothing to be deleted\n");
     testRemoveItem(emptySet1, 0, true);
-
-    // printf("\nDeleting any random number from the invalid Set \n");
-    // printf("\nThis test should FAIL because the Set (invalidSet) is NUll and can't be deleted from\n");
-    // testRemoveItem(invalidSet, 0, true);
 
     printf("\nAdding 1 and 3 back to the valid Set for testing purposes...........\n");
     insertItem(validSet1, 1);
