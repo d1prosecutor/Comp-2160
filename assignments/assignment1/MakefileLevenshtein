@@ -1,0 +1,9 @@
+# -*- MakeFile -*-
+
+all: levenshtein
+
+levenshtein: ChukwunazaChukwuochalevenshtein.c
+	clang -Wall ChukwunazaChukwuochalevenshtein.c -o levenshtein
+
+clean: 
+	rm levenshtein -f

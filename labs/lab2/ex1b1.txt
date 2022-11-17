@@ -1,0 +1,5 @@
+CS Analysis of Algorithms
+CS Data Structures and Algorithms
+CS Introduction to Computer Systems
+Mathematics Elementary Discrete Mathematics
+Statistics Basic Statistical Analysis

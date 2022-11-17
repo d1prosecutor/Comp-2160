@@ -1,0 +1,9 @@
+# -*- MakeFile -*-
+
+all: pretty
+
+pretty: ChukwunazaChukwuochaPretty.c
+	clang -Wall ChukwunazaChukwuochaPretty.c -o pretty
+
+clean: 
+	rm pretty -f

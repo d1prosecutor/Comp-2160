@@ -1,0 +1,8 @@
+{
+  "lldb.displayFormat": "auto",
+  "lldb.showDisassembly": "auto",
+  "lldb.dereferencePointers": true,
+  "files.associations": {
+    "stdio.h": "c"
+  }
+}

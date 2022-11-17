@@ -1,0 +1,9 @@
+13 Vancouver
+42 Winnipeg
+00 Edmonton
+13 Coquitlam
+42 Brandon
+00 Calgary
+00 Medicine Hat
+99 Saskatoon
+13 Victoria
