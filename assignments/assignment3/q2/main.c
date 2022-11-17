@@ -330,6 +330,7 @@ int main()
 
     removeItem(equalSet, 1);
     removeItem(equalSet, 2);
+
     printf("\nThis test should PASS because equalSet contains all the elements that validSet1 should contain after deletion\n");
     testAreEqual(equalSet, validSet1, true);
 
