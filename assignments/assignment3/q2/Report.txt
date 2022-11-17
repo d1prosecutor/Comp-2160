@@ -37,4 +37,5 @@ Set4.o
 		Error with same set (twice - same pointer), in General two non-disjointed non-empty sets.
 		
 Set5.o
+	The validate_Mem_Use method is incorrect(it reports that there are still Set objects in memory when in fact there is no created set obeject, or all set objects have been deleted)
 	

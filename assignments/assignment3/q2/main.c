@@ -212,9 +212,8 @@ int main()
 {
     //-----------------------------------------------------------
 
-    // Creating 2 empty Sets which will be used in test cases
+    // Creating an empty Set which will be used in test cases
     Set *emptySet1 = newSet();
-    Set *emptySet2 = newSet();
 
     printf("\n******************** TESTING NEW_SET ********************\n");
 
@@ -251,8 +250,14 @@ int main()
     printf("\nThis test should PASS because the Set is valid (although empty) and thus can be destroyed\n");
     testDeleteSet(emptySet1, true);
 
+    printf("\nThis test should PASS because there should be no other Set still in use (still in memory)\n");
+    testValidateMemUse(true);
+
     printf("\nRecreating the empty Set (because it was just destroyed)...........\n");
     emptySet1 = newSet();
+
+    // Creating an empty Set which will be used in test cases
+    Set *emptySet2 = newSet();
 
     //---------------------------------------------------------------
     printf("\n\n**************** TESTING INSERT_ITEM (Typical Cases) *****************\n");
