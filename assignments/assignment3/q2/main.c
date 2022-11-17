@@ -222,15 +222,10 @@ int main()
 
     Set *validSet1 = newSet();
 
-    printf("\nThis test should PASS beacause a valid Set (validSet1) is Created\n");
+    printf("\nThis test should PASS because a valid Set (validSet1) is Created\n");
     testNewSet(validSet1, true);
 
     printf("\n***************** TESTING NEW_SET (Edge Case) *****************\n");
-
-    // Set *invalidSet = NULL;
-
-    // printf("This test should FAIL beacause the Set (invalidSet) is NULL\n");
-    // testNewSet(invalidSet, true);
 
     //---------------------------------------------------------------
     printf("\n\n**************** TESTING INSERT_ITEM (Typical Cases) *****************\n");
@@ -248,16 +243,13 @@ int main()
 
     printf("\n*********** Typical Case ************\n");
 
-    printf("\nThis test should PASS beacause the Set (validSet1) is valid and thus can be destroyed\n");
+    printf("\nThis test should PASS because the Set (validSet1) is valid and thus can be destroyed\n");
     testDeleteSet(validSet1, true);
 
     printf("\n*********** TESTING DELETE_SET (Empty/Edge Cases) ***********\n");
 
-    printf("\nThis test should PASS beacause the Set is valid (although empty) and thus can be destroyed\n");
+    printf("\nThis test should PASS because the Set is valid (although empty) and thus can be destroyed\n");
     testDeleteSet(emptySet1, true);
-
-    // printf("\nThis test should FAIL beacause the Set (invalidSet) is NULL and thus can't be destroyed\n");
-    // testDeleteSet(invalidSet, true);
 
     printf("\nRecreating the empty Set (because it was just destroyed)...........\n");
     emptySet1 = newSet();
