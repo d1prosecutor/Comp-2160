@@ -153,7 +153,7 @@ void testNextItem(Container *testContainer, char *expectedString)
 
     if (NULL == returnedString)
     {
-        printf("Container is Invalid/Empty\n");
+        printf("Reached end of List or Container is Invalid/Empty\n");
     }
     else if (NULL == expectedString)
     {
@@ -401,20 +401,16 @@ int main()
 
     printf("\nThis next test should FAIL because the next item after \"String 3\" is \"String 2\" ");
     printf("but \"String 2\" was passed as expected Result\n");
-    testNextItem(validContainer, "String 2");
+    testNextItem(validContainer, "String 1");
 
     printf("\nThe Container iterator is currently at the position of \"String 2\"\n");
     printf("\nThis next test should PASS because the next item after \"String 2\" is \"String 1\"\n");
     testNextItem(validContainer, "String 1");
 
-    printf("\n/*Testing that the iterator loops through the Container in a circular motion\n");
-    printf("The output of the following tests should be all the contents in the container from the top again\n");
+    printf("\n/*Testing that the iterator does not loops through the Container in a circular manner\n");
+    printf("The output of the following test should be null\n");
     printf("The contents of the Container at this point is String 4, String 3, String 2, String 1*/\n\n");
-
     testNextItem(validContainer, "String 4");
-    testNextItem(validContainer, "String 3");
-    testNextItem(validContainer, "String 2");
-    testNextItem(validContainer, "String 1");
 
     //-----------------------------------------------------------------
     printf("\n\n************** TESTING DELETE_ITEM (Typical Cases) **************\n");
