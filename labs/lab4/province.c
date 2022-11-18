@@ -10,13 +10,6 @@ struct PROVINCE
 // private function
 static int compare_provinces_by_name(const void *, const void *);
 
-// Struct
-// struct PROVINCE
-// {
-//     char prov[MAX_PROV];
-//     char name[MAX_FIELD];
-// };
-
 // Functions
 Province *read_provinces(const char filename[], int *num)
 {
