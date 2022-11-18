@@ -1,5 +1,12 @@
 #include "industry.h"
 
+// Struct
+struct INDUSTRY
+{
+    int ind_code;
+    char name[MAX_FIELD];
+};
+
 // Private Function
 static int compare_industries_by_name(const void *, const void *);
 

@@ -4,13 +4,7 @@
 #include "common.h"
 
 // Struct
-typedef struct INCOME
-{
-    char prov[MAX_PROV];
-    int year;
-    int income;
-    int ind_code;
-} Income;
+typedef struct INCOME Income;
 
 // Functions
 Income *read_incomes(const char[], int *);

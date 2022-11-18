@@ -4,11 +4,7 @@
 #include "common.h"
 
 // Struct
-typedef struct PROVINCE
-{
-    char prov[MAX_PROV];
-    char name[MAX_FIELD];
-} Province;
+typedef struct PROVINCE Province;
 
 // Functions
 Province *read_provinces(const char[], int *);
