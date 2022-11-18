@@ -1,7 +1,6 @@
 #ifndef SUMFUNCTIONS_H
 #define SUMFUNCTIONS_H
 
-#include "common.h"
 #include "province.h"
 #include "industry.h"
 #include "income.h"
