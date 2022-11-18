@@ -1,12 +1,15 @@
 # -*- MakeFile -*-
+CC = clang
+CFLAGS = -g -Wall # -DNDEBUG
+
 
 all: main
 
 main: main.c main.h container.o
-	clang -Wall -g main.c container.o -o main
+	$(CC) $(CFLAGS) main.c container.o -o main
 
 container.o: container.c container.h
-	clang -Wall -g -DNDEBUG container.c -o container.o -c 
+	$(CC) $(CFLAGS) container.c -o container.o -c 
 
 clean: 
 	rm *.o main -f

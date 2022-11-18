@@ -1,4 +1,6 @@
 # -*- MakeFile -*-
+CC = clang
+CFLAGS = -g -Wall # -DNDEBUG
 
 all: main
 
