@@ -1,12 +1,11 @@
 #ifndef SUMFUNCTIONS_H
 #define SUMFUNCTIONS_H
 
-#include "province.h"
-#include "industry.h"
-#include "income.h"
+// #include "province.h"
+// #include "industry.h"
+// #include "income.h"
 
-// Variable
-extern const char COMMAND_SEPARATOR_STRING[];
+#include "test.h"
 
 // Functions
 void sum_province_by_year(char[], Province *, int, Industry *, int, Income *, int);

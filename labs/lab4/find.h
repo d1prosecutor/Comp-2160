@@ -1,10 +1,11 @@
 #ifndef FIND_H
 #define FIND_H
 
-#include "sumFunctions.h"
+// #include "province.h"
+// #include "industry.h"
+// #include "income.h"
 
-// Variable
-extern const char COMMAND_SEPARATOR_STRING[];
+#include "test.h"
 
 // Functions
 void find(char[], int, char[], Province *, int, Industry *, int, Income *, int);

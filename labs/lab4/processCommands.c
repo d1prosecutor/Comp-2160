@@ -1,7 +1,7 @@
 #include "processCommands.h"
 
 // variable definition
-const char COMMAND_SEPARATOR_STRING[] = " ";
+static const char COMMAND_SEPARATOR_STRING[] = " ";
 
 void process_commands(Province *provinces, int num_provinces, Industry *industries, int num_industries, Income *incomes, int num_incomes)
 {

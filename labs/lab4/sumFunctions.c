@@ -29,9 +29,9 @@ void sum_province_by_year(char prov_name[], Province *provinces, int num_provinc
 
                 for (int i = 0; i < num_incomes; i++)
                 {
-                    if (strcmp(getIncomeProv(incomes[i]), prov) == 0)
+                    if (strcmp(getIncomeProv(&incomes[i]), prov) == 0)
                     {
-                        sums_by_year[getIncomeYear(incomes[i]) - min_year] += getIncome(incomes[i]);
+                        sums_by_year[getIncomeYear(&incomes[i]) - min_year] += getIncome(&incomes[i]);
                     }
                 }
 
@@ -56,13 +56,13 @@ void sum_ind_in_year_by_province(char ind_name[], int year, Province *provinces,
     {
         for (int j = 0; j < num_industries; j++)
         {
-            if (strncmp(ind_name, getIndName(industries[j]), ind_name_len) == 0)
+            if (strncmp(ind_name, getIndName(&industries[j]), ind_name_len) == 0)
             {
                 for (int k = 0; k < num_incomes; k++)
                 {
-                    if (getIncomeIndCode(incomes[k]) == getIndustryIndCode(industries[j]) && getIncomeYear(incomes[k]) == year && strcmp(getProv(provinces[i]), getIncomeProv(incomes[k])) == 0)
+                    if (getIncomeIndCode(&incomes[k]) == getIndustryIndCode(&industries[j]) && getIncomeYear(&incomes[k]) == year && strcmp(getProv(&provinces[i]), getIncomeProv(&incomes[k])) == 0)
                     {
-                        sum = sum + getIncome(incomes[k]);
+                        sum = sum + getIncome(&incomes[k]);
                     }
                 }
             }

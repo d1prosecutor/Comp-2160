@@ -1,8 +1,8 @@
 #include "lab4main.h"
 
-const char PROVINCES_FILE[] = "q1_province.txt";
-const char INDUSTRIES_FILE[] = "q1_industry.txt";
-const char INCOMES_FILE[] = "q1_income.txt";
+static const char PROVINCES_FILE[] = "q1_province.txt";
+static const char INDUSTRIES_FILE[] = "q1_industry.txt";
+static const char INCOMES_FILE[] = "q1_income.txt";
 
 int main()
 {

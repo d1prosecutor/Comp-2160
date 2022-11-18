@@ -3,6 +3,8 @@
   "lldb.showDisassembly": "auto",
   "lldb.dereferencePointers": true,
   "files.associations": {
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "income.h": "c",
+    "main.h": "c"
   }
 }
