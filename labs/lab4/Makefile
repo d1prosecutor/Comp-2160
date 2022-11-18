@@ -1,30 +1,22 @@
-# a sample Makefile
+all: main
 
-CC = clang
-CFLAGS = -g -Wall # -DNDEBUG
+main: lab4main.c common.o province.o industry.o income.o processCommands.o
+	clang -Wall lab4main.c common.o province.o industry.o income.o processCommands.o -o main
 
-PROG = stringtest
-HDRS = string.h boolean.h
-SRCS = main.c string.c
+common.o: common.c common.h
+	clang -Wall common.c -o common.o -c
 
-OBJDIR = object
-OBJS = $(OBJDIR)/main.o $(OBJDIR)/string.o
+province.o: province.c province.h
+	clang -Wall province.c -o province.o -c
 
-# compiling rules
+industry.o: industry.c industry.h
+	clang -Wall industry.c -o industry.o -c
 
-# WARNING: *must* have a tab before each definition
-$(PROG): $(OBJDIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(PROG)
+income.o: income.c income.h
+	clang -Wall income.c -o income.o -c
 
-$(OBJDIR)/string.o: string.c $(HDRS)
-	$(CC) $(CFLAGS) -c string.c -o $(OBJDIR)/string.o
-
-$(OBJDIR)/main.o: main.c $(HDRS)
-	$(CC) $(CFLAGS) -c main.c -o $(OBJDIR)/main.o
-
-$(OBJDIR):
-	mkdir $(OBJDIR)
+processCommands.o: processCommands.c processCommands.h
+	clang -Wall processCommands.c -o processCommands.o -c
 
 clean:
-	rm -f $(PROG) $(OBJS)
-#	rmdir $(OBJDIR)
+	rm -f *.o main

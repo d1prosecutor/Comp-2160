@@ -1,0 +1,15 @@
+prov name,prov
+Prince Edward Island,PE
+Alberta,AB
+Newfoundland and Labrador,NL
+Manitoba,MB
+Saskatchewan,SK
+Yukon,YT
+Nova Scotia,NS
+Ontario,ON
+Northwest Territories,NT
+New Brunswick,NB
+Quebec,QC
+Canada,CA
+British Columbia,BC
+Nunavut,NU
