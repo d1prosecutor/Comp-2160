@@ -5,7 +5,7 @@ CFLAGS = -g -Wall # -DNDEBUG
 
 PROG = main
 HDRS = common.h industry.h income.h province.h find.h sumFunctions.h processCommands.h
-SRCS = lab4main.c common.c industry.c income.c province.c find.c sumFunctions.c processCommands.c
+SRCS = main.c common.c industry.c income.c province.c find.c sumFunctions.c processCommands.c
 
 OBJDIR = object
 OBJS = $(OBJDIR)/main.o $(OBJDIR)/common.o $(OBJDIR)/industry.o $(OBJDIR)/income.o $(OBJDIR)/province.o $(OBJDIR)/find.o \
@@ -38,8 +38,8 @@ $(OBJDIR)/sumFunctions.o: sumFunctions.c $(HDRS)
 $(OBJDIR)/processCommands.o: processCommands.c $(HDRS)
 	$(CC) $(CFLAGS) -c processCommands.c -o $(OBJDIR)/processCommands.o
 
-$(OBJDIR)/main.o: lab4main.c $(HDRS)
-	$(CC) $(CFLAGS) -c lab4main.c -o $(OBJDIR)/main.o
+$(OBJDIR)/main.o: main.c $(HDRS)
+	$(CC) $(CFLAGS) -c main.c -o $(OBJDIR)/main.o
 
 $(OBJDIR):
 	mkdir $(OBJDIR)

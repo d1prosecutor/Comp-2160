@@ -1,13 +1,5 @@
 #include "income.h"
-
-// Struct
-struct INCOME
-{
-  char prov[MAX_PROV];
-  int year;
-  int income;
-  int ind_code;
-};
+#include "incomeStruct.h"
 
 Income *read_incomes(const char filename[], int *num)
 {
@@ -99,24 +91,4 @@ int find_year_range(Income *incomes, int num_incomes, int *min, int *max)
   }
 
   return *min > 0;
-}
-
-int getIncomeYear(Income *tempIncome)
-{
-  return tempIncome->year;
-}
-
-int getIncome(Income *tempIncome)
-{
-  return tempIncome->income;
-}
-
-int getIncomeIndCode(Income *tempIncome)
-{
-  return tempIncome->ind_code;
-}
-
-const char *getIncomeProv(Income *tempIncome)
-{
-  return tempIncome->prov;
 }

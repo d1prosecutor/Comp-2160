@@ -1,4 +1,10 @@
-#include "lab4main.h"
+#include "industry.h"
+#include "income.h"
+#include "province.h"
+#include "processCommands.h"
+#include "provinceStruct.h"
+#include "industryStruct.h"
+#include "incomeStruct.h"
 
 static const char PROVINCES_FILE[] = "q1_province.txt";
 static const char INDUSTRIES_FILE[] = "q1_industry.txt";
@@ -27,19 +33,19 @@ int main()
 
   for (int i = 0; i < num_provinces; i++)
   {
-    printf("%s %s\n", getProv(&provinces[i]), getProvName(&provinces[i]));
+    printf("%s %s\n", provinces[i].prov, provinces[i].name);
   }
   for (int i = 0; i < num_industries; i++)
   {
-    printf("%d %s\n", getIndustryIndCode(&industries[i]), getIndName(&industries[i]));
+    printf("%d %s\n", industries[i].ind_code, industries[i].name);
   }
   for (int i = 0; i < num_incomes; i++)
   {
-    printf("%s %d %d %d\n", getIncomeProv(&incomes[i]), getIncomeYear(&incomes[i]), getIncome(&incomes[i]), getIncomeIndCode(&incomes[i]));
+    printf("%s %d %d %d\n", incomes[i].prov, incomes[i].year, incomes[i].income, incomes[i].ind_code);
   }
 
-  //////////////////
-  printf("\nEnd of Processing");
+  //
+  printf("End of Precessing\n");
 
   return 0;
 }

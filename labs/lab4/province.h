@@ -13,8 +13,4 @@ int find_prov(char[], Province *, int, char[]);
 
 void sort_provinces_by_name(Province *, int);
 
-// Getters
-const char *getProv(Province *);
-const char *getProvName(Province *);
-
 #endif

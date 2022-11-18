@@ -11,8 +11,4 @@ Industry *read_industries(const char[], int *);
 
 void sort_industries_by_name(Industry *array, int);
 
-// Getters
-int getIndustryIndCode(Industry *);
-const char *getIndName(Industry *);
-
 #endif

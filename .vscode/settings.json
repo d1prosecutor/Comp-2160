@@ -5,6 +5,11 @@
   "files.associations": {
     "stdio.h": "c",
     "income.h": "c",
-    "main.h": "c"
+    "main.h": "c",
+    "processcommands.h": "c",
+    "province.h": "c",
+    "industry.h": "c",
+    "provincestruct.h": "c",
+    "incomestruct.h": "c"
   }
 }

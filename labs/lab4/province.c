@@ -1,11 +1,5 @@
 #include "province.h"
-
-// Struct
-struct PROVINCE
-{
-    char prov[MAX_PROV];
-    char name[MAX_FIELD];
-};
+#include "provinceStruct.h"
 
 // private function
 static int compare_provinces_by_name(const void *, const void *);
@@ -94,14 +88,4 @@ static int compare_provinces_by_name(const void *a, const void *b)
     const Province *pa = (Province *)a;
     const Province *pb = (Province *)b;
     return strcmp(pa->name, pb->name);
-}
-
-const char *getProv(Province *tempProv)
-{
-    return tempProv->prov;
-}
-
-const char *getProvName(Province *tempProv)
-{
-    return tempProv->name;
 }

@@ -1,11 +1,5 @@
 #include "industry.h"
-
-// Struct
-struct INDUSTRY
-{
-    int ind_code;
-    char name[MAX_FIELD];
-};
+#include "industryStruct.h"
 
 // Private Function
 static int compare_industries_by_name(const void *, const void *);
@@ -74,14 +68,4 @@ static int compare_industries_by_name(const void *a, const void *b)
     const Industry *ia = (Industry *)a;
     const Industry *ib = (Industry *)b;
     return strcmp(ia->name, ib->name);
-}
-
-const char *getIndName(Industry *tempIndustry)
-{
-    return tempIndustry->name;
-}
-
-int getIndustryIndCode(Industry *tempIndustry)
-{
-    return tempIndustry->ind_code;
 }

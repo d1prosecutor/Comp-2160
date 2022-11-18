@@ -1,4 +1,6 @@
 #include "processCommands.h"
+#include "find.h"
+#include "sumFunctions.h"
 
 // variable definition
 static const char COMMAND_SEPARATOR_STRING[] = " ";
