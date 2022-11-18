@@ -38,4 +38,7 @@ Set4.o
 		
 Set5.o
 	The validate_Mem_Use method is incorrect(it reports that there are still Set objects in memory when in fact there is no created set obeject, or all set objects have been deleted)
+		The are_disjoint method in this file is creating a new set (which it doesn't return) whereas it should just be returning a boolean. The programmer didnt delete any temporary sets
+		used to for any calculations
+
 	

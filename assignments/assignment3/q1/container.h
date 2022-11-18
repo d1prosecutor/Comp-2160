@@ -1,6 +1,9 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
 
+//--------------------------------------------------------------
+// TYPES
+//--------------------------------------------------------------
 typedef struct CONTAINER Container;
 typedef enum BOOL
 {
@@ -8,6 +11,9 @@ typedef enum BOOL
     true
 } Boolean;
 
+//--------------------------------------------------------------
+// FUNTION PROTOTYPES
+//--------------------------------------------------------------
 Container *createContainer();
 Boolean destroyContainer(Container **);
 

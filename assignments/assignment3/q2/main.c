@@ -162,6 +162,7 @@ void testUnionOf(Set const *const testSetA, Set const *const testSetB, Set const
         testsFailed++;
     }
 
+    // Free the memory of the new set which was created by the Union Method(delete the set)
     deleteSet(tempSet);
     testsExecuted++;
 }
@@ -188,6 +189,7 @@ void testSymmetricDifferenceOf(Set const *const testSetA, Set const *const testS
         testsFailed++;
     }
 
+    // Free the memory of the new set which was created by the symmetric Difference Method(delete the set)
     deleteSet(tempSet);
     testsExecuted++;
 }
