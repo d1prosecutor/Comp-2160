@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "industry.h"
 #include "income.h"
 #include "province.h"

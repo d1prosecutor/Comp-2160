@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "income.h"
 #include "incomeStruct.h"
 

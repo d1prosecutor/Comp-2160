@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "processCommands.h"
 #include "find.h"
 #include "sumFunctions.h"

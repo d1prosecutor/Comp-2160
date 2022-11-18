@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "find.h"
 #include "industryStruct.h"
 #include "incomeStruct.h"

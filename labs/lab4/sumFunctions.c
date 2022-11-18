@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "sumFunctions.h"
 #include "incomeStruct.h"
 #include "industryStruct.h"

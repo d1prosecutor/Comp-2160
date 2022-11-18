@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "province.h"
 #include "provinceStruct.h"
 
