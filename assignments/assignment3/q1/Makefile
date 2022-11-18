@@ -1,15 +1,17 @@
 # -*- MakeFile -*-
 CC = clang
-CFLAGS = -g -Wall # -DNDEBUG
+
+# insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
+CFLAGS = -g -Wall -DNDEBUG
+PROG = main
 
 
-all: main
+all: $(PROG)
 
 main: main.c main.h container.o
-	$(CC) $(CFLAGS) main.c container.o -o main
+	$(CC) $(CFLAGS) main.c container.o -o $(PROG)
 
-container.o: container.c container.h
-	$(CC) $(CFLAGS) container.c -o container.o -c 
+container.o: container.h
 
 clean: 
 	rm *.o main -f
