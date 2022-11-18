@@ -101,7 +101,7 @@ int find_year_range(Income *incomes, int num_incomes, int *min, int *max)
   return *min > 0;
 }
 
-int getYear(Income *tempIncome)
+int getIncomeYear(Income *tempIncome)
 {
   return tempIncome->year;
 }

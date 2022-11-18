@@ -81,7 +81,7 @@ const char *getIndName(Industry *tempIndustry)
     return tempIndustry->name;
 }
 
-int getIndCode(Industry *tempIndustry)
+int getIndustryIndCode(Industry *tempIndustry)
 {
     return tempIndustry->ind_code;
 }

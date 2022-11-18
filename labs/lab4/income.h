@@ -12,7 +12,7 @@ Income *read_incomes(const char[], int *);
 int find_year_range(Income *, int, int *, int *);
 
 // Getters
-int getYear(Income *);
+int getIncomeYear(Income *);
 int getIncome(Income *);
 int getIncomeIndCode(Income *);
 const char *getIncomeProv(Income *);
