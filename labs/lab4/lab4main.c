@@ -28,26 +28,25 @@ int main()
   sort_provinces_by_name(provinces, num_provinces);
   sort_industries_by_name(industries, num_industries);
 
-  // if (NULL != provinces && NULL != industries && NULL != incomes)
+  if (NULL != provinces && NULL != industries && NULL != incomes)
+  {
+    process_commands(provinces, num_provinces, industries, num_industries, incomes, num_incomes);
+  }
+
+  // for (int i = 0; i < num_provinces; i++)
   // {
-  //   process_commands(provinces, num_provinces, industries, num_industries, incomes, num_incomes);
+  //   printf("%s %s\n", provinces[i].prov, provinces[i].name);
+  // }
+  // for (int i = 0; i < num_industries; i++)
+  // {
+  //   printf("%d %s\n", industries[i].ind_code, industries[i].name);
+  // }
+  // for (int i = 0; i < num_incomes; i++)
+  // {
+  //   printf("%s %d %d %d\n", incomes[i].prov, incomes[i].year, incomes[i].income, incomes[i].ind_code);
   // }
 
-  for (int i = 0; i < num_provinces; i++)
-  {
-    printf("%s %s\n", provinces[i].prov, provinces[i].name);
-  }
-  for (int i = 0; i < num_industries; i++)
-  {
-    printf("%d %s\n", industries[i].ind_code, industries[i].name);
-  }
-  for (int i = 0; i < num_incomes; i++)
-  {
-    printf("%s %d %d %d\n", incomes[i].prov, incomes[i].year, incomes[i].income, incomes[i].ind_code);
-  }
-
-  //
-  printf("End of Precessing\n");
+  printf("\nEnd of Precessing\n");
 
   return 0;
 }
