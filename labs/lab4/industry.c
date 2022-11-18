@@ -75,3 +75,13 @@ static int compare_industries_by_name(const void *a, const void *b)
     const Industry *ib = (Industry *)b;
     return strcmp(ia->name, ib->name);
 }
+
+const char *getIndName(Industry *tempIndustry)
+{
+    return tempIndustry->name;
+}
+
+int getIndCode(Industry *tempIndustry)
+{
+    return tempIndustry->ind_code;
+}

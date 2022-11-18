@@ -95,3 +95,13 @@ static int compare_provinces_by_name(const void *a, const void *b)
     const Province *pb = (Province *)b;
     return strcmp(pa->name, pb->name);
 }
+
+const char *getProv(Province *tempProv)
+{
+    return tempProv->prov;
+}
+
+const char *getProvName(Province *tempProv)
+{
+    return tempProv->name;
+}

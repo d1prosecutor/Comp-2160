@@ -100,3 +100,23 @@ int find_year_range(Income *incomes, int num_incomes, int *min, int *max)
 
   return *min > 0;
 }
+
+int getYear(Income *tempIncome)
+{
+  return tempIncome->year;
+}
+
+int getIncome(Income *tempIncome)
+{
+  return tempIncome->income;
+}
+
+int getIncomeIndCode(Income *tempIncome)
+{
+  return tempIncome->ind_code;
+}
+
+const char *getIncomeProv(Income *tempIncome)
+{
+  return tempIncome->prov;
+}
