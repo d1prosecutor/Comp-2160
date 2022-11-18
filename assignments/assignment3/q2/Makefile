@@ -1,8 +1,7 @@
 # -*- MakeFile -*-
+# insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 
 CC = clang
-
-# insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 CFLAGS = -g -Wall -DNDEBUG
 PROG = main main1 main2 main3 main4 main5
 PRE_REQS = main.c main.h set.h

@@ -1,8 +1,7 @@
 # -*- MakeFile -*-
+# insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 
 CC = clang
-
-# insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 CFLAGS = -g -Wall -DNDEBUG
 PROG = main
 OBJECTS = common.o province.o industry.o income.o processCommands.o sumFunctions.o find.o

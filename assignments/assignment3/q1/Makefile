@@ -1,10 +1,9 @@
 # -*- MakeFile -*-
-CC = clang
-
 # insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
+
+CC = clang
 CFLAGS = -g -Wall -DNDEBUG
 PROG = main
-
 
 all: $(PROG)
 
