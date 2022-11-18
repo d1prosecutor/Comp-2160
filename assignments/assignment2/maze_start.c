@@ -307,7 +307,7 @@ Boolean validCell(const Cell theCell)
 // loadMaze
 //
 // PURPOSE: Reads input from standard input and uses the input read to create the maze
-// and initialize all its required cells(Walls, spaces, starting postion and the exit).
+// and initialze all its required cells(Walls, spaces, starting postion and the exit).
 //------------------------------------------------------
 void loadMaze()
 {
@@ -327,8 +327,8 @@ void loadMaze()
   int columnIndex = 0;
 
   // giving enough buffer space for the situation where the input file has max number of maze characters in a column
-  //  plus the spaces inbetween each column character
-  //(also accounting for the \n char at the end of each line (with the +1))
+  // plus the spaces inbetween each column character
+  // (also accounting for the \n char at the end of each line (with the +1))
   int lineLength = (MAX_DIMENSION * 2) + 1;
 
   // New temp char array used to read each line of the input file and fill up the maze
@@ -381,7 +381,7 @@ void loadMaze()
 // solveMaze
 //
 // PURPOSE: Guides the mouse from its starting position to the exit position if there
-// exists a path (hence trying to solve the maze).
+// exists a path (hence triying to solve the maze).
 // OUTPUT PARAMETERS:
 // mazeSolved: A boolean that states if there exists a path from the mouse's starting position
 // to the exit position or not
@@ -466,7 +466,7 @@ Boolean solveMaze()
 }
 
 //------------------------------------------------------
-// printMaze
+// solveMaze
 //
 // PURPOSE: Prints the maze
 //------------------------------------------------------
@@ -490,7 +490,7 @@ void printMaze()
 }
 
 //------------------------------------------------------
-// checkState
+// solveMaze
 //
 // PURPOSE: Invariant checke for the maze. Checks that the dimensions and cells of the maze are valid,
 // there is an exit position in the maze and the mouse is within the maze
