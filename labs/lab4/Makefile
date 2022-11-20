@@ -47,3 +47,4 @@ $(OBJDIR):
 clean:
 	rm -f $(PROG) $(OBJS)
 #	rmdir $(OBJDIR)
+
