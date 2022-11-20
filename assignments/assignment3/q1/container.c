@@ -34,10 +34,10 @@ struct CONTAINER
 };
 
 //--------------------------------------------------------------
-// INVARIANT PROTOTYPE
+// PRIVATE FUNCTION - INVARIANT PROTOTYPE
 //--------------------------------------------------------------
 
-void checkList(Container *, Node *);
+static void checkList(Container *, Node *);
 
 //----------------------------------------------------------------
 // FUNCTIONS
@@ -454,7 +454,7 @@ Boolean clear(Container *tempContainer)
  * INPUT PARAMETERS:
  *      tempContainer: The Container and the Node (containing the data) to be verified to be valid
  ************************************************************************************************/
-void checkList(Container *tempContainer, Node *currNode)
+static void checkList(Container *tempContainer, Node *currNode)
 {
     // Verify that the container is valid
     assert(NULL != tempContainer);
