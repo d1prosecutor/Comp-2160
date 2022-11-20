@@ -459,6 +459,18 @@ static void validateList(Container *tempContainer, Node *currNode)
     // Verify that the container is valid
     assert(NULL != tempContainer);
 
+    // Count the number of items in the container
+    int containerSize = 0;
+    Node *tempNode = tempContainer->top;
+    while (NULL != tempNode)
+    {
+        containerSize++;
+        tempNode = tempNode->next;
+    }
+
+    // Check that the size of the container is accurate
+    assert(containerSize == tempContainer->size);
+
     // Check that the node of the linked list is valid
     assert(NULL != currNode);
 
