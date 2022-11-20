@@ -1,6 +1,29 @@
+/*****************************************************************************************
+ * NAME: Chukwunaza Chukwuocha
+ * STUDENT NUMBER: 7928676
+ * COURSE: COMP 2160, SECTION: A01
+ * INSTRUCTOR: Saulo dos Santos
+ * ASSIGNMENT: assignment 3
+ *
+ * REMARKS: Implements Test-functions for the functions provided by the container interface
+ ******************************************************************************************/
+
 #include <stdio.h>
 #include <string.h>
-#include "main.h"
+#include "container.h"
+
+//--------------------------------------------------------------
+// PROTOTYPES
+//--------------------------------------------------------------
+void testCreateContainer(Container *, Boolean);
+void testDestroyContainer(Container **, Boolean);
+void testInsertItem(Container *, char *, int);
+void testDeleteItem(Container *, char *, int);
+void testClear(Container *, Boolean);
+void testFirstItem(Container *, char *);
+void testNextItem(Container *, char *);
+void testContains(Container *, char *, Boolean);
+void testSize(Container *, int);
 
 // Variable declarations
 int testsFailed = 0;
@@ -10,6 +33,15 @@ int testsExecuted = 0;
 // FUNCTIONS
 //----------------------------------------------------------------
 
+/********************************************************************************************
+ *  testCreateContainer
+ *
+ *  PURPOSE: tests that the create container function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The newly created Container used to test the create container function
+ *      expected: The expected result of the create container function
+ ********************************************************************************************/
 void testCreateContainer(Container *testContainer, Boolean expected)
 {
     Boolean result = (NULL != testContainer);
@@ -26,6 +58,15 @@ void testCreateContainer(Container *testContainer, Boolean expected)
     testsExecuted++;
 }
 
+/********************************************************************************************
+ *  testDestroyContainer
+ *
+ *  PURPOSE: tests that the destroy container function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be destroyed to test the destroy container function
+ *      expected: The expected result of the destroy container function
+ ********************************************************************************************/
 void testDestroyContainer(Container **testContainer, Boolean expected)
 {
     Boolean result = destroyContainer(testContainer);
@@ -41,6 +82,16 @@ void testDestroyContainer(Container **testContainer, Boolean expected)
     testsExecuted++;
 }
 
+/********************************************************************************************
+ *  testInsertItem
+ *
+ *  PURPOSE: tests that the insert item function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be inserted into
+ *      tempString: The new item to be inserted
+ *      expectedSize: The expected size of the container after inserting the item
+ ********************************************************************************************/
 void testInsertItem(Container *testContainer, char *tempString, int expectedSize)
 {
     int prevSize = size(testContainer);
@@ -70,6 +121,16 @@ void testInsertItem(Container *testContainer, char *tempString, int expectedSize
     testsExecuted++;
 }
 
+/********************************************************************************************
+ *  testDeleteItem
+ *
+ *  PURPOSE: tests that the delete item function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be deleted from
+ *      removeString: The item to be deleted
+ *      expectedSize: The expected size of the container after deleting the item
+ ********************************************************************************************/
 void testDeleteItem(Container *testContainer, char *removeString, int expectedSize)
 {
     int prevSize = size(testContainer);
@@ -98,6 +159,15 @@ void testDeleteItem(Container *testContainer, char *removeString, int expectedSi
     testsExecuted++;
 }
 
+/**********************************************************
+ *  testClear
+ *
+ *  PURPOSE: tests that the clear function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be cleared
+ *      expected: The expected result of the clear function
+ **********************************************************/
 void testClear(Container *testContainer, Boolean expected)
 {
     Boolean result = clear(testContainer);
@@ -117,6 +187,15 @@ void testClear(Container *testContainer, Boolean expected)
     testsExecuted++;
 }
 
+/********************************************************************************
+ *  testFirstItem
+ *
+ *  PURPOSE: tests that the firstItem function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be iterated over
+ *      expectedString: The expected first Item to be returned from the container
+ *******************************************************************************/
 void testFirstItem(Container *testContainer, char *expectedString)
 {
     char *returnedString = firstItem(testContainer);
@@ -147,6 +226,15 @@ void testFirstItem(Container *testContainer, char *expectedString)
     testsExecuted++;
 }
 
+/*******************************************************************************
+ *  testNextItem
+ *
+ *  PURPOSE: tests that the nextItem function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be iterated over
+ *      expectedString: The expected next Item to be returned from the container
+ ******************************************************************************/
 void testNextItem(Container *testContainer, char *expectedString)
 {
     char *returnedString = nextItem(testContainer);
@@ -177,6 +265,16 @@ void testNextItem(Container *testContainer, char *expectedString)
     testsExecuted++;
 }
 
+/********************************************************************
+ *  testContains
+ *
+ *  PURPOSE: tests that the contains function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container to be searched for the item
+ *      checkItem: The item to be searched for
+ *      expectedResult: The expected result of the contains function
+ *******************************************************************/
 void testContains(Container *testContainer, char *checkItem, Boolean expectedResult)
 {
     Boolean result = contains(testContainer, checkItem);
@@ -193,6 +291,15 @@ void testContains(Container *testContainer, char *checkItem, Boolean expectedRes
     testsExecuted++;
 }
 
+/****************************************************************
+ *  testSize
+ *
+ *  PURPOSE: tests that the size function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container whose size is to be checked
+ *      expectedSize: The expected size of the container
+ ***************************************************************/
 void testSize(Container *testContainer, int expectedSize)
 {
     int returnedSize = size(testContainer);
@@ -214,6 +321,14 @@ void testSize(Container *testContainer, int expectedSize)
     testsExecuted++;
 }
 
+/***********************************************************************
+ *  printContainer
+ *
+ *  PURPOSE: prints out the contents of the container using the iterator
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The Container whose contents should be printed
+ ***********************************************************************/
 void printContainer(Container *testContainer)
 {
     if (NULL != testContainer)

@@ -1,3 +1,13 @@
+/************************************************************************************
+ * NAME: Chukwunaza Chukwuocha
+ * STUDENT NUMBER: 7928676
+ * COURSE: COMP 2160, SECTION: A01
+ * INSTRUCTOR: Saulo dos Santos
+ * ASSIGNMENT: assignment 3
+ *
+ * REMARKS: Implements Test-functions for the functions provided by the Set interface
+ ************************************************************************************/
+
 #include <stdio.h>
 
 #include "set.h"
@@ -31,6 +41,15 @@ int testsExecuted = 0;
 // FUNCTIONS
 //----------------------------------------------------------------
 
+/******************************************************************************
+ *  testNewSet
+ *
+ *  PURPOSE: tests that the newSet function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSet: The newly created Set used to test the new Set function
+ *      expected: The expected result of the newSet function
+ *****************************************************************************/
 void testNewSet(Set *testSet, Boolean expected)
 {
     Boolean result = (NULL != testSet);
@@ -47,6 +66,15 @@ void testNewSet(Set *testSet, Boolean expected)
     testsExecuted++;
 }
 
+/***************************************************************************
+ *  testDeleteSet
+ *
+ *  PURPOSE: tests that the deleteSet function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSet: The set to be deleted to test the deleteSet function
+ *      expected: The expected result of the deleteSet function
+ **************************************************************************/
 void testDeleteSet(Set *testSet, Boolean expected)
 {
     Set *destroyedSet = deleteSet(testSet);
@@ -65,6 +93,16 @@ void testDeleteSet(Set *testSet, Boolean expected)
     testsExecuted++;
 }
 
+/*****************************************************************************
+ *  testInsertItem
+ *
+ *  PURPOSE: tests that the insertItem function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSet: The Set to be inserted into
+ *      newItem: The new item to be inserted
+ *      expected: The expected result of the insertItem function
+ ****************************************************************************/
 void testInsertItem(Set *const testSet, const int newItem, Boolean expected)
 {
     Boolean isInserted = insertItem(testSet, newItem);
@@ -90,19 +128,29 @@ void testInsertItem(Set *const testSet, const int newItem, Boolean expected)
     testsExecuted++;
 }
 
-void testRemoveItem(Set *const testSet, const int givenItem, Boolean expected)
+/****************************************************************
+ *  testRemoveItem
+ *
+ *  PURPOSE: tests that the removeItem function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testContainer: The set to be deleted from
+ *      itemToRemove: The item to be deleted
+ *      expected: The expected result of the removeItem function
+ ***************************************************************/
+void testRemoveItem(Set *const testSet, const int itemToRemove, Boolean expected)
 {
-    Boolean isDeleted = removeItem(testSet, givenItem);
+    Boolean isDeleted = removeItem(testSet, itemToRemove);
 
     if (testSet)
     {
         if (isDeleted == expected)
         {
-            printf("'%d' was Deleted Successfuly\n", givenItem);
+            printf("'%d' was Deleted Successfuly\n", itemToRemove);
         }
         else
         {
-            printf("'%d' was NOT found and thus was NOT deleted Successfully\n", givenItem);
+            printf("'%d' was NOT found and thus was NOT deleted Successfully\n", itemToRemove);
             testsFailed++;
         }
     }
@@ -114,6 +162,16 @@ void testRemoveItem(Set *const testSet, const int givenItem, Boolean expected)
     testsExecuted++;
 }
 
+/*************************************************************
+ *  testAreEqual
+ *
+ *  PURPOSE: tests that the areEqual function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSetA: The first set to be compared
+ *      testSetB: The second set to be compared
+ *      expected: The expected result of the areEqual function
+ *************************************************************/
 void testAreEqual(Set const *const testSetA, Set const *const testSetB, Boolean expected)
 {
     Boolean equal = areEqual(testSetA, testSetB);
@@ -138,6 +196,16 @@ void testAreEqual(Set const *const testSetA, Set const *const testSetB, Boolean 
     testsExecuted++;
 }
 
+/***************************************************************
+ *  testAreDisjoint
+ *
+ *  PURPOSE: tests that the areDisjoint function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSetA: The first set to be compared
+ *      testSetB: The second set to be compared
+ *      expected: The expected result of the areDisjoint function
+ ****************************************************************/
 void testAreDisjoint(Set const *const testSetA, Set const *const testSetB, Boolean expected)
 {
     Boolean disjoint = areDisjoint(testSetA, testSetB);
@@ -162,6 +230,16 @@ void testAreDisjoint(Set const *const testSetA, Set const *const testSetB, Boole
     testsExecuted++;
 }
 
+/*******************************************************************
+ *  testUnionOf
+ *
+ *  PURPOSE: tests that the unionOf function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSetA: The first set to be joined
+ *      testSetB: The second set to be joined
+ *      unionSet: The expected resulting Set of the unionOf function
+ *******************************************************************/
 void testUnionOf(Set const *const testSetA, Set const *const testSetB, Set const *const unionSet)
 {
     Set *tempSet = unionOf(testSetA, testSetB);
@@ -189,6 +267,16 @@ void testUnionOf(Set const *const testSetA, Set const *const testSetB, Set const
     testsExecuted++;
 }
 
+/*********************************************************************************
+ *  testSymmetricDifferenceOf
+ *
+ *  PURPOSE: tests that the symmetricDifferenceOf function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      testSetA: The first set to be picked from
+ *      testSetB: The second set to be picked from
+ *      unionSet: The expected resulting Set of the symmetricDifferenceOf function
+ *********************************************************************************/
 void testSymmetricDifferenceOf(Set const *const testSetA, Set const *const testSetB, Set const *const symmDiffSet)
 {
     Set *tempSet = symmetricDifferenceOf(testSetA, testSetB);
@@ -216,6 +304,14 @@ void testSymmetricDifferenceOf(Set const *const testSetA, Set const *const testS
     testsExecuted++;
 }
 
+/*******************************************************************
+ *  testValidateMemUse
+ *
+ *  PURPOSE: tests that the validateMemUse function works properly
+ *
+ *  OUTPUT PARAMETERS:
+ *      unionSet: The expected result of the validateMemUse function
+ *******************************************************************/
 void testValidateMemUse(Boolean expected)
 {
     Boolean result = validateMemUse();
