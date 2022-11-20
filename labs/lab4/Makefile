@@ -4,7 +4,7 @@ CC = clang
 CFLAGS = -g -Wall # -DNDEBUG
 
 PROG = main
-HDRS = common.h industry.h income.h province.h find.h sumFunctions.h processCommands.h
+HDRS = common.h industry.h income.h province.h find.h sumFunctions.h processCommands.h industryStruct.h provinceStruct.h incomeStruct.h
 SRCS = lab4main.c common.c industry.c income.c province.c find.c sumFunctions.c processCommands.c
 
 OBJDIR = object
@@ -47,4 +47,3 @@ $(OBJDIR):
 clean:
 	rm -f $(PROG) $(OBJS)
 #	rmdir $(OBJDIR)
-
