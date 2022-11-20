@@ -36,7 +36,7 @@ int testsExecuted = 0;
 /********************************************************************************************
  *  testCreateContainer
  *
- *  PURPOSE: tests that the create container function works properly
+ *  PURPOSE: tests that the createContainer function works properly
  *
  *  OUTPUT PARAMETERS:
  *      testContainer: The newly created Container used to test the create container function
@@ -61,7 +61,7 @@ void testCreateContainer(Container *testContainer, Boolean expected)
 /********************************************************************************************
  *  testDestroyContainer
  *
- *  PURPOSE: tests that the destroy container function works properly
+ *  PURPOSE: tests that the destroyContainer function works properly
  *
  *  OUTPUT PARAMETERS:
  *      testContainer: The Container to be destroyed to test the destroy container function
@@ -85,7 +85,7 @@ void testDestroyContainer(Container **testContainer, Boolean expected)
 /********************************************************************************************
  *  testInsertItem
  *
- *  PURPOSE: tests that the insert item function works properly
+ *  PURPOSE: tests that the insert itemFunction works properly
  *
  *  OUTPUT PARAMETERS:
  *      testContainer: The Container to be inserted into
@@ -124,7 +124,7 @@ void testInsertItem(Container *testContainer, char *tempString, int expectedSize
 /********************************************************************************************
  *  testDeleteItem
  *
- *  PURPOSE: tests that the delete item function works properly
+ *  PURPOSE: tests that the deleteItem function works properly
  *
  *  OUTPUT PARAMETERS:
  *      testContainer: The Container to be deleted from
