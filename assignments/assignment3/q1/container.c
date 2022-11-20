@@ -37,7 +37,7 @@ struct CONTAINER
 // PRIVATE FUNCTION - INVARIANT PROTOTYPE
 //--------------------------------------------------------------
 
-static void checkList(Container *, Node *);
+static void validateList(Container *, Node *);
 
 //----------------------------------------------------------------
 // FUNCTIONS
@@ -131,7 +131,7 @@ Boolean insertItem(Container *tempContainer, char *newString)
         newNode->data = newString;
 
         // Check that the newly created Node is valid
-        checkList(tempContainer, newNode);
+        validateList(tempContainer, newNode);
 
         if (NULL != tempContainer)
         {
@@ -196,7 +196,7 @@ Boolean deleteItem(Container *tempContainer, char *deleteString)
         // Search for the item in the linked list
         while (NULL != curr && strcmp(deleteString, curr->data) != 0)
         {
-            checkList(tempContainer, curr);
+            validateList(tempContainer, curr);
 
             prev = curr;
             curr = curr->next;
@@ -271,7 +271,7 @@ Boolean contains(Container *tempContainer, char *keyString)
             // Verifies that the container and the current Item are still valid
 
             // Verifies that the container and the current Item are still valid
-            checkList(tempContainer, curr);
+            validateList(tempContainer, curr);
 
             if (strcmp(curr->data, keyString) == 0)
             {
@@ -311,7 +311,7 @@ char *firstItem(Container *tempContainer)
             tempContainer->iterator = tempContainer->top;
 
             // Invariant on the iterator which is currently the first item in the list
-            checkList(tempContainer, tempContainer->iterator);
+            validateList(tempContainer, tempContainer->iterator);
 
             result = tempContainer->iterator->data;
         }
@@ -348,7 +348,7 @@ char *nextItem(Container *tempContainer)
             tempContainer->iterator = tempContainer->iterator->next;
 
             // Invariant on the iterator which is currently the next item in the list
-            checkList(tempContainer, tempContainer->iterator);
+            validateList(tempContainer, tempContainer->iterator);
 
             // Update the result to the data of the next item if the iterator is still within the list,
             // otherwise the iterator has gone through all the items in the list and the result should be null
@@ -417,7 +417,7 @@ Boolean clear(Container *tempContainer)
             prev = tempContainer->top;
 
             // Verifies that the container and the current Item are valid
-            checkList(tempContainer, prev);
+            validateList(tempContainer, prev);
 
             // Move to the next Item thereby unlinking the previous item so it can be freed
             tempContainer->top = tempContainer->top->next;
@@ -454,7 +454,7 @@ Boolean clear(Container *tempContainer)
  * INPUT PARAMETERS:
  *      tempContainer: The Container and the Node (containing the data) to be verified to be valid
  ************************************************************************************************/
-static void checkList(Container *tempContainer, Node *currNode)
+static void validateList(Container *tempContainer, Node *currNode)
 {
     // Verify that the container is valid
     assert(NULL != tempContainer);

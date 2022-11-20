@@ -638,7 +638,7 @@ int main()
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet2);
 
     //----------------------------------------------------------------
-    printf("\n\n**************** TESTING VALIDATE_MEM_USE (Typical Cases) ****************\n");
+    printf("\n\n**************** TESTING VALIDATE_MEM_USE ****************\n");
     printf("\nThis test should FAIL because equalSet,validSet1, validSet2, unionSet, disjointSet, symmetricDifference set, emptySet1, and emptySet2 are still in use\n");
     testValidateMemUse(true);
 

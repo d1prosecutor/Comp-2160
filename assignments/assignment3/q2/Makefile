@@ -5,26 +5,31 @@ CC = clang
 CFLAGS = -g -Wall -DNDEBUG
 PROG = main main1 main2 main3 main4 main5
 PRE_REQS = main.c main.h set.h
+PROGDIR = programs
 
-all: $(PROG)
+all: $(OBJDIR) $(PROG)
 
-main: $(PRE_REQS)
-	$(CC) $(CFLAGS) main.c set.o -o main
+$(PROGDIR)/main: $(PRE_REQS)
+	$(CC) $(CFLAGS) main.c set.o -o $(PROGDIR)/main
 
-main1: $(PRE_REQS)
-	$(CC) $(CFLAGS) main.c set1.o -o main1
+$(PROGDIR)/main1: $(PRE_REQS)
+	$(CC) $(CFLAGS) main.c set1.o -o $(PROGDIR)/main1
 
-main2: $(PRE_REQS)
-	$(CC) $(CFLAGS) main.c set2.o -o main2
+$(PROGDIR)/main2: $(PRE_REQS)
+	$(CC) $(CFLAGS) main.c set2.o -o $(PROGDIR)/main2
 
-main3: $(PRE_REQS)
-	$(CC) $(CFLAGS) main.c set3.o -o main3
+$(PROGDIR)/main3: $(PRE_REQS)
+	$(CC) $(CFLAGS) main.c set3.o -o $(PROGDIR)/main3
 
-main4: $(PRE_REQS)
-	$(CC) $(CFLAGS) main.c set4.o -o main4
+$(PROGDIR)/main4: $(PRE_REQS)
+	$(CC) $(CFLAGS) main.c set4.o -o $(PROGDIR)/main4
 	
-main5: $(PRE_REQS)
-	$(CC) $(CFLAGS) main.c set5.o -o main5
+$(PROGDIR)/main5: $(PRE_REQS)
+	$(CC) $(CFLAGS) main.c set5.o -o $(PROGDIR)/main5
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 clean: 
 	rm $(PROG) -f
+#rm $(OBJDIR)
