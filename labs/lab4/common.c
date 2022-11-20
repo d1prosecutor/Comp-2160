@@ -1,6 +1,6 @@
 #include "common.h"
 
-// Dfinition of the common variable
+// Definition of the common variable
 const char CSV_SEPARATOR_STRING[] = ",\n";
 
 int count_lines(FILE *f)

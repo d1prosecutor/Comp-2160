@@ -2,8 +2,6 @@
 #define COMMON_H
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #define MAX_LINE 80
 #define MAX_FIELD 80

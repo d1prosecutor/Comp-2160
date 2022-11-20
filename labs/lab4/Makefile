@@ -17,25 +17,25 @@ $(OBJDIR)/sumFunctions.o $(OBJDIR)/processCommands.o
 $(PROG): $(OBJDIR) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(PROG)
 	
-$(OBJDIR)/common.o: common.c $(HDRS)
+$(OBJDIR)/common.o: common.c common.h
 	$(CC) $(CFLAGS) -c common.c -o $(OBJDIR)/common.o
 
-$(OBJDIR)/industry.o: industry.c $(HDRS)
+$(OBJDIR)/industry.o: industry.c industry.h industryStruct.h 
 	$(CC) $(CFLAGS) -c industry.c -o $(OBJDIR)/industry.o
 	
-$(OBJDIR)/income.o: income.c $(HDRS)
+$(OBJDIR)/income.o: income.c income.h incomeStruct.h
 	$(CC) $(CFLAGS) -c income.c -o $(OBJDIR)/income.o
 	
-$(OBJDIR)/province.o: province.c $(HDRS)
+$(OBJDIR)/province.o: province.c province.h provinceStruct.h
 	$(CC) $(CFLAGS) -c province.c -o $(OBJDIR)/province.o
 
-$(OBJDIR)/find.o: find.c $(HDRS)
+$(OBJDIR)/find.o: find.c find.h industryStruct.h incomeStruct.h
 	$(CC) $(CFLAGS) -c find.c -o $(OBJDIR)/find.o
 
-$(OBJDIR)/sumFunctions.o: sumFunctions.c $(HDRS)
+$(OBJDIR)/sumFunctions.o: sumFunctions.c sumFunctions.h incomeStruct.h provinceStruct.h industryStruct.h
 	$(CC) $(CFLAGS) -c sumFunctions.c -o $(OBJDIR)/sumFunctions.o
 
-$(OBJDIR)/processCommands.o: processCommands.c $(HDRS)
+$(OBJDIR)/processCommands.o: processCommands.c processCommands.h find.h sumFunctions.h 
 	$(CC) $(CFLAGS) -c processCommands.c -o $(OBJDIR)/processCommands.o
 
 $(OBJDIR)/main.o: lab4main.c $(HDRS)

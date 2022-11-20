@@ -8,4 +8,5 @@
 // Functions
 void process_commands(Province *, int, Industry *, int, Income *, int);
 
+
 #endif

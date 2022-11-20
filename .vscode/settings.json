@@ -10,6 +10,8 @@
     "province.h": "c",
     "industry.h": "c",
     "provincestruct.h": "c",
-    "incomestruct.h": "c"
+    "incomestruct.h": "c",
+    "stdlib.h": "c",
+    "string.h": "c"
   }
 }
