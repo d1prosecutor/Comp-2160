@@ -41,7 +41,7 @@ int testsExecuted = 0;
 // FUNCTIONS
 //----------------------------------------------------------------
 
-/******************************************************************************
+/***********************************************************************
  *  testNewSet
  *
  *  PURPOSE: tests that the newSet function works properly
@@ -49,7 +49,7 @@ int testsExecuted = 0;
  *  OUTPUT PARAMETERS:
  *      testSet: The newly created Set used to test the new Set function
  *      expected: The expected result of the newSet function
- *****************************************************************************/
+ ***********************************************************************/
 void testNewSet(Set *testSet, Boolean expected)
 {
     Boolean result = (NULL != testSet);
@@ -66,7 +66,7 @@ void testNewSet(Set *testSet, Boolean expected)
     testsExecuted++;
 }
 
-/***************************************************************************
+/*********************************************************************
  *  testDeleteSet
  *
  *  PURPOSE: tests that the deleteSet function works properly
@@ -74,7 +74,7 @@ void testNewSet(Set *testSet, Boolean expected)
  *  OUTPUT PARAMETERS:
  *      testSet: The set to be deleted to test the deleteSet function
  *      expected: The expected result of the deleteSet function
- **************************************************************************/
+ ********************************************************************/
 void testDeleteSet(Set *testSet, Boolean expected)
 {
     Set *destroyedSet = deleteSet(testSet);
@@ -93,7 +93,7 @@ void testDeleteSet(Set *testSet, Boolean expected)
     testsExecuted++;
 }
 
-/*****************************************************************************
+/****************************************************************
  *  testInsertItem
  *
  *  PURPOSE: tests that the insertItem function works properly
@@ -102,7 +102,7 @@ void testDeleteSet(Set *testSet, Boolean expected)
  *      testSet: The Set to be inserted into
  *      newItem: The new item to be inserted
  *      expected: The expected result of the insertItem function
- ****************************************************************************/
+ ***************************************************************/
 void testInsertItem(Set *const testSet, const int newItem, Boolean expected)
 {
     Boolean isInserted = insertItem(testSet, newItem);
@@ -196,7 +196,7 @@ void testAreEqual(Set const *const testSetA, Set const *const testSetB, Boolean 
     testsExecuted++;
 }
 
-/***************************************************************
+/****************************************************************
  *  testAreDisjoint
  *
  *  PURPOSE: tests that the areDisjoint function works properly
