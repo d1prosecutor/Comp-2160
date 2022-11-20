@@ -52,7 +52,7 @@ $(OBJDIR)/sumFunctions.o: sumFunctions.c $(SUMFUNC_HDR) $(INCSTRUCT_HDR) $(PROVS
 $(OBJDIR)/processCommands.o: processCommands.c $(COMMAND_HDR) $(FIND_HDR) $(SUMFUNC_HDR) 
 	$(CC) $(CFLAGS) -c processCommands.c -o $(OBJDIR)/processCommands.o
 
-$(OBJDIR)/main.o: lab4main.c $(PROVINCE_HDR) $(INCOME_HDR) $(INDUSTRY_HDR) $(INCSTRUCT_HDR) $(PROVSTRUCT_HDR) 
+$(OBJDIR)/main.o: lab4main.c $(PROVINCE_HDR) $(INCOME_HDR) $(INDUSTRY_HDR) $(INCSTRUCT_HDR) $(PROVSTRUCT_HDR) \
 $(INDSTRUCT_HDR) $(COMMAND_HDR)
 	$(CC) $(CFLAGS) -c lab4main.c -o $(OBJDIR)/main.o
 
