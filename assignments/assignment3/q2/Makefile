@@ -1,4 +1,4 @@
-# -*- MakeFile -*-
+# -*- MakeFile q2-*-
 # insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 # The executable files are placed in a new folder named programs
 

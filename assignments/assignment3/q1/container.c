@@ -3,7 +3,7 @@
  * STUDENT NUMBER: 7928676
  * COURSE: COMP 2160, SECTION: A01
  * INSTRUCTOR: Saulo dos Santos
- * ASSIGNMENT: assignment 3
+ * ASSIGNMENT: Assignment 3, Question 1
  *
  * REMARKS: Implements The container ADT to create a linked list of strings
  **************************************************************************/
@@ -89,10 +89,13 @@ Boolean destroyContainer(Container **tempContainer)
 {
     Boolean destroyed = false;
 
-    // Uses the clear method to first clear the contents of the container
-    // If the container is valid then it will be destroyed after the contents have been cleared
-    if (clear(*tempContainer))
+    // If the container exists then it will be destroyed after the contents have been cleared
+    if (tempContainer && *tempContainer)
     {
+        // Uses the clear method to first clear the contents of the container
+        clear(*tempContainer);
+
+        // Destroy the container and set the pointer to NULL
         free(*tempContainer);
         *tempContainer = NULL;
 
@@ -432,7 +435,9 @@ Boolean clear(Container *tempContainer)
         // Validate that the container is not destroyed
         assert(NULL != tempContainer);
 
-        // Verifies the list has been cleared
+        // Validate that the container is now empty
+        assert(NULL != tempContainer->top);
+
         cleared = true;
     }
     else
@@ -461,11 +466,14 @@ static void validateList(Container *tempContainer, Node *currNode)
 
     // Count the number of items in the container
     int containerSize = 0;
-    Node *tempNode = tempContainer->top;
-    while (NULL != tempNode)
+    if (NULL != tempContainer)
     {
-        containerSize++;
-        tempNode = tempNode->next;
+        Node *tempNode = tempContainer->top;
+        while (NULL != tempNode)
+        {
+            containerSize++;
+            tempNode = tempNode->next;
+        }
     }
 
     // Check that the size of the container is accurate

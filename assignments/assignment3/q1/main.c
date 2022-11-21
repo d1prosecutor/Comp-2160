@@ -3,7 +3,7 @@
  * STUDENT NUMBER: 7928676
  * COURSE: COMP 2160, SECTION: A01
  * INSTRUCTOR: Saulo dos Santos
- * ASSIGNMENT: assignment 3
+ * ASSIGNMENT: Assignment 3, Question 1
  *
  * REMARKS: Implements Test-functions for the functions provided by the container interface
  ******************************************************************************************/
@@ -48,11 +48,13 @@ void testCreateContainer(Container *testContainer, Boolean expected)
 
     if (result == expected)
     {
-        printf("Container was created successfully\n");
+        printf("Container was created successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
     }
     else
     {
-        printf("Container was not created Successfully\n");
+        printf("Container was not created Successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
         testsFailed++;
     }
     testsExecuted++;
@@ -72,11 +74,13 @@ void testDestroyContainer(Container **testContainer, Boolean expected)
     Boolean result = destroyContainer(testContainer);
     if (result == expected)
     {
-        printf("Container was destroyed successfully\n");
+        printf("Container was destroyed successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
     }
     else
     {
-        printf("Container was not destroyed successfully\n");
+        printf("Container was not destroyed successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
         testsFailed++;
     }
     testsExecuted++;
@@ -174,12 +178,15 @@ void testClear(Container *testContainer, Boolean expected)
 
     if (result == expected)
     {
-        printf("The Container has been cleared\n");
+        printf("The Container has been cleared. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
         printf("The size of the container is %d\n", size(testContainer));
     }
     else
     {
-        printf("The Container could not be cleared because it is Invalid (NULL)\n");
+        printf("The Container could not be cleared because it is Invalid (NULL). Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
+
         printf("The size of the container is %d\n", size(testContainer));
 
         testsFailed++;
@@ -275,17 +282,20 @@ void testNextItem(Container *testContainer, char *expectedString)
  *      checkItem: The item to be searched for
  *      expectedResult: The expected result of the contains function
  *******************************************************************/
-void testContains(Container *testContainer, char *checkItem, Boolean expectedResult)
+void testContains(Container *testContainer, char *checkItem, Boolean expected)
 {
     Boolean result = contains(testContainer, checkItem);
 
-    if (expectedResult == result)
+    if (expected == result)
     {
-        printf("\"%s\" was found in the Container\n", checkItem);
+        printf("\"%s\" was found in the Container. Expected : %s, Result : %s\n", checkItem,
+               expected ? "true" : "false", result ? "true" : "false");
     }
     else
     {
-        printf("Container is invalid or \"%s\" was not found in the container\n", checkItem);
+        printf("Container is invalid or \"%s\" was not found in the container. Expected : %s, Result : %s\n",
+               checkItem, expected ? "true" : "false", result ? "true" : "false");
+
         testsFailed++;
     }
     testsExecuted++;

@@ -3,7 +3,7 @@
  * STUDENT NUMBER: 7928676
  * COURSE: COMP 2160, SECTION: A01
  * INSTRUCTOR: Saulo dos Santos
- * ASSIGNMENT: assignment 3
+ * ASSIGNMENT: Assignment 3, Question 2
  *
  * REMARKS: The interface for the Set ADT
  **************************************************************************/

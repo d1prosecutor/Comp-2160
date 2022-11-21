@@ -3,7 +3,7 @@
  * STUDENT NUMBER: 7928676
  * COURSE: COMP 2160, SECTION: A01
  * INSTRUCTOR: Saulo dos Santos
- * ASSIGNMENT: assignment 3
+ * ASSIGNMENT: Assignment 3, Question 2
  *
  * REMARKS: Implements Test-functions for the functions provided by the Set interface
  ************************************************************************************/
@@ -55,11 +55,14 @@ void testNewSet(Set *testSet, Boolean expected)
 
     if (result == expected)
     {
-        printf("Set was created successfully\n");
+        printf("Set was created successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
     }
     else
     {
-        printf("Set was NOT created Successfully\n");
+        printf("Set was NOT created Successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
+
         testsFailed++;
     }
     testsExecuted++;
@@ -82,11 +85,13 @@ void testDeleteSet(Set *testSet, Boolean expected)
 
     if (result == expected)
     {
-        printf("The Set was deleted successfully\n");
+        printf("The Set was deleted successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
     }
     else
     {
-        printf("The Set was NOT deleted successfully\n");
+        printf("The Set was NOT deleted successfully. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
         testsFailed++;
     }
     testsExecuted++;
@@ -110,12 +115,13 @@ void testInsertItem(Set *const testSet, const int newItem, Boolean expected)
     {
         if (isInserted == expected)
         {
-            printf("'%d' was inserted Successfuly\n", newItem);
+            printf("'%d' was inserted Successfuly. Expected : %s, Result : %s\n", newItem,
+                   expected ? "true" : "false", isInserted ? "true" : "false");
         }
         else
         {
-            printf("'%d' was NOT inserted Successfully\n", newItem);
-
+            printf("'%d' was NOT inserted Successfully. Expected : %s, Result : %s\n", newItem,
+                   expected ? "true" : "false", isInserted ? "true" : "false");
             testsFailed++;
         }
     }
@@ -145,11 +151,14 @@ void testRemoveItem(Set *const testSet, const int itemToRemove, Boolean expected
     {
         if (isDeleted == expected)
         {
-            printf("'%d' was Deleted Successfuly\n", itemToRemove);
+            printf("'%d' was Deleted Successfuly. Expected : %s, Result : %s\n", itemToRemove,
+                   expected ? "true" : "false", isDeleted ? "true" : "false");
         }
         else
         {
-            printf("'%d' was NOT found and thus was NOT deleted Successfully\n", itemToRemove);
+            printf("'%d' was NOT found and thus was NOT deleted Successfully. Expected : %s, Result : %s\n", itemToRemove,
+                   expected ? "true" : "false", isDeleted ? "true" : "false");
+
             testsFailed++;
         }
     }
@@ -179,11 +188,14 @@ void testAreEqual(Set const *const testSetA, Set const *const testSetB, Boolean 
     {
         if (equal == expected)
         {
-            printf("The two sets contain the same elements and thus ARE equal\n");
+            printf("The two sets contain the same elements and thus ARE equal. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", equal ? "true" : "false");
         }
         else
         {
-            printf("The two sets do NOT contain the same elements and thus are NOT equal\n");
+            printf("The two sets do NOT contain the same elements and thus are NOT equal. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", equal ? "true" : "false");
+
             testsFailed++;
         }
     }
@@ -213,11 +225,14 @@ void testAreDisjoint(Set const *const testSetA, Set const *const testSetB, Boole
     {
         if (disjoint == expected)
         {
-            printf("The two sets contain no common elements and thus ARE disjoint\n");
+            printf("The two sets contain no common elements and thus ARE disjoint. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", disjoint ? "true" : "false");
         }
         else
         {
-            printf("The two sets contain at least one common element and thus are NOT disjoint\n");
+            printf("The two sets contain at least one common element and thus are NOT disjoint. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", disjoint ? "true" : "false");
+
             testsFailed++;
         }
     }
@@ -317,11 +332,14 @@ void testValidateMemUse(Boolean expected)
 
     if (result == expected)
     {
-        printf("\nSUCCESS, There are no existing Set objects !!!\n");
+        printf("\nSUCCESS, There are no existing Set objects!!!. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
     }
     else
     {
-        printf("\n!!! ERROR, There are existing Set objects\n");
+        printf("\n!!! ERROR, There are existing Set objects. Expected : %s, Result : %s\n",
+               expected ? "true" : "false", result ? "true" : "false");
+
         testsFailed++;
     }
     testsExecuted++;
@@ -496,7 +514,7 @@ int main()
     printf("\nThis test should PASS because emptySet1 and emptySet1 (empty sets with the same memory address) have the same elements (no elements)\n");
     testAreEqual(emptySet1, emptySet1, true);
 
-    printf("\nThis test should PASS because emptySet1 and emptySet2 (empty sets with the different memory address) have the same elements (no elements)\n");
+    printf("\nThis test should PASS because emptySet1 and emptySet2 (empty sets with different memory addresses) have the same elements (no elements)\n");
     testAreEqual(emptySet1, emptySet2, true);
 
     //----------------------------------------------------------------
@@ -528,10 +546,10 @@ int main()
     printf("\nThis test should PASS because one of the sets is empty and thus they are Disjoint\n");
     testAreDisjoint(validSet1, emptySet1, true);
 
-    printf("\nThis test should PASS because emptySet1 and emptySet1 have no elements, thus no common elements and are thus, disjoint\n");
+    printf("\nThis test should PASS because emptySet1 and emptySet1 (empty sets with the same memory addresses) have no elements, thus no common elements and are thus, disjoint\n");
     testAreDisjoint(emptySet1, emptySet1, true);
 
-    printf("\nThis test should PASS because emptySet1 and emptySet2 have no elements, thus no common elements and are thus, disjoint\n");
+    printf("\nThis test should PASS because emptySet1 and emptySet2 (empty sets with different memory addresses) have no elements, thus no common elements and are thus, disjoint\n");
     testAreDisjoint(emptySet1, emptySet2, true);
 
     //----------------------------------------------------------------
@@ -569,10 +587,10 @@ int main()
     printf("\nThis test should PASS because the union of validSet1 and emptySet is validSet1\n");
     testUnionOf(validSet1, emptySet1, validSet1);
 
-    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is the emptySet1 (all having the same memory address)\n");
+    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is emptySet1 (all having the same memory address)\n");
     testUnionOf(emptySet1, emptySet1, emptySet1);
 
-    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 is also the emptySet2 (with a different memory adress from emptySet1)\n");
+    printf("\nThis test should PASS because the union of emptySet1 and emptySet1 should also be emptySet2 (with a different memory adress from emptySet1)\n");
     testUnionOf(emptySet1, emptySet1, emptySet2);
 
     //----------------------------------------------------------------
@@ -631,10 +649,10 @@ int main()
     printf("\nThis test should PASS because the symmetric Difference of any non-empty Set (validSet1) and an empty Set is the non-empty Set(validSet1)\n");
     testSymmetricDifferenceOf(validSet1, emptySet1, validSet1);
 
-    printf("\nThis test should PASS because the symmetric difference of emptySet1 and emptySet1 is the emptySet1 (all having same memory address)\n");
+    printf("\nThis test should PASS because the symmetric difference of emptySet1 and emptySet1 is emptySet1 (all having same memory address)\n");
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet1);
 
-    printf("\nThis test should PASS because the symmetric difference of emptySet1 and emptySet1 is the emptySet2 (with different memory address)\n");
+    printf("\nThis test should PASS because the symmetric difference of emptySet1 and emptySet1 should also be emptySet2 (with different memory address)\n");
     testSymmetricDifferenceOf(emptySet1, emptySet1, emptySet2);
 
     //----------------------------------------------------------------

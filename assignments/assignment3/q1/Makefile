@@ -1,16 +1,19 @@
-# -*- MakeFile -*-
+# -*- MakeFile q1-*-
 # insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 
 CC = clang
 CFLAGS = -g -Wall -DNDEBUG
+OBJ = container.o
+HDR = container.h
 PROG = main
 
 all: $(PROG)
 
-main: main.c main.h container.o
-	$(CC) $(CFLAGS) main.c container.o -o $(PROG)
+$(PROG): main.c $(HDR) $(OBJ)
+	$(CC) $(CFLAGS) main.c $(OBJ) -o $(PROG)
 
-container.o: container.h
+$(OBJ): $(HDR)
+		$(CC) $(CFLAGS) -c container.c -o $(OBJ)
 
 clean: 
-	rm *.o main -f
+	rm $(OBJ) $(PROG) -f
