@@ -526,7 +526,7 @@ int main()
 
     validSet1 = newSet();
 
-    printf("\nRecreating equalSet which contains all the elements that should be in validSet aftrr inserting...........\n");
+    printf("\nRecreating equalSet which contains all the elements that should be in validSet after inserting...........\n");
     Set *equalSet = newSet();
 
     insertItem(equalSet, 1);
