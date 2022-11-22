@@ -473,10 +473,10 @@ static void validateList(Container *tempContainer, Node *currNode)
             containerSize++;
             tempNode = tempNode->next;
         }
-    }
 
-    // Check that the size of the container is accurate
-    assert(containerSize == tempContainer->size);
+        // Check that the size of the container is accurate
+        assert(containerSize == tempContainer->size);
+    }
 
     // Check that the node of the linked list is valid
     assert(NULL != currNode);
