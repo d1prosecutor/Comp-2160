@@ -46,16 +46,33 @@ void testCreateContainer(Container *testContainer, Boolean expected)
 {
     Boolean result = (NULL != testContainer);
 
-    if (result == expected)
+    if (expected)
     {
-        printf("Container was created successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("SUCCESS, Container was created successfully. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, Container was not created. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     else
     {
-        printf("Container was not created Successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
-        testsFailed++;
+        if (result == expected)
+        {
+            printf("SUCCESS, The container could not be created. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, an invalid container was created. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
@@ -72,16 +89,33 @@ void testCreateContainer(Container *testContainer, Boolean expected)
 void testDestroyContainer(Container **testContainer, Boolean expected)
 {
     Boolean result = destroyContainer(testContainer);
-    if (result == expected)
+    if (expected)
     {
-        printf("Container was destroyed successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("SUCCESS, Container was destroyed successfully. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, Container could not be destroyed. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     else
     {
-        printf("Container was not destroyed successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
-        testsFailed++;
+        if (result == expected)
+        {
+            printf("SUCCESS, Container could not be destroyed because it doesn't exist. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, an Invalid Container(doesn't exist) was destroyed. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
@@ -99,19 +133,19 @@ void testDestroyContainer(Container **testContainer, Boolean expected)
 void testInsertItem(Container *testContainer, char *tempString, int expectedSize)
 {
     int prevSize = size(testContainer);
-    Boolean isInserted = insertItem(testContainer, tempString);
+    insertItem(testContainer, tempString);
     int newSize = size(testContainer);
 
-    if (isInserted)
+    if (testContainer)
     {
         if (newSize == expectedSize)
         {
-            printf("\"%s\" was inserted Successfuly\n", tempString);
+            printf("SUCCESS, \"%s\" was inserted Successfuly\n", tempString);
             printf("Previous size of the container was %d, and the current size is %d\n\n", prevSize, newSize);
         }
         else
         {
-            printf("\"%s\" was not inserted Successfully\n", tempString);
+            printf("ERROR, \"%s\" was not inserted Successfully\n", tempString);
             printf("Previous size of the container was %d, and the current size is still %d\n\n", prevSize, newSize);
 
             testsFailed++;
@@ -138,19 +172,19 @@ void testInsertItem(Container *testContainer, char *tempString, int expectedSize
 void testDeleteItem(Container *testContainer, char *removeString, int expectedSize)
 {
     int prevSize = size(testContainer);
-    Boolean isDeleted = deleteItem(testContainer, removeString);
+    deleteItem(testContainer, removeString);
     int newSize = size(testContainer);
 
-    if (isDeleted)
+    if (testContainer)
     {
         if (newSize == expectedSize)
         {
-            printf("\"%s\" was Deleted Successfully\n", removeString);
+            printf("SUCCESS, \"%s\" was Deleted Successfully.\n", removeString);
             printf("Previous size of the container was %d, and the current size is %d\n\n", prevSize, newSize);
         }
         else
         {
-            printf("\"%s\" was not found and thus was not deleted Successfully\n", removeString);
+            printf("ERROR, \"%s\" was not found and thus was not deleted.\n", removeString);
             printf("Previous size of the container was %d, and the current size is still %d\n\n", prevSize, newSize);
             testsFailed++;
         }
@@ -176,20 +210,41 @@ void testClear(Container *testContainer, Boolean expected)
 {
     Boolean result = clear(testContainer);
 
-    if (result == expected)
+    if (expected)
     {
-        printf("The Container has been cleared. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
-        printf("The size of the container is %d\n", size(testContainer));
+        if (result == expected)
+        {
+            printf("SUCCESS, The Container has been cleared. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            printf("The size of the container is %d\n", size(testContainer));
+        }
+        else
+        {
+            printf("ERROR, The Container could not be cleared because it is Invalid (NULL). Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+
+            printf("The size of the container is %d\n", size(testContainer));
+
+            testsFailed++;
+        }
     }
     else
     {
-        printf("The Container could not be cleared because it is Invalid (NULL). Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("SUCCESS, The Container could not be cleared because it is Invalid (NULL). Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            printf("The size of the container is %d\n", size(testContainer));
+        }
+        else
+        {
+            printf("ERROR, an invalid container was cleared successfully. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
 
-        printf("The size of the container is %d\n", size(testContainer));
+            printf("The size of the container is %d\n", size(testContainer));
 
-        testsFailed++;
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
@@ -221,11 +276,11 @@ void testFirstItem(Container *testContainer, char *expectedString)
 
         if (result == 0)
         {
-            printf("The first item is \"%s\", which is the expected item\n", returnedString);
+            printf("SUCCESS, The first item is \"%s\", which is the expected item\n", returnedString);
         }
         else
         {
-            printf("Error, FirstItem() returned \"%s\" but the expected string was %s\n", returnedString, expectedString);
+            printf("ERROR, FirstItem() returned \"%s\" but the expected string was %s\n", returnedString, expectedString);
             testsFailed++;
         }
     }
@@ -260,11 +315,11 @@ void testNextItem(Container *testContainer, char *expectedString)
 
         if (result == 0)
         {
-            printf("The next item is \"%s\", which is the expected item\n", returnedString);
+            printf("SUCCESS, The next item is \"%s\", which is the expected item\n", returnedString);
         }
         else
         {
-            printf("Error, NextItem() returned \"%s\" but the expected string was \"%s\"\n", returnedString, expectedString);
+            printf("ERROR, NextItem() returned \"%s\" but the expected string was \"%s\"\n", returnedString, expectedString);
             testsFailed++;
         }
     }
@@ -286,17 +341,35 @@ void testContains(Container *testContainer, char *checkItem, Boolean expected)
 {
     Boolean result = contains(testContainer, checkItem);
 
-    if (expected == result)
+    if (expected)
     {
-        printf("\"%s\" was found in the Container. Expected : %s, Result : %s\n", checkItem,
-               expected ? "true" : "false", result ? "true" : "false");
+        if (expected == result)
+        {
+            printf("SUCCESS, \"%s\" was found in the Container. Expected : %s, Result : %s\n", checkItem,
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, \"%s\" was not found in the container. Expected : %s, Result : %s\n",
+                   checkItem, expected ? "true" : "false", result ? "true" : "false");
+
+            testsFailed++;
+        }
     }
     else
     {
-        printf("Container is invalid or \"%s\" was not found in the container. Expected : %s, Result : %s\n",
-               checkItem, expected ? "true" : "false", result ? "true" : "false");
+        if (expected == result)
+        {
+            printf("SUCCESS,\"%s\" was not found in the container. Expected : %s, Result : %s\n", checkItem,
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, \"%s\" was found in the Container but it wasn't inserted into the container. Expected : %s, Result : %s\n",
+                   checkItem, expected ? "true" : "false", result ? "true" : "false");
 
-        testsFailed++;
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
@@ -316,7 +389,7 @@ void testSize(Container *testContainer, int expectedSize)
 
     if (returnedSize == expectedSize)
     {
-        printf("The size of the Container is %d, which is the expected size of the container\n", returnedSize);
+        printf("SUCCESS, The size of the Container is %d, which is the expected size of the container\n", returnedSize);
     }
     else if (returnedSize == -1)
     {
@@ -325,7 +398,7 @@ void testSize(Container *testContainer, int expectedSize)
     }
     else
     {
-        printf("Error, size() returned %d, but the expected size of the container should be %d\n", returnedSize, expectedSize);
+        printf("ERROR, size() returned %d, but the expected size of the container was %d\n", returnedSize, expectedSize);
         testsFailed++;
     }
     testsExecuted++;
@@ -396,8 +469,6 @@ int main()
     printf("\n");
     printf("The container should be empty\n");
     printContainer(validContainer);
-    printf("\n");
-
     printf("Creating a new container...........\n");
 
     printf("These tests should all PASS\n\n");
@@ -460,7 +531,7 @@ int main()
     printContainer(invalidContainer);
 
     //-----------------------------------------------------------
-    printf("\n\n***************** TESTING SIZE ****************\n");
+    printf("\n***************** TESTING SIZE ****************\n");
 
     printf("\n************* Typical Case **************\n");
 
@@ -480,12 +551,14 @@ int main()
 
     printf("\n");
     printContainer(validContainer);
-    printf("\n");
 
     printf("\n***************** Typical Cases *****************\n");
     printf("\nThese tests should PASS\n");
     testContains(validContainer, "String 1", true);
     testContains(validContainer, "String 3", true);
+
+    printf("\nThis next test should PASS beacause \"String 7\" is not in the Container\n");
+    testContains(validContainer, "String 7", false);
 
     printf("\nThis next test should FAIL beacause \"String 0\" is not in the Container\n");
     testContains(validContainer, "String 0", true);
@@ -525,16 +598,16 @@ int main()
     testNextItem(validContainer, "String 3");
 
     printf("\nThis next test should FAIL because the next item after \"String 3\" is \"String 2\" ");
-    printf("but \"String 2\" was passed as expected Result\n");
+    printf("but \"String 1\" was passed as expected Result\n");
     testNextItem(validContainer, "String 1");
 
     printf("\nThe Container iterator is currently at the position of \"String 2\"\n");
     printf("\nThis next test should PASS because the next item after \"String 2\" is \"String 1\"\n");
     testNextItem(validContainer, "String 1");
 
-    printf("\n/*Testing that the iterator does not loops through the Container in a circular manner\n");
+    printf("\n/*\nTesting that the iterator does not loop through the Container in a circular manner\n");
     printf("The output of the following test should be null\n");
-    printf("The contents of the Container at this point is String 4, String 3, String 2, String 1*/\n\n");
+    printf("The contents of the Container at this point is String 4, String 3, String 2, String 1\n*/\n\n");
     testNextItem(validContainer, "String 4");
 
     //-----------------------------------------------------------------
@@ -563,7 +636,7 @@ int main()
     printContainer(invalidContainer);
 
     //-----------------------------------------------------------
-    printf("\n\n************** TESTING SIZE ***************\n");
+    printf("\n************** TESTING SIZE ***************\n");
 
     printf("\nThe size of the container should be be 2 at this point, this test should PASS\n");
     testSize(validContainer, 2);
@@ -577,15 +650,9 @@ int main()
     printf("\nThe Container should be empty\n");
     printContainer(validContainer);
 
-    //-----------------------------------------------------------------
-    printf("\n\n****************** TESTING FIRST_ITEM *********************\n");
-
-    printf("\n");
-    printContainer(validContainer);
-
     printf("\n****************** Typical Cases *******************\n");
 
-    printf("This next test should PASS because the only item in the empty Container is NULL\n");
+    printf("This next test should PASS because there's no (NULL) item in the empty container\n");
     testFirstItem(validContainer, NULL);
 
     //----------------------------------------------------------------
@@ -691,7 +758,7 @@ int main()
     // Free the heap memory
     destroyContainer(&validContainer);
 
-    printf("\n SUMMARY OF THE TESTS\n");
+    printf("\n   SUMMARY OF THE TESTS\n");
     printf("\nTotal number of tests EXECUTED: %d", testsExecuted);
     printf("\nNumber of tests PASSED: %d", (testsExecuted - testsFailed));
     printf("\nNumber of tests FAILED: %d\n", testsFailed);

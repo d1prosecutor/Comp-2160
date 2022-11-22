@@ -53,17 +53,34 @@ void testNewSet(Set *testSet, Boolean expected)
 {
     Boolean result = (NULL != testSet);
 
-    if (result == expected)
+    if (expected)
     {
-        printf("Set was created successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("Set was created successfully. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("Set was NOT created. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+
+            testsFailed++;
+        }
     }
     else
     {
-        printf("Set was NOT created Successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
-
-        testsFailed++;
+        if (result == expected)
+        {
+            printf("SUCCESS, The Set could not be created. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, an invalid Set was created. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
@@ -83,16 +100,33 @@ void testDeleteSet(Set *testSet, Boolean expected)
 
     Boolean result = (NULL == destroyedSet);
 
-    if (result == expected)
+    if (expected)
     {
-        printf("The Set was deleted successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("SUCCESS, The Set was deleted successfully. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, The Set was NOT deleted. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     else
     {
-        printf("The Set was NOT deleted successfully. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
-        testsFailed++;
+        if (result == expected)
+        {
+            printf("SUCCESS, set could not be destroyed because it doesn't exist. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("ERROR, an Invalid Set (doesn't exist) was deleted. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
@@ -113,16 +147,33 @@ void testInsertItem(Set *const testSet, const int newItem, Boolean expected)
 
     if (testSet)
     {
-        if (isInserted == expected)
+        if (expected)
         {
-            printf("'%d' was inserted Successfuly. Expected : %s, Result : %s\n", newItem,
-                   expected ? "true" : "false", isInserted ? "true" : "false");
+            if (isInserted == expected)
+            {
+                printf("SUCCESS, '%d' was inserted Successfuly. Expected : %s, Result : %s\n", newItem,
+                       expected ? "true" : "false", isInserted ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, '%d' was NOT inserted because it already exists. Expected : %s, Result : %s\n", newItem,
+                       expected ? "true" : "false", isInserted ? "true" : "false");
+                testsFailed++;
+            }
         }
         else
         {
-            printf("'%d' was NOT inserted Successfully. Expected : %s, Result : %s\n", newItem,
-                   expected ? "true" : "false", isInserted ? "true" : "false");
-            testsFailed++;
+            if (isInserted == expected)
+            {
+                printf("SUCCESS, '%d' was not inserted. Expected : %s, Result : %s\n", newItem,
+                       expected ? "true" : "false", isInserted ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, '%d' was inserted but it was already contained in the container. Expected : %s, Result : %s\n", newItem,
+                       expected ? "true" : "false", isInserted ? "true" : "false");
+                testsFailed++;
+            }
         }
     }
     else
@@ -149,17 +200,35 @@ void testRemoveItem(Set *const testSet, const int itemToRemove, Boolean expected
 
     if (testSet)
     {
-        if (isDeleted == expected)
+        if (expected)
         {
-            printf("'%d' was Deleted Successfuly. Expected : %s, Result : %s\n", itemToRemove,
-                   expected ? "true" : "false", isDeleted ? "true" : "false");
+            if (isDeleted == expected)
+            {
+                printf("SUCCESS, '%d' was Deleted Successfuly. Expected : %s, Result : %s\n", itemToRemove,
+                       expected ? "true" : "false", isDeleted ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, '%d' was NOT found and thus was NOT deleted. Expected : %s, Result : %s\n", itemToRemove,
+                       expected ? "true" : "false", isDeleted ? "true" : "false");
+
+                testsFailed++;
+            }
         }
         else
         {
-            printf("'%d' was NOT found and thus was NOT deleted Successfully. Expected : %s, Result : %s\n", itemToRemove,
-                   expected ? "true" : "false", isDeleted ? "true" : "false");
+            if (isDeleted == expected)
+            {
+                printf("SUCCESS, '%d' was not found and thus was not Deleted. Expected : %s, Result : %s\n", itemToRemove,
+                       expected ? "true" : "false", isDeleted ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, '%d' was found and deleted, but was never inserted. Expected : %s, Result : %s\n", itemToRemove,
+                       expected ? "true" : "false", isDeleted ? "true" : "false");
 
-            testsFailed++;
+                testsFailed++;
+            }
         }
     }
     else
@@ -186,17 +255,35 @@ void testAreEqual(Set const *const testSetA, Set const *const testSetB, Boolean 
 
     if (testSetA && testSetB)
     {
-        if (equal == expected)
+        if (expected)
         {
-            printf("The two sets contain the same elements and thus ARE equal. Expected : %s, Result : %s\n",
-                   expected ? "true" : "false", equal ? "true" : "false");
+            if (equal == expected)
+            {
+                printf("SUCCESS, The two sets contain the same elements and thus ARE equal. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", equal ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, The two sets do NOT contain the same elements and thus are NOT equal. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", equal ? "true" : "false");
+
+                testsFailed++;
+            }
         }
         else
         {
-            printf("The two sets do NOT contain the same elements and thus are NOT equal. Expected : %s, Result : %s\n",
-                   expected ? "true" : "false", equal ? "true" : "false");
+            if (equal == expected)
+            {
+                printf("SUCCESS, The two sets do NOT contain the same elements and thus are NOT equal. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", equal ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, The two sets contain the same elements and thus ARE equal. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", equal ? "true" : "false");
 
-            testsFailed++;
+                testsFailed++;
+            }
         }
     }
     else
@@ -223,17 +310,35 @@ void testAreDisjoint(Set const *const testSetA, Set const *const testSetB, Boole
 
     if (testSetA && testSetB)
     {
-        if (disjoint == expected)
+        if (expected)
         {
-            printf("The two sets contain no common elements and thus ARE disjoint. Expected : %s, Result : %s\n",
-                   expected ? "true" : "false", disjoint ? "true" : "false");
+            if (disjoint == expected)
+            {
+                printf("SUCCESS, The two sets contain no common elements and thus ARE disjoint. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", disjoint ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, The two sets contain at least one common element and thus are NOT disjoint. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", disjoint ? "true" : "false");
+
+                testsFailed++;
+            }
         }
         else
         {
-            printf("The two sets contain at least one common element and thus are NOT disjoint. Expected : %s, Result : %s\n",
-                   expected ? "true" : "false", disjoint ? "true" : "false");
+            if (disjoint == expected)
+            {
+                printf("SUCCESS, The two sets contain at least one common element and thus are NOT disjoint. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", disjoint ? "true" : "false");
+            }
+            else
+            {
+                printf("ERROR, The two sets contain no common elements and thus ARE disjoint. Expected : %s, Result : %s\n",
+                       expected ? "true" : "false", disjoint ? "true" : "false");
 
-            testsFailed++;
+                testsFailed++;
+            }
         }
     }
     else
@@ -330,17 +435,35 @@ void testValidateMemUse(Boolean expected)
 {
     Boolean result = validateMemUse();
 
-    if (result == expected)
+    if (expected)
     {
-        printf("\nSUCCESS, There are no existing Set objects!!!. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("\nSUCCESS, There are no existing Set objects!!!. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("\nERROR, There are existing Set objects. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+
+            testsFailed++;
+        }
     }
     else
     {
-        printf("\n!!! ERROR, There are existing Set objects. Expected : %s, Result : %s\n",
-               expected ? "true" : "false", result ? "true" : "false");
+        if (result == expected)
+        {
+            printf("\nSUCCESS, There are existing Set objects. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
+        }
+        else
+        {
+            printf("\nERROR, There are no existing Set objects. Expected : %s, Result : %s\n",
+                   expected ? "true" : "false", result ? "true" : "false");
 
-        testsFailed++;
+            testsFailed++;
+        }
     }
     testsExecuted++;
 }
