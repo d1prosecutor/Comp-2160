@@ -5,7 +5,7 @@
 CC = clang
 CFLAGS = -g -Wall -DNDEBUG
 PROG = $(PROGDIR)/main $(PROGDIR)/main1 $(PROGDIR)/main2 $(PROGDIR)/main3 $(PROGDIR)/main4 $(PROGDIR)/main5
-PRE_REQS = main.c main.h set.h
+PRE_REQS = main.c set.h
 PROGDIR = programs
 
 all: $(PROGDIR) $(PROG)
