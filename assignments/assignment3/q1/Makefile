@@ -12,7 +12,7 @@ all: $(PROG)
 $(PROG): main.c $(HDR) $(OBJ)
 	$(CC) $(CFLAGS) main.c $(OBJ) -o $(PROG)
 
-$(OBJ): $(HDR)
+$(OBJ): container.c $(HDR)
 		$(CC) $(CFLAGS) -c container.c -o $(OBJ)
 
 clean: 
