@@ -88,6 +88,7 @@ Container *createContainer()
 Boolean destroyContainer(Container **tempContainer)
 {
     Boolean destroyed = false;
+    assert(tempContainer != NULL && *tempContainer != NULL);
 
     // If the container exists then it will be destroyed after the contents have been cleared
     if (tempContainer && *tempContainer)
@@ -148,7 +149,7 @@ Boolean insertItem(Container *tempContainer, char *newString)
             tempContainer->size++;
 
             // Validate that the size of the container is still valid
-            assert(tempContainer->size >= 0);
+            assert(tempContainer->size > 0);
 
             // assert that the item was inserted
             assert(contains(tempContainer, newString));
@@ -191,7 +192,7 @@ Boolean deleteItem(Container *tempContainer, char *deleteString)
 
     Boolean deleted = false;
 
-    if (NULL != tempContainer)
+    if (NULL != tempContainer && deleteString != NULL)
     {
         Node *prev = NULL;
         Node *curr = tempContainer->top;
@@ -257,7 +258,6 @@ Boolean deleteItem(Container *tempContainer, char *deleteString)
  *  OUTPUT PARAMETERS:
  *      inserted: Returns if the item was found or not
  * ***********************************************************************/
-
 Boolean contains(Container *tempContainer, char *keyString)
 {
     assert(NULL != keyString);
@@ -269,7 +269,7 @@ Boolean contains(Container *tempContainer, char *keyString)
     if (NULL != tempContainer)
     {
         Node *curr = tempContainer->top;
-        while (NULL != curr && found == false)
+        while (NULL != curr && !found)
         {
             // Verifies that the container and the current Item are still valid
 
@@ -300,16 +300,14 @@ Boolean contains(Container *tempContainer, char *keyString)
  ******************************************************************************************/
 char *firstItem(Container *tempContainer)
 {
+    assert(NULL != tempContainer);
     char *result = NULL;
 
     if (NULL != tempContainer)
     {
-        assert(NULL != tempContainer);
-
+        assert(NULL != tempContainer->top);
         if (NULL != tempContainer->top)
         {
-            assert(NULL != tempContainer->top);
-
             // Sets/Resets the iterator to the first item in the list(starts iterating through the list)
             tempContainer->iterator = tempContainer->top;
 
@@ -317,6 +315,7 @@ char *firstItem(Container *tempContainer)
             validateList(tempContainer, tempContainer->iterator);
 
             result = tempContainer->iterator->data;
+            assert(NULL != result);
         }
     }
 
@@ -338,12 +337,12 @@ char *firstItem(Container *tempContainer)
 
 char *nextItem(Container *tempContainer)
 {
+    assert(NULL != tempContainer);
     char *result = NULL;
 
     if (NULL != tempContainer)
     {
-        assert(NULL != tempContainer);
-
+        assert(NULL != tempContainer->iterator);
         // If the iterator's position is valid (within the size of the list)
         if (NULL != tempContainer->iterator)
         {
@@ -358,6 +357,7 @@ char *nextItem(Container *tempContainer)
             if (NULL != tempContainer->iterator)
             {
                 result = tempContainer->iterator->data;
+                assert(NULL != result);
             }
         }
     }
@@ -409,11 +409,10 @@ Boolean clear(Container *tempContainer)
 {
     Boolean cleared = false;
 
+    assert(NULL != tempContainer);
     // If the container is initialized, iterate through and free all items
     if (NULL != tempContainer)
     {
-        assert(NULL != tempContainer);
-
         Node *prev = NULL;
         while (NULL != tempContainer->top)
         {
@@ -436,7 +435,7 @@ Boolean clear(Container *tempContainer)
         assert(NULL != tempContainer);
 
         // Validate that the container is now empty
-        assert(NULL != tempContainer->top);
+        assert(NULL == tempContainer->top);
 
         cleared = true;
     }
