@@ -218,5 +218,7 @@ void dumpPool()
         printf("Block ID: %lu\n", curr->referenceID);
         printf("Starting Address: %p\n", curr->startAddress);
         printf("Block Size: %lu bytes\n\n", curr->numBytes);
+
+        curr = curr->next;
     }
 }
