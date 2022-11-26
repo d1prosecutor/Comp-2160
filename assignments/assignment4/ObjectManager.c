@@ -188,17 +188,20 @@ void dropReference(const Ref ref)
 
             curr->count--;
             objectNotFound = 0;
+
+            // If there are no more objects pointing to that address, unlink it from the list
+            if (curr->count == 0)
+            {
+                assert(curr->count == 0);
+
+                prev->next = curr->next;
+            }
         }
-        prev = curr;
-        curr = curr->next;
-    }
-
-    // If there are no more objects pointing to that address, unlink it from the list
-    if (NULL != curr && curr->count == 0)
-    {
-        assert(curr->count == 0);
-
-        prev->next = curr->next;
+        else
+        {
+            prev = curr;
+            curr = curr->next;
+        }
     }
 }
 

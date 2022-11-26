@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
   dumpPool();
   // destroyPool();
-  // fprintf(stderr,"---\n");
+  fprintf(stderr, "---\n");
 
   return 0;
 }
