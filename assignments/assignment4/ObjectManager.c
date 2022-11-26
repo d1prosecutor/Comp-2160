@@ -19,7 +19,9 @@ struct MEMORYPOOL
     Node *top;
     Ref numNodes;
     void *freePtr;
-    void *endOfBuffer;
+    void *Buffer1;
+    void *Buffer2;
+    void *bufferPtr;
 };
 typedef struct MEMORYPOOL memPool;
 
@@ -29,7 +31,7 @@ memPool *heapMemory = NULL;
 // initialize the object manager
 void initPool()
 {
-    heapMemory = (memPool *)malloc(sizeof(memPool) + MEMORY_SIZE); // might or might not use
+    heapMemory = (memPool *)malloc(sizeof(memPool)); // might or might not use
 
     // Ensure that the space was actually allocated
     assert(NULL != heapMemory);
@@ -39,10 +41,9 @@ void initPool()
     {
         heapMemory->top = NULL;
         heapMemory->numNodes = 1;
-        heapMemory->freePtr = heapMemory + sizeof(memPool);
-
-        // Variable to hold the address end of the Memory Buffer
-        heapMemory->endOfBuffer = (char *)heapMemory->freePtr + MEMORY_SIZE;
+        heapMemory->Buffer1 = malloc(MEMORY_SIZE);
+        heapMemory->bufferPtr = heapMemory->Buffer1;
+        heapMemory->freePtr = heapMemory->bufferPtr;
 
         assert(NULL != heapMemory);
     }
@@ -66,10 +67,10 @@ Ref insertObject(const int size)
 
     if (NULL != heapMemory)
     {
-        if ((char *)heapMemory->freePtr + size < heapMemory->endOfBuffer)
+        if ((char *)heapMemory->freePtr + size < (char *)heapMemory->bufferPtr + MEMORY_SIZE)
         {
             // If there is still memory avaiable to allocate
-            assert((char *)heapMemory->freePtr + size <= heapMemory->endOfBuffer);
+            assert((char *)heapMemory->freePtr + size < (char *)heapMemory->bufferPtr + MEMORY_SIZE);
 
             Node *curr = heapMemory->top;
             Node *prev = NULL;
@@ -117,7 +118,7 @@ Ref insertObject(const int size)
         }
         else
         {
-            assert(heapMemory->freePtr + size > heapMemory->endOfBuffer);
+            assert(heapMemory->freePtr + size >= (char *)heapMemory->bufferPtr + MEMORY_SIZE);
 
             /// Garbage collection here
         }
@@ -206,7 +207,9 @@ void dropReference(const Ref ref)
 }
 
 // clean up the object manager (before exiting)
-void destroyPool();
+void destroyPool()
+{
+}
 
 // This function traverses the index and prints the info in each entry corresponding to a block of allocated memory.
 // You should print the block's reference id, it's starting address, and it's size (in bytes).
