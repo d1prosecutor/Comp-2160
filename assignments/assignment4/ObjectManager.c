@@ -28,7 +28,7 @@ memPool *heapMemory = NULL;
 // initialize the object manager
 void initPool()
 {
-    heapMemory = malloc(sizeof(memPool) + MEMORY_SIZE); // might or might not use
+    heapMemory = (memPool *)malloc(sizeof(memPool) + MEMORY_SIZE); // might or might not use
 
     // Ensure that the space was actually allocated
     assert(NULL != heapMemory);
