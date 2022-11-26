@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <assert.h>
 
+/*********
+ * STRUCTS
+ *********/
 typedef struct NODE Node;
 struct NODE
 {
@@ -25,18 +28,21 @@ struct MEMORYPOOL
 };
 typedef struct MEMORYPOOL memPool;
 
-/*
-PRIVATE FUNCTIONS
-*/
+/*******************
+ * PRIVATE FUNCTIONS
+ ******************/
 static void compact();
 static void copyMemBlock(void *emptyMemPool, Node *memBlock);
 
-// Global variable for the object memory manager
-memPool *heapMemory = NULL;
+/******************
+ * GLOBAL VARIABLES
+ *****************/
+static memPool *heapMemory = NULL;
+static Ref numBytesCollected = 0;
 
-/*
+/***********************
 FUNCTION IMPLEMENTATIONS
-*/
+************************/
 void initPool()
 {
     heapMemory = (memPool *)malloc(sizeof(memPool)); // might or might not use
@@ -129,7 +135,8 @@ Ref insertObject(const int size)
         {
             assert(heapMemory->freePtr + size >= (char *)heapMemory->currentBuffer + MEMORY_SIZE);
 
-            /// Garbage collection here
+            // Collect garbage if there's not enough space to insert a new Item
+            compact();
         }
     }
 
@@ -204,6 +211,9 @@ void dropReference(const Ref ref)
             {
                 assert(curr->count == 0);
 
+                // Save the number of bytes of the garbage node
+                numBytesCollected += curr->numBytes;
+
                 if (prev)
                 {
                     // If the node to unlink is not at the head of the list
@@ -227,6 +237,24 @@ void dropReference(const Ref ref)
 // clean up the object manager (before exiting)
 void destroyPool()
 {
+    if (NULL != heapMemory)
+    {
+        assert(heapMemory != NULL);
+
+        Node *prev = NULL;
+        while (NULL != heapMemory->top)
+        {
+            // Save a reference to each node in order to free it
+            prev = heapMemory->top;
+
+            // Move the top to the next Item thereby unlinking the previous item so it can be freed
+            heapMemory->top = heapMemory->top->next;
+
+            free(prev);
+        }
+
+        free(heapMemory);
+    }
 }
 
 // This function traverses the index and prints the info in each entry corresponding to a block of allocated memory.
@@ -235,6 +263,7 @@ void dumpPool()
 {
     Node *curr = heapMemory->top;
 
+    printf("\n---BLOCK INFO---\n");
     while (NULL != curr)
     {
         assert(NULL != curr);
@@ -268,12 +297,18 @@ void compact()
     // Set the freePtr to point to the begining of the empty pool (next avaiable memory to insert into).
     heapMemory->freePtr = emptyPool;
 
+    int numExistingObjects = 0;
+    Ref numExistingBytes = 0;
     while (NULL != curr)
     {
         assert(NULL != curr);
 
         // Copy each (valid) block left in the linked list into the free buffer
         copyMemBlock(emptyPool, curr);
+
+        // Save the details of the exisiting blocks
+        numExistingObjects += curr->count;
+        numExistingBytes += curr->numBytes;
 
         curr = curr->next;
     }
@@ -283,6 +318,14 @@ void compact()
 
     // Set the Active buffer to the buffer which was just copied into
     heapMemory->currentBuffer = (void *)emptyPool;
+
+    printf("\n---GARBAGE COLLECTION STATISTIC---\n");
+    printf("Number of existing Objects: %lu\n", numExistingObjects);
+    printf("Current number of Bytes in Use: %p\n", numExistingBytes);
+    printf("Number of Bytes Collected: %lu bytes\n\n", numBytesCollected);
+
+    // Reset the number of bytes collected
+    numBytesCollected = 0;
 }
 
 /*
