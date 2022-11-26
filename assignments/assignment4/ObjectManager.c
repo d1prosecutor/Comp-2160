@@ -1,11 +1,11 @@
 #include "ObjectManager.h"
-#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct NODE Node;
 struct NODE
 {
     Ref numBytes;
-    Ref startAddress;
+    void *startAddress;
     int reference;
     int count;
 
@@ -16,22 +16,18 @@ struct MEMORYPOOL
 {
     Node *top;
     int numNodes;
-    Ref freePtr;
+    void *freePtr;
+    void *endOfBuffer;
 };
 typedef struct MEMORYPOOL memPool;
 
 // Global variable for the object memory manager
 memPool *heapMemory = NULL;
 
-// This function trys to allocate a block of given size from our buffer.
-// It will fire the garbage collector as required.
-// We always assume that an insert always creates a new object...
-// On success it returns the reference number for the block of memory allocated for the object.
-// On failure it returns NULL_REF (0)
 // initialize the object manager
 void initPool()
 {
-    heapMemory = malloc(MEMORY_SIZE);
+    heapMemory = malloc(sizeof(memPool) + MEMORY_SIZE); // might or might not use
 
     // Ensure that the space was actually allocated
     assert(NULL != heapMemory);
@@ -41,7 +37,10 @@ void initPool()
     {
         heapMemory->top = NULL;
         heapMemory->numNodes = 1;
-        heapMemory->freePtr = 0;
+        heapMemory->freePtr = heapMemory + sizeof(memPool);
+
+        // Variable to hold the address end of the Memory Buffer
+        heapMemory->endOfBuffer = heapMemory->freePtr + MEMORY_SIZE;
 
         assert(NULL != heapMemory);
     }
@@ -52,17 +51,22 @@ void initPool()
     }
 }
 
+// This function trys to allocate a block of given size from our buffer.
+// It will fire the garbage collector as required.
+// We always assume that an insert always creates a new object...
+// On success it returns the reference number for the block of memory allocated for the object.
+// On failure it returns NULL_REF (0)
 Ref insertObject(const int size)
 {
-    Ref refResult = -1;
+    Ref refResult = 0;
 
     assert(NULL != heapMemory);
 
     if (NULL != heapMemory)
     {
-        assert(heapMemory->freePtr + size < MEMORY_SIZE);
+        assert(heapMemory->freePtr + size < heapMemory->endOfBuffer);
         // If there is still memory avaiable to allocate
-        if (heapMemory->freePtr + size < MEMORY_SIZE)
+        if (heapMemory->freePtr + size < heapMemory->endOfBuffer)
         {
             Node *curr = heapMemory->top;
             Node *prev = NULL;
@@ -102,7 +106,7 @@ Ref insertObject(const int size)
                 // Shift the position of the free memory pointer to point to the next available space
                 heapMemory->freePtr += size;
 
-                refResult = newNode->startAddress;
+                refResult = newNode->reference;
             }
         }
     }
