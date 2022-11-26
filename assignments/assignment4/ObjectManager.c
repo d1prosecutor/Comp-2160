@@ -19,16 +19,24 @@ struct MEMORYPOOL
     Node *top;
     Ref numNodes;
     void *freePtr;
-    void *Buffer1;
-    void *Buffer2;
-    void *bufferPtr;
+    void *buffer1;
+    void *buffer2;
+    void *currentBuffer;
 };
 typedef struct MEMORYPOOL memPool;
+
+/*
+PRIVATE FUNCTIONS
+*/
+static void compact();
+static void copyMemBlock(void *emptyMemPool, Node *memBlock);
 
 // Global variable for the object memory manager
 memPool *heapMemory = NULL;
 
-// initialize the object manager
+/*
+FUNCTION IMPLEMENTATIONS
+*/
 void initPool()
 {
     heapMemory = (memPool *)malloc(sizeof(memPool)); // might or might not use
@@ -41,9 +49,10 @@ void initPool()
     {
         heapMemory->top = NULL;
         heapMemory->numNodes = 1;
-        heapMemory->Buffer1 = malloc(MEMORY_SIZE);
-        heapMemory->bufferPtr = heapMemory->Buffer1;
-        heapMemory->freePtr = heapMemory->bufferPtr;
+        heapMemory->buffer1 = malloc(MEMORY_SIZE);
+        heapMemory->buffer2 = NULL;
+        heapMemory->currentBuffer = heapMemory->buffer1;
+        heapMemory->freePtr = heapMemory->currentBuffer;
 
         assert(NULL != heapMemory);
     }
@@ -67,10 +76,10 @@ Ref insertObject(const int size)
 
     if (NULL != heapMemory)
     {
-        if ((char *)heapMemory->freePtr + size < (char *)heapMemory->bufferPtr + MEMORY_SIZE)
+        if ((char *)heapMemory->freePtr + size < (char *)heapMemory->currentBuffer + MEMORY_SIZE)
         {
             // If there is still memory avaiable to allocate
-            assert((char *)heapMemory->freePtr + size < (char *)heapMemory->bufferPtr + MEMORY_SIZE);
+            assert((char *)heapMemory->freePtr + size < (char *)heapMemory->currentBuffer + MEMORY_SIZE);
 
             Node *curr = heapMemory->top;
             Node *prev = NULL;
@@ -118,7 +127,7 @@ Ref insertObject(const int size)
         }
         else
         {
-            assert(heapMemory->freePtr + size >= (char *)heapMemory->bufferPtr + MEMORY_SIZE);
+            assert(heapMemory->freePtr + size >= (char *)heapMemory->currentBuffer + MEMORY_SIZE);
 
             /// Garbage collection here
         }
@@ -195,7 +204,16 @@ void dropReference(const Ref ref)
             {
                 assert(curr->count == 0);
 
-                prev->next = curr->next;
+                if (prev)
+                {
+                    // If the node to unlink is not at the head of the list
+                    prev->next = curr->next;
+                }
+                else
+                {
+                    // If the node to unlink is the first element of the list
+                    heapMemory->top = curr->next;
+                }
             }
         }
         else
@@ -227,4 +245,61 @@ void dumpPool()
 
         curr = curr->next;
     }
+}
+
+void compact()
+{
+    Node *curr = heapMemory->top;
+    Node *prev = NULL;
+
+    // Check to see which memory pool is filled and which one should be copied into
+    char *emptyPool;
+    if (heapMemory->currentBuffer == heapMemory->buffer1)
+    {
+        heapMemory->buffer2 = malloc(MEMORY_SIZE);
+        emptyPool = (char *)heapMemory->buffer2;
+    }
+    else
+    {
+        heapMemory->buffer1 = malloc(MEMORY_SIZE);
+        emptyPool = (char *)heapMemory->buffer1;
+    }
+
+    // Set the freePtr to point to the begining of the empty pool (next avaiable memory to insert into).
+    heapMemory->freePtr = emptyPool;
+
+    while (NULL != curr)
+    {
+        assert(NULL != curr);
+
+        // Copy each (valid) block left in the linked list into the free buffer
+        copyMemBlock(emptyPool, curr);
+
+        curr = curr->next;
+    }
+
+    // Free the previous active buffer thereby deleting all the contents (After copying over into the empty buffer).
+    free(heapMemory->currentBuffer);
+
+    // Set the Active buffer to the buffer which was just copied into
+    heapMemory->currentBuffer = (void *)emptyPool;
+}
+
+/*
+This method copies the contents of a memory block from a full buffer into an empty buffer
+*/
+void copyMemBlock(void *emptyMemPool, Node *memBlock)
+{
+    char *addressToCopy = (char *)memBlock->startAddress;
+    char *tempEmpty = (char *)emptyMemPool;
+
+    Ref index = 0;
+    while (index < memBlock->numBytes)
+    {
+        tempEmpty[index] = addressToCopy[index];
+        index++;
+    }
+
+    // Set the free pointer to point to the next available memory address to insert into
+    heapMemory->freePtr = (char *)heapMemory->freePtr + index;
 }
