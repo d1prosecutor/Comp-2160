@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 
 typedef struct NODE Node;
@@ -41,7 +42,7 @@ void initPool()
         heapMemory->freePtr = heapMemory + sizeof(memPool);
 
         // Variable to hold the address end of the Memory Buffer
-        heapMemory->endOfBuffer = heapMemory->freePtr + MEMORY_SIZE;
+        heapMemory->endOfBuffer = (char *)heapMemory->freePtr + MEMORY_SIZE;
 
         assert(NULL != heapMemory);
     }
@@ -65,10 +66,10 @@ Ref insertObject(const int size)
 
     if (NULL != heapMemory)
     {
-        if (heapMemory->freePtr + size < heapMemory->endOfBuffer)
+        if ((char *)heapMemory->freePtr + size < heapMemory->endOfBuffer)
         {
             // If there is still memory avaiable to allocate
-            assert(heapMemory->freePtr + size <= heapMemory->endOfBuffer);
+            assert((char *)heapMemory->freePtr + size <= heapMemory->endOfBuffer);
 
             Node *curr = heapMemory->top;
             Node *prev = NULL;
@@ -81,7 +82,7 @@ Ref insertObject(const int size)
             }
 
             // Making a new Node for the linked list
-            Node *newNode = malloc(sizeof(Node));
+            Node *newNode = (Node *)malloc(sizeof(Node));
 
             assert(NULL != newNode);
             if (NULL != newNode)
@@ -106,7 +107,7 @@ Ref insertObject(const int size)
                 }
 
                 // Shift the position of the free memory pointer to point to the next available space
-                heapMemory->freePtr += size;
+                heapMemory->freePtr = (char *)heapMemory->freePtr + size;
 
                 refResult = newNode->referenceID;
 
