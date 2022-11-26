@@ -279,7 +279,6 @@ void dumpPool()
 void compact()
 {
     Node *curr = heapMemory->top;
-    Node *prev = NULL;
 
     // Check to see which memory pool is filled and which one should be copied into
     char *emptyPool;
@@ -320,8 +319,8 @@ void compact()
     heapMemory->currentBuffer = (void *)emptyPool;
 
     printf("\n---GARBAGE COLLECTION STATISTIC---\n");
-    printf("Number of existing Objects: %lu\n", numExistingObjects);
-    printf("Current number of Bytes in Use: %p\n", numExistingBytes);
+    printf("Number of existing Objects: %d\n", numExistingObjects);
+    printf("Current number of Bytes in Use: %lu\n", numExistingBytes);
     printf("Number of Bytes Collected: %lu bytes\n\n", numBytesCollected);
 
     // Reset the number of bytes collected
