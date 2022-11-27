@@ -276,7 +276,7 @@ void dumpPool()
     }
 }
 
-void compact()
+static void compact()
 {
     Node *curr = heapMemory->top;
 
@@ -330,7 +330,7 @@ void compact()
 /*
 This method copies the contents of a memory block from a full buffer into an empty buffer
 */
-void copyMemBlock(void *emptyMemPool, Node *memBlock)
+static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 {
     char *addressToCopy = (char *)memBlock->startAddress;
     char *tempEmpty = (char *)emptyMemPool;
