@@ -318,6 +318,9 @@ static void copyMemBlock(void *emptyMemPool, Node *memBlock)
         index++;
     }
 
+    // Update the start address of each node
+    memBlock->startAddress = heapMemory.freePtr;
+
     // Set the free pointer to point to the next available memory address to insert into
     heapMemory.freePtr = heapMemory.freePtr + index;
 }
