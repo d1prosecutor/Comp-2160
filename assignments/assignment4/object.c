@@ -10,7 +10,7 @@ typedef struct NODE Node;
 struct NODE
 {
     Ref numBytes;
-    unsigned char *startAddress;
+    Ref startAddress;
     Ref referenceID;
     Ref count;
 
@@ -21,7 +21,7 @@ struct MEMORYPOOL
 {
     Node *top;
     Ref numNodes;
-    unsigned char *freePtr;
+    Ref freePtr;
     unsigned char *buffer1;
     unsigned char *buffer2;
     unsigned char *currentBuffer;
@@ -51,7 +51,7 @@ void initPool()
     heapMemory.buffer1 = (unsigned char *)malloc(MEMORY_SIZE);
     heapMemory.buffer2 = (unsigned char *)malloc(MEMORY_SIZE);
     heapMemory.currentBuffer = heapMemory.buffer1;
-    heapMemory.freePtr = heapMemory.currentBuffer;
+    heapMemory.freePtr = 0;
 }
 
 // This function trys to allocate a block of given size from our buffer.
@@ -64,19 +64,19 @@ Ref insertObject(const int size)
     Ref refResult = NULL_REF;
 
     // If there's no heap memory, compact first then try to allocate memory
-    if (heapMemory.freePtr + size >= heapMemory.currentBuffer + MEMORY_SIZE)
+    if (heapMemory.freePtr + size >= MEMORY_SIZE)
     {
-        assert(heapMemory.freePtr + size >= heapMemory.currentBuffer + MEMORY_SIZE);
+        assert(heapMemory.freePtr + size >= MEMORY_SIZE);
 
         // Collect garbage if there's not enough space to insert a new Item
         compact();
     }
 
     // allocate memory in the heap if there's enough space
-    if (heapMemory.freePtr + size < heapMemory.currentBuffer + MEMORY_SIZE)
+    if (heapMemory.freePtr + size < MEMORY_SIZE)
     {
         // If there is still memory avaiable to allocate
-        assert(heapMemory.freePtr + size < heapMemory.currentBuffer + MEMORY_SIZE);
+        assert(heapMemory.freePtr + size < MEMORY_SIZE);
 
         Node *curr = heapMemory.top;
         Node *prev = NULL;
