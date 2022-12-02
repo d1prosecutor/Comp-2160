@@ -94,7 +94,6 @@ Ref insertObject(const int size)
         assert(NULL != newNode);
         if (NULL != newNode)
         {
-
             // Initialize the member variables for the new Node
             newNode->numBytes = size;
             newNode->startAddress = heapMemory.freePtr;
@@ -114,7 +113,7 @@ Ref insertObject(const int size)
             }
 
             // Shift the position of the free memory pointer to point to the next available space
-            heapMemory.freePtr = heapMemory.freePtr + size;
+            heapMemory.freePtr += size;
 
             refResult = newNode->referenceID;
 
@@ -141,7 +140,7 @@ void *retrieveObject(const Ref ref)
         {
             assert(ref == curr->referenceID);
 
-            result = (void *)curr->startAddress;
+            result = (void *)(&heapMemory.currentBuffer[curr->startAddress]);
             objectNotFound = 0;
         }
         curr = curr->next;
@@ -220,18 +219,23 @@ void dropReference(const Ref ref)
 // clean up the object manager (before exiting)
 void destroyPool()
 {
-
-    Node *prev = NULL;
+    // Free all the Nodes in the linked list
+    Node *prevNode = NULL;
     while (NULL != heapMemory.top)
     {
         // Save a reference to each node in order to free it
-        prev = heapMemory.top;
+        prevNode = heapMemory.top;
 
         // Move the top to the next Item thereby unlinking the previous item so it can be freed
         heapMemory.top = heapMemory.top->next;
 
-        free(prev);
+        free(prevNode);
     }
+
+    // Free the two buffers and set the current buffer to NULL
+    free(heapMemory.buffer1);
+    free(heapMemory.buffer2);
+    heapMemory.currentBuffer = NULL;
 }
 
 // This function traverses the index and prints the info in each entry corresponding to a block of allocated memory.
@@ -246,7 +250,7 @@ void dumpPool()
         assert(NULL != curr);
 
         printf("Block ID: %lu\n", curr->referenceID);
-        printf("Starting Address: %p\n", curr->startAddress);
+        printf("Starting Address: %lu\n", curr->startAddress);
         printf("Block Size: %lu bytes\n\n", curr->numBytes);
 
         curr = curr->next;
@@ -255,18 +259,16 @@ void dumpPool()
 
 static void compact()
 {
-    Node *curr = heapMemory.top;
+    Node *currNode = heapMemory.top;
 
     // Check to see which memory pool is filled and which one should be copied into
     unsigned char *emptyPool;
     if (heapMemory.currentBuffer == heapMemory.buffer1)
     {
-        heapMemory.buffer2 = (unsigned char *)malloc(MEMORY_SIZE);
         emptyPool = heapMemory.buffer2;
     }
     else
     {
-        heapMemory.buffer1 = (unsigned char *)malloc(MEMORY_SIZE);
         emptyPool = heapMemory.buffer1;
     }
 
@@ -275,18 +277,18 @@ static void compact()
 
     int numExistingObjects = 0;
     Ref numExistingBytes = 0;
-    while (NULL != curr)
+    while (NULL != currNode)
     {
-        assert(NULL != curr);
+        assert(NULL != currNode);
 
         // Copy each (valid) block left in the linked list into the free buffer
-        copyMemBlock(emptyPool, curr);
+        copyMemBlock(emptyPool, currNode);
 
         // Save the details of the exisiting blocks
-        numExistingObjects += curr->count;
-        numExistingBytes += curr->numBytes;
+        numExistingObjects += currNode->count;
+        numExistingBytes += currNode->numBytes;
 
-        curr = curr->next;
+        currNode = currNode->next;
     }
 
     // Set the Active buffer to the buffer which was just copied into
@@ -306,7 +308,7 @@ This method copies the contents of a memory block from a full buffer into an emp
 */
 static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 {
-    unsigned char *addressToCopy = memBlock->startAddress;
+    unsigned char *addressToCopy = heapMemory.currentBuffer[memBlock->startAddress];
     unsigned char *tempEmptyPool = (unsigned char *)emptyMemPool;
 
     Ref index = 0;
