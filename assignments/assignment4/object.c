@@ -273,7 +273,7 @@ static void compact()
     }
 
     // Set the freePtr to point to the begining of the empty pool (next avaiable memory to insert into).
-    heapMemory.freePtr = emptyPool;
+    heapMemory.freePtr = 0;
 
     int numExistingObjects = 0;
     Ref numExistingBytes = 0;
@@ -308,7 +308,7 @@ This method copies the contents of a memory block from a full buffer into an emp
 */
 static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 {
-    unsigned char *addressToCopy = heapMemory.currentBuffer[memBlock->startAddress];
+    unsigned char *addressToCopy = &(heapMemory.currentBuffer[memBlock->startAddress]);
     unsigned char *tempEmptyPool = (unsigned char *)emptyMemPool;
 
     Ref index = 0;
