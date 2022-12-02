@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
         strPtr1[i] = testString[i];
     }
 
-    printf("\nThe buffer should contain a memory block holding a Sentence...\n");
-    printf("%s\n", strPtr1);
+    printf("\nThe buffer should contain a memory block holding a Sentence...\n\"");
+    printf("%s\"\n", strPtr1);
 
     printf("\n---TESTING RETRIEVE_OBJECT && DUMP_POOL---\n");
 
@@ -97,25 +97,26 @@ int main(int argc, char *argv[])
 
     // ID5
     printf("Requesting for 'more than enough' space for the string to be inserted...\n");
-    id5 = insertObject(50);
-    char testString2[] = "Testing insert after dropping a reference.";
+    id5 = insertObject(70);
+    char testString2[] = "Garbage sentence Testing insert after dropping a reference.";
 
     strPtr2 = (char *)retrieveObject(id3);
-    for (i = 0; i < 43; i++)
+    for (i = 0; i < 60; i++)
     {
         strPtr2[i] = testString2[i];
     }
 
-    printf("\nThe buffer should contain a memory block holding a Sentence and some other garbage at the end...\n");
-    for (i = 0; i < 50; i++)
+    printf("\nThe buffer should contain a memory block holding a Sentence and some other garbage at the end...\n\n\"");
+    for (i = 0; i < 70; i++)
     {
         printf("%c", strPtr2[i]);
     }
-    printf("\n");
+    printf("\"\n");
 
-    // dumpPool();
-    // destroyPool();
-    // fprintf(stderr, "---\n");
+    dumpPool();
+    destroyPool();
+    fprintf(stderr, "---\n");
 
+    printf("\nEnd of Processing\n");
     return 0;
 }

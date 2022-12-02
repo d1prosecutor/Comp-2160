@@ -14,7 +14,7 @@ $(PROG): $(MAIN) $(HDR) $(OBJ)
 	$(CC) $(CFLAGS) $(MAIN) $(OBJ) -o $(PROG)
 
 $(OBJ): ObjectManager.c $(HDR)
-		$(CC) $(CFLAGS) -c ObjectManager.c -o $(OBJ)
+		$(CC) $(CFLAGS) -c object.c -o $(OBJ)
 
 clean: 
 	rm $(OBJ) $(PROG) -f
