@@ -12,7 +12,7 @@ struct NODE
     Ref numBytes;
     Ref startAddress;
     Ref referenceID;
-    Ref count;
+    Ref refCount;
 
     Node *next;
 };
@@ -33,6 +33,7 @@ typedef struct MEMORYPOOL memPool;
  ******************/
 static void compact();
 static void copyMemBlock(void *emptyMemPool, Node *memBlock);
+static void checkState();
 
 /******************
  * GLOBAL VARIABLES
@@ -97,7 +98,7 @@ Ref insertObject(const int size)
             // Initialize the member variables for the new Node
             newNode->numBytes = size;
             newNode->startAddress = heapMemory.freePtr;
-            newNode->count = 1; // number of objects pointing to this address
+            newNode->refCount = 1; // number of objects pointing to this address
             newNode->referenceID = heapMemory.numNodes++;
             newNode->next = NULL; // The next node will always be null since insertion is occuring at the end
 
@@ -163,7 +164,7 @@ void addReference(const Ref ref)
         {
             assert(ref == curr->referenceID);
 
-            curr->count++;
+            curr->refCount++;
             objectNotFound = 0;
         }
         curr = curr->next;
@@ -185,13 +186,13 @@ void dropReference(const Ref ref)
         {
             assert(ref == curr->referenceID);
 
-            curr->count--;
+            curr->refCount--;
             objectNotFound = 0;
 
             // If there are no more objects pointing to that address, unlink it from the list
-            if (curr->count == 0)
+            if (curr->refCount == 0)
             {
-                assert(curr->count == 0);
+                assert(curr->refCount == 0);
 
                 // Save the number of bytes of the garbage node
                 numBytesCollected += curr->numBytes;
@@ -235,6 +236,10 @@ void destroyPool()
     // Free the two buffers and set the current buffer to NULL
     free(heapMemory.buffer1);
     free(heapMemory.buffer2);
+
+    // Reset the global variables
+    numBytesCollected = 0;
+
     heapMemory.currentBuffer = NULL;
 }
 
@@ -244,17 +249,18 @@ void dumpPool()
 {
     Node *curr = heapMemory.top;
 
-    printf("\n---BLOCK INFO---\n");
+    printf("\n------ BLOCK INFO ------\n");
     while (NULL != curr)
     {
         assert(NULL != curr);
 
         printf("Block ID: %lu\n", curr->referenceID);
         printf("Starting Address: %lu\n", curr->startAddress);
-        printf("Block Size: %lu bytes\n\n", curr->numBytes);
+        printf("Block Size: %lu bytes\n", curr->numBytes);
 
         curr = curr->next;
     }
+    printf("------------------------\n\n");
 }
 
 static void compact()
@@ -285,7 +291,7 @@ static void compact()
         copyMemBlock(emptyPool, currNode);
 
         // Save the details of the exisiting blocks
-        numExistingObjects += currNode->count;
+        numExistingObjects += currNode->refCount;
         numExistingBytes += currNode->numBytes;
 
         currNode = currNode->next;
@@ -294,10 +300,12 @@ static void compact()
     // Set the Active buffer to the buffer which was just copied into
     heapMemory.currentBuffer = emptyPool;
 
-    printf("\n---GARBAGE COLLECTION STATISTIC---\n");
-    printf("Number of existing Objects: %d\n", numExistingObjects);
-    printf("Current number of Bytes in Use: %lu\n", numExistingBytes);
-    printf("Number of Bytes Collected: %lu bytes\n\n", numBytesCollected);
+    printf("\n--------------- GARBAGE COLLECTION STATISTIC ----------------\n");
+    printf("Number of existing Objects after Garbage Collection: %d objects\n", numExistingObjects);
+    printf("Current number of Bytes in Use: %lu bytes\n", numExistingBytes);
+    printf("Number of Bytes Collected: %lu bytes\n", numBytesCollected);
+    printf("Number of Bytes Available/Free: %lu bytes\n", MEMORY_SIZE - numExistingBytes);
+    printf("-------------------------------------------------------------\n\n");
 
     // Reset the number of bytes collected
     numBytesCollected = 0;
@@ -323,4 +331,27 @@ static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 
     // Set the free pointer to point to the next available memory address to insert into
     heapMemory.freePtr = heapMemory.freePtr + index;
+}
+
+static void checkState()
+{
+    // Verify that the free pointer is still within the size limit
+    assert(heapMemory.freePtr >= 0 && heapMemory.freePtr < MEMORY_SIZE);
+
+    Node *temp = heapMemory.top;
+    Ref currNumBytes = 0;
+    while (NULL != temp)
+    {
+        // Verify that the every Node in the linked list is still being used(pointed to)
+        assert(temp->refCount > 0);
+
+        currNumBytes += temp->numBytes;
+        temp = temp->next;
+    }
+
+    // assert that the number of bytes being used from the memory pool is within the valid range
+    assert(currNumBytes >= 0 && currNumBytes < MEMORY_SIZE);
+
+    // assert that the current buffer is always pointing to one of the two available buffers
+    assert(heapMemory.currentBuffer == heapMemory.buffer1 || heapMemory.currentBuffer == heapMemory.buffer2);
 }

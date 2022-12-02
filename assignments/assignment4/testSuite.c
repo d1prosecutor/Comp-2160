@@ -2,181 +2,194 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct POINTER
+typedef struct STRUCT
 {
-    int *integerPtr;
-    char *characterPtr;
-    char *stringPtr;
-} pointer;
+    int intVal;
+    double doubleVal;
+    char *stringVal;
+} structure;
 
 int main(int argc, char *argv[])
 {
-    // printf("---INITIALIZING THE MEMORY POOL......\n\n");
-    // char *charPtr, *strPtr1, *strPtr2;
-    // int *intPtr;
-    // int i;
-    // int id1, id2, id3, id4, id5;
-    // initPool();
+    //--------------------------------------------
+    printf("\n\t\t\tTESTING TYPICAL FUNCTIONS\n");
+    //--------------------------------------------
 
-    // printf("---TESTING INSERT_OBJECT---\n");
-    // // ID1
-    // id1 = insertObject(400);
-    // intPtr = (int *)retrieveObject(id1);
-
-    // for (i = 0; i < 100; i++)
-    // {
-    //     intPtr[i] = (i + 1);
-    // }
-
-    // printf("The buffer should contain a memory block holding integers 1 to 100...\n");
-    // for (i = 0; i < 100; i++)
-    // {
-    //     printf("%d ", intPtr[i]);
-    // }
-    // printf("\n");
-
-    // // ID2
-    // id2 = insertObject(26);
-    // charPtr = (char *)retrieveObject(id2);
-
-    // for (i = 0; i < 26; i++)
-    // {
-    //     charPtr[i] = (char)(i % 26 + 'A');
-    // }
-
-    // printf("\nThe buffer should contain a memory block holding the letters of the Alphabet...\n");
-    // for (i = 0; i < 26; i++)
-    // {
-    //     printf("%c ", charPtr[i]);
-    // }
-    // printf("\n");
-
-    // // ID3
-    // id3 = insertObject(42);
-    // char testString[] = "The Quick Brown Fox Jumps Over A Lazy Dog.";
-
-    // strPtr1 = (char *)retrieveObject(id3);
-    // for (i = 0; i < 42; i++)
-    // {
-    //     strPtr1[i] = testString[i];
-    // }
-
-    // printf("\nThe buffer should contain a memory block holding a Sentence...\n\"");
-    // printf("%s\"\n", strPtr1);
-
-    // printf("\n---TESTING RETRIEVE_OBJECT && DUMP_POOL---\n");
-
-    // // ID4
-    // id4 = insertObject(16);
-    // pointer *ptr_PTR;
-    // ptr_PTR = (pointer *)retrieveObject(id4);
-
-    // ptr_PTR->integerPtr = (int *)retrieveObject(id1);
-    // ptr_PTR->characterPtr = (char *)retrieveObject(id2);
-    // ptr_PTR->stringPtr = (char *)retrieveObject(id3);
-    // printf("\nThe address of the memory block holding Integers is: %p\n", ptr_PTR->integerPtr);
-    // printf("The address of the memory block holding Characters is: %p\n", ptr_PTR->characterPtr);
-    // printf("The address of the memory block holding String is: %p\n", ptr_PTR->stringPtr);
-
-    // printf("\nThe first three blocks in the memory buffer below should have the same address as the addresses above.\n");
-    // dumpPool();
-
-    // printf("\n---TESTING ADD AND DROP REFERENCE---\n");
-    // printf("\nAdding one reference each to the objects with id 1 and 3...\n");
-    // addReference(id1);
-    // addReference(id3);
-
-    // printf("\nDropping the only reference to the object with id = 2...\n");
-    // dropReference(id2);
-
-    // printf("\nOnly three memory blocks should exist in the memory buffer now (Block 2 should be gone).\n");
-    // dumpPool();
-
-    // printf("---TESTING INSERT_OBJECT---\n");
-    // printf("The memory block which was removed should not be available to write to untill garbage is collected.\n");
-
-    // // ID5
-    // printf("Requesting for 'more than enough' space for the string to be inserted...\n");
-    // id5 = insertObject(70);
-    // char testString2[] = "Garbage sentence Testing insert after dropping a reference.";
-
-    // strPtr2 = (char *)retrieveObject(id3);
-    // for (i = 0; i < 60; i++)
-    // {
-    //     strPtr2[i] = testString2[i];
-    // }
-
-    // printf("\nThe buffer should contain a memory block holding a Sentence and some other garbage at the end...\n\n\"");
-    // for (i = 0; i < 70; i++)
-    // {
-    //     printf("%c", strPtr2[i]);
-    // }
-    // printf("\"\n");
-
-    // dumpPool();
-    // destroyPool();
-    // fprintf(stderr, "---\n");
-
-    // printf("\nEnd of Processing\n");
-    // return 0;
-
-    char *ptr;
+    printf("\n--- INITIALIZING THE MEMORY POOL ---\n\n");
+    char *charPtr, *strPtr;
+    int *intPtr;
     int i;
-    int id1, id2, id3;
+    int id1, id2, id3, id4, id5;
     initPool();
 
-    id1 = insertObject(100000);
-    // printf("%d, %d, %d", id1,id2, id3);
-    ptr = (char *)retrieveObject(id1);
+    //--------------------------------------------------------
+    printf("---TESTING INSERT_OBJECT && RETRIEVE_OBJECT---\n");
+    //--------------------------------------------------------
+
+    // ID1
+    id1 = insertObject(400);
+    intPtr = (int *)retrieveObject(id1);
+
     for (i = 0; i < 100; i++)
     {
-        ptr[i] = (char)(i % 26 + 'A');
+        intPtr[i] = (i + 1);
     }
-    printf("%s\n", ptr);
 
-    // 4000 bytes or 16 thousand bytes
-    id2 = insertObject(200000);
-    int *ptr2 = (int *)retrieveObject(id2);
-    for (int i = 0; i < 1000; i++)
+    printf("The buffer should contain a memory block holding integers 1 to 100...\n");
+    for (i = 0; i < 100; i++)
     {
-        ptr2[i] = i + 1;
-    }
-    for (int i = 0; i < 1000; i++)
-    {
-        printf("%d ", ptr2[i]);
+        printf("%d ", intPtr[i]);
     }
     printf("\n");
 
+    // ID2
+    id2 = insertObject(1000);
+    charPtr = (char *)retrieveObject(id2);
+
+    for (i = 0; i < 26; i++)
+    {
+        charPtr[i] = (char)(i % 26 + 'A');
+    }
+
+    printf("\nThe buffer should contain a memory block holding the letters of the Alphabet...\n");
+    for (i = 0; i < 26; i++)
+    {
+        printf("%c ", charPtr[i]);
+    }
+    printf("\n");
+
+    // ID3
+    id3 = insertObject(2000);
+    char testString[] = "The Quick Brown Fox Jumps Over A Lazy Dog.";
+
+    strPtr = (char *)retrieveObject(id3);
+    for (i = 0; i < 43; i++)
+    {
+        strPtr[i] = testString[i];
+    }
+
+    printf("\nThe buffer should contain a memory block holding a String (Sentence)...\n\"");
+    printf("%s\"\n", strPtr);
+
+    // ID4
+    structure mixedDataType;
+    mixedDataType.intVal = 500000;
+    mixedDataType.doubleVal = 0.123456789;
+    mixedDataType.stringVal = "Hello, World!";
+
+    id4 = insertObject(sizeof(structure));
+    structure *structPtr = (structure *)retrieveObject(id4);
+
+    *structPtr = mixedDataType;
+    printf("\nThe buffer should contain struct having Integer, Double and String members...");
+    printf("\nThe Struct's int, double and string values are: %d, %lf, \"%s\"\n",
+           structPtr->intVal, structPtr->doubleVal, structPtr->stringVal);
+
+    printf("\nThere should be FOUR existing distinct blocks (Objects) in the memory pool.\n");
+    dumpPool();
+
+    //-------------------------------------------------
+    printf("\n---TESTING ADD AND DROP REFERENCE---\n");
+    //-------------------------------------------------
+
+    printf("\nAdding one reference each to the objects with id = 1 and id = 3...\n");
+    addReference(id1);
+    addReference(id3);
+
+    printf("\nDropping the only reference to the object with id = 2...\n");
     dropReference(id2);
 
-    id3 = insertObject(300000);
-    int *ptr3 = (int *)retrieveObject(id3);
-    *ptr3 = 20;
-    printf("%d\n", *ptr3);
+    printf("\nOnly three memory blocks should exist in the memory buffer now (Block with id = 2 should be gone).\n");
+    dumpPool();
 
-    int id4 = insertObject(80000);
-    double *doublePtr = (double *)retrieveObject(id4);
-    *doublePtr = 13.556849;
-    printf("%lf\n", *doublePtr);
-
+    printf("\nDropping one reference to the object with id = 1...\n");
     dropReference(id1);
 
-    int id5 = insertObject(64000);
-
-    // printf("%d, %d, %d,%d,%d", id1,id2, id3,id4,id5);
-
-    doublePtr = (double *)retrieveObject(id5);
-    for (int i = 0; i < 8; i++)
-    {
-        doublePtr[i] = (i + 1) * 0.345;
-    }
-    for (int i = 0; i < 8; i++)
-    {
-        printf("%lf ", doublePtr[i]);
-    }
-    printf("\n");
-
-    printf("%s\n", ptr);
-
+    printf("There should still be one object pointing to the reference of id1 so it should still be in the memory pool...\n");
     dumpPool();
+
+    printf("Dropping two references to the object with id = 3...\n");
+    dropReference(id3);
+    dropReference(id3);
+
+    printf("There should be no references to the object with id = 3, so it should no longer be in the memory pool...\n");
+    dumpPool();
+
+    printf("\nTrying to add a reference to an object which is no longer in existence(id3)...\n");
+    addReference(id3);
+
+    printf("The memory pool should remain unchanged (conatain 2 blocks) because the reference shouldn't be added\n");
+    dumpPool();
+
+    printf("\nTrying to remove a reference to an object which is no longer in existence(id3)...\n");
+    dropReference(id3);
+
+    printf("The memory pool should remain unchanged (conatain 2 blocks) because the reference shouldn't be found\n");
+    dumpPool();
+
+    printf("--- DESTROYING THE MEMORY POOL ---");
+    destroyPool();
+
+    printf("\n\n////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+
+    //-------------------------------------------------
+    printf("\n\t\t\tTESTING THE GARBAGE COLLECTOR\n");
+    //-------------------------------------------------
+
+    printf("\n--- INITIALIZING THE MEMORY POOL ---\n");
+    initPool();
+
+    printf("\nRequesting space for 25,000 Integers from the buffer...\n");
+    printf("So 100,000 bytes should now be used up from the buffer, the buffer should have 424,288 bytes left.\n\n");
+    id1 = insertObject(100000);
+    dumpPool();
+
+    printf("\nRequesting space for 200,000 characters from the buffer...\n");
+    printf("300,000 bytes should now be used up from the buffer, so it should have 224,288 bytes left.\n\n");
+    id2 = insertObject(200000);
+    dumpPool();
+
+    printf("\nDeleting the object with id = 2 from the buffer (200,000 bytes marked as garbage)...\n");
+    dropReference(id2);
+    dumpPool();
+
+    printf("\nRequesting space for 300,000 characters from the buffer...\n");
+    printf("The space left in the buffer is just 224,288 bytes but 200,000 bytes should be garbage collected now...\n");
+    printf("So there should be enough memory to allocate 300,000 bytes to the user\n");
+    id3 = insertObject(300000);
+
+    printf("\n>>>\nThe number of objects still in use should now be 2 (because another object was created after garbage collection)...\n");
+    printf("The number of bytes in use now should be 400,000...\n");
+    printf("The available memory in the buffer now should be 124,288 bytes...\n<<<\n");
+    dumpPool();
+
+    printf("\nRequesting space for 10,000 Double values from the buffer...\n");
+    printf("So 80,000 bytes should now be used up from the buffer, the buffer should have 44,288 bytes left.\n\n");
+
+    id4 = insertObject(80000);
+    double *doublePtr = (double *)retrieveObject(id4);
+    *doublePtr = 57.24681357;
+
+    printf("The double value contained by object with id4 is: %lf\n", *doublePtr);
+
+    printf("\nDeleting the object with id = 1 from the buffer (100,000 bytes marked as garbage)...\n");
+    dropReference(id1);
+    dumpPool();
+
+    printf("\nRequesting space for 64,000 characters from the buffer...\n");
+    printf("The space left in the buffer is just 44,288 bytes but 100,000 bytes should be garbage collected now...\n");
+    printf("So there should be enough memory to allocate 64,000 bytes to the user\n");
+    id5 = insertObject(64000);
+
+    printf("\n>>>\nThe number of objects still in use should be 3...\n");
+    printf("The number of bytes in use now should be 444,000...\n");
+    printf("The available memory in the buffer now should be 80,288 bytes...\n<<<\n");
+    dumpPool();
+
+    printf("--- DESTROYING THE MEMORY POOL ---\n\n");
+    destroyPool();
+
+    fprintf(stderr, "---\n");
+    printf("\nEnd of Processing\n");
+    return 0;
 }
