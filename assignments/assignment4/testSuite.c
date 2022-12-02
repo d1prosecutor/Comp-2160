@@ -164,6 +164,12 @@ int main(int argc, char *argv[])
     id2 = insertObject(200000);
     dumpPool();
 
+    printf("\nInserting a Long number to test that data in use remains intact after garbage collection\n");
+    int longId = insertObject(8);
+    long *longPtr = (long *)retrieveObject(longId);
+    *longPtr = 24681359;
+    printf("The Long number inserted is: %li\n", *longPtr);
+
     printf("\nDeleting the object with id = 2 from the buffer (200,000 bytes marked as garbage)...\n");
     dropReference(id2);
     dumpPool();
@@ -172,6 +178,10 @@ int main(int argc, char *argv[])
     printf("The space left in the buffer is just 224,288 bytes but 200,000 bytes should be garbage collected now...\n");
     printf("So there should be enough memory to allocate 300,000 bytes to the user\n");
     id3 = insertObject(300000);
+
+    printf("\nTesting that the Long number which was in use in the previous buffer still remains after garbage collection...\n");
+    longPtr = (long *)retrieveObject(longId);
+    printf("The Long number that was inserted is: %li\n", *longPtr);
 
     printf("\n>>>\nThe number of objects still in use should now be 2 (because another object was created after garbage collection)...\n");
     printf("The number of bytes in use now should be 400,000...\n");

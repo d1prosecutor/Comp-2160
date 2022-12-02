@@ -291,7 +291,7 @@ void dumpPool()
 
         printf("Block ID: %lu\n", curr->referenceID);
         printf("Starting Address: %lu\n", curr->startAddress);
-        printf("Block Size: %lu bytes\n", curr->numBytes);
+        printf("Block Size: %lu bytes\n\n", curr->numBytes);
 
         curr = curr->next;
     }
@@ -360,18 +360,15 @@ static void copyMemBlock(void *emptyMemPool, Node *memBlock)
     unsigned char *addressToCopy = &(heapMemory.currentBuffer[memBlock->startAddress]);
     unsigned char *tempEmptyPool = (unsigned char *)emptyMemPool;
 
-    Ref index = 0;
-    while (index < memBlock->numBytes)
-    {
-        tempEmptyPool[index] = addressToCopy[index];
-        index++;
-    }
-
     // Update the start address of each node
     memBlock->startAddress = heapMemory.freePtr;
 
-    // Set the free pointer to point to the next available memory address to insert into
-    heapMemory.freePtr = heapMemory.freePtr + index;
+    Ref index = 0;
+    while (index < memBlock->numBytes)
+    {
+        tempEmptyPool[heapMemory.freePtr++] = addressToCopy[index];
+        index++;
+    }
 
     checkState();
 }
