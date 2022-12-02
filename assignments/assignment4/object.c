@@ -28,16 +28,16 @@ struct MEMORYPOOL
 };
 typedef struct MEMORYPOOL memPool;
 
-/*******************
+/************************************************************
  * PRIVATE FUNCTIONS
- ******************/
+ ***********************************************************/
 static void compact();
 static void copyMemBlock(void *emptyMemPool, Node *memBlock);
 static void checkState();
 
-/******************
+/*******************************
  * GLOBAL VARIABLES
- *****************/
+ *******************************/
 static memPool heapMemory;
 static Ref numBytesCollected = 0;
 
@@ -53,6 +53,8 @@ void initPool()
     heapMemory.buffer2 = (unsigned char *)malloc(MEMORY_SIZE);
     heapMemory.currentBuffer = heapMemory.buffer1;
     heapMemory.freePtr = 0;
+
+    checkState();
 }
 
 // This function trys to allocate a block of given size from our buffer.
@@ -64,64 +66,78 @@ Ref insertObject(const int size)
 {
     Ref refResult = NULL_REF;
 
-    // If there's no heap memory, compact first then try to allocate memory
-    if (heapMemory.freePtr + size >= MEMORY_SIZE)
+    // Verify that the size is within the bounds
+    assert(size > 0 && size < MEMORY_SIZE);
+
+    if (size > 0 && size < MEMORY_SIZE)
     {
-        assert(heapMemory.freePtr + size >= MEMORY_SIZE);
-
-        // Collect garbage if there's not enough space to insert a new Item
-        compact();
-    }
-
-    // allocate memory in the heap if there's enough space
-    if (heapMemory.freePtr + size < MEMORY_SIZE)
-    {
-        // If there is still memory avaiable to allocate
-        assert(heapMemory.freePtr + size < MEMORY_SIZE);
-
-        Node *curr = heapMemory.top;
-        Node *prev = NULL;
-
-        // Find the location to insert the new allocated memory
-        while (NULL != curr)
+        // If there's no heap memory, compact first then try to allocate memory
+        if (heapMemory.freePtr + size >= MEMORY_SIZE)
         {
-            prev = curr;
-            curr = curr->next;
+            assert(heapMemory.freePtr + size >= MEMORY_SIZE);
+
+            // Collect garbage if there's not enough space to insert a new Item
+            compact();
+            checkState();
         }
 
-        // Making a new Node for the linked list
-        Node *newNode = (Node *)malloc(sizeof(Node));
-
-        assert(NULL != newNode);
-        if (NULL != newNode)
+        // allocate memory in the heap if there's enough space
+        if (heapMemory.freePtr + size < MEMORY_SIZE)
         {
-            // Initialize the member variables for the new Node
-            newNode->numBytes = size;
-            newNode->startAddress = heapMemory.freePtr;
-            newNode->refCount = 1; // number of objects pointing to this address
-            newNode->referenceID = heapMemory.numNodes++;
-            newNode->next = NULL; // The next node will always be null since insertion is occuring at the end
+            // If there is still memory avaiable to allocate
+            assert(heapMemory.freePtr + size < MEMORY_SIZE);
 
-            if (NULL == prev)
+            Node *curr = heapMemory.top;
+            Node *prev = NULL;
+
+            // Find the location to insert the new allocated memory
+            while (NULL != curr)
             {
-                // Insert at the top as the only element if the list is empty
-                heapMemory.top = newNode;
-            }
-            else
-            {
-                // Insert at the end of the list if there are existing elements
-                prev->next = newNode;
+                prev = curr;
+                curr = curr->next;
             }
 
-            // Shift the position of the free memory pointer to point to the next available space
-            heapMemory.freePtr += size;
+            // Making a new Node for the linked list
+            Node *newNode = (Node *)malloc(sizeof(Node));
 
-            refResult = newNode->referenceID;
+            assert(NULL != newNode);
+            if (NULL != newNode)
+            {
+                // Initialize the member variables for the new Node
+                newNode->numBytes = size;
+                newNode->startAddress = heapMemory.freePtr;
+                newNode->refCount = 1; // number of objects pointing to this address
+                newNode->referenceID = heapMemory.numNodes++;
+                newNode->next = NULL; // The next node will always be null since insertion is occuring at the end
 
-            // assert that the memory now contains at least one element
-            assert(NULL != heapMemory.top);
+                if (NULL == prev)
+                {
+                    // Insert at the top as the only element if the list is empty
+                    heapMemory.top = newNode;
+
+                    // assert that the memory was allocated
+                    assert(heapMemory.top->numBytes == size);
+                }
+                else
+                {
+                    // Insert at the end of the list if there are existing elements
+                    prev->next = newNode;
+
+                    // assert that the memory was allocated
+                    assert(prev->next->numBytes == size);
+                }
+
+                // Shift the position of the free memory pointer to point to the next available space
+                heapMemory.freePtr += size;
+
+                refResult = newNode->referenceID;
+
+                // assert that the memory now contains at least one element
+                assert(NULL != heapMemory.top);
+            }
         }
     }
+    checkState();
 
     return refResult;
 }
@@ -134,19 +150,24 @@ void *retrieveObject(const Ref ref)
 
     Node *curr = heapMemory.top;
 
-    assert(NULL != curr);
-    while ((NULL != curr) && objectNotFound)
+    // assert that the reference passed in is valid
+    assert(ref > 0);
+    if (ref > 0)
     {
-        if (ref == curr->referenceID)
+        assert(NULL != curr);
+        while ((NULL != curr) && objectNotFound)
         {
-            assert(ref == curr->referenceID);
+            checkState();
+            if (ref == curr->referenceID)
+            {
+                assert(ref == curr->referenceID);
 
-            result = (void *)(&heapMemory.currentBuffer[curr->startAddress]);
-            objectNotFound = 0;
+                result = (void *)(&heapMemory.currentBuffer[curr->startAddress]);
+                objectNotFound = 0;
+            }
+            curr = curr->next;
         }
-        curr = curr->next;
     }
-
     return result;
 }
 
@@ -157,17 +178,23 @@ void addReference(const Ref ref)
 
     Node *curr = heapMemory.top;
 
-    assert(NULL != curr);
-    while ((NULL != curr) && objectNotFound)
+    // assert that the reference passed in is valid
+    assert(ref > 0);
+    if (ref > 0)
     {
-        if (ref == curr->referenceID)
+        assert(NULL != curr);
+        while ((NULL != curr) && objectNotFound)
         {
-            assert(ref == curr->referenceID);
+            checkState();
+            if (ref == curr->referenceID)
+            {
+                assert(ref == curr->referenceID);
 
-            curr->refCount++;
-            objectNotFound = 0;
+                curr->refCount++;
+                objectNotFound = 0;
+            }
+            curr = curr->next;
         }
-        curr = curr->next;
     }
 }
 
@@ -179,40 +206,46 @@ void dropReference(const Ref ref)
     Node *curr = heapMemory.top;
     Node *prev = NULL;
 
-    assert(NULL != curr);
-    while ((NULL != curr) && objectNotFound)
+    // assert that the reference passed in is valid
+    assert(ref > 0);
+    if (ref > 0)
     {
-        if (ref == curr->referenceID)
+        assert(NULL != curr);
+        while ((NULL != curr) && objectNotFound)
         {
-            assert(ref == curr->referenceID);
-
-            curr->refCount--;
-            objectNotFound = 0;
-
-            // If there are no more objects pointing to that address, unlink it from the list
-            if (curr->refCount == 0)
+            checkState();
+            if (ref == curr->referenceID)
             {
-                assert(curr->refCount == 0);
+                assert(ref == curr->referenceID);
 
-                // Save the number of bytes of the garbage node
-                numBytesCollected += curr->numBytes;
+                curr->refCount--;
+                objectNotFound = 0;
 
-                if (prev)
+                // If there are no more objects pointing to that address, unlink it from the list
+                if (curr->refCount == 0)
                 {
-                    // If the node to unlink is not at the head of the list
-                    prev->next = curr->next;
-                }
-                else
-                {
-                    // If the node to unlink is the first element of the list
-                    heapMemory.top = curr->next;
+                    assert(curr->refCount == 0);
+
+                    // Save the number of bytes of the garbage node
+                    numBytesCollected += curr->numBytes;
+
+                    if (prev)
+                    {
+                        // If the node to unlink is not at the head of the list
+                        prev->next = curr->next;
+                    }
+                    else
+                    {
+                        // If the node to unlink is the first element of the list
+                        heapMemory.top = curr->next;
+                    }
                 }
             }
-        }
-        else
-        {
-            prev = curr;
-            curr = curr->next;
+            else
+            {
+                prev = curr;
+                curr = curr->next;
+            }
         }
     }
 }
@@ -249,6 +282,8 @@ void dumpPool()
 {
     Node *curr = heapMemory.top;
 
+    checkState();
+
     printf("\n------ BLOCK INFO ------\n");
     while (NULL != curr)
     {
@@ -269,6 +304,7 @@ static void compact()
 
     // Check to see which memory pool is filled and which one should be copied into
     unsigned char *emptyPool;
+
     if (heapMemory.currentBuffer == heapMemory.buffer1)
     {
         emptyPool = heapMemory.buffer2;
@@ -283,6 +319,9 @@ static void compact()
 
     int numExistingObjects = 0;
     Ref numExistingBytes = 0;
+
+    checkState();
+
     while (NULL != currNode)
     {
         assert(NULL != currNode);
@@ -309,6 +348,8 @@ static void compact()
 
     // Reset the number of bytes collected
     numBytesCollected = 0;
+
+    checkState();
 }
 
 /*
@@ -331,6 +372,8 @@ static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 
     // Set the free pointer to point to the next available memory address to insert into
     heapMemory.freePtr = heapMemory.freePtr + index;
+
+    checkState();
 }
 
 static void checkState()

@@ -2,7 +2,7 @@
 # insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 
 CC = clang++
-CFLAGS = -g -Wall -DNDEBUG
+CFLAGS = -g -Wall #-DNDEBUG
 OBJ = ObjectManager.o
 HDR = ObjectManager.h
 MAIN = testSuite.c

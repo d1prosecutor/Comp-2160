@@ -88,6 +88,21 @@ int main(int argc, char *argv[])
     printf("\nThere should be FOUR existing distinct blocks (Objects) in the memory pool.\n");
     dumpPool();
 
+    printf("\nTrying to request for memory which is Invalid...\n");
+    id5 = insertObject(-100000);
+    printf("\nThe return value should be a null reference...\n");
+    printf("The Object reference returned is: %d\n", id5);
+
+    printf("\nTrying to request for memory which is larger than the buffer...\n");
+    id5 = insertObject(600000);
+    printf("\nThe return value should be a null reference...\n");
+    printf("The Object reference returned is: %d\n", id5);
+
+    printf("\nTrying to Retrieve the address of an invalid Object...\n");
+    char *invalid = (char *)retrieveObject(0);
+    printf("\nThe return value should be null...\n");
+    printf("The memory address returned is: %s\n", invalid);
+
     //-------------------------------------------------
     printf("\n---TESTING ADD AND DROP REFERENCE---\n");
     //-------------------------------------------------
