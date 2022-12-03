@@ -1,0 +1,65 @@
+Set Trial 1 (EqualFalse)[1 mark]
+-----------
+
+Almost every test, regardless of operation, fails. Checking the validity of an
+empty set, where a set is created but we never insert an item, fails. As such,
+either set creation or equality testing fails. Given that newSet() returns a
+valid pointer and that is the only indicator we have for success/failure, I
+would tend to think the problem is with equals(). Confirming the hypothesis that
+newSet() is correct would be that the testNotEqual tests succeed.
+
+
+Set Trial 2 (findPrevLessEqual)[2 marks]
+-----------
+
+Inserting returns a successful insert when adding a duplicate item, thus
+implying that the set has duplicates. We have a corrupted set as soon as we try
+to insert a duplicate and all subsequent tests with that set fail.
+
+We are also unable to correctly remove an item that is known to be in the set.
+Note that the subsequent remove test failures are due to the cascading expected
+set values all being wrong after a remove operation unexpectedly fails.
+
+But there's only one bug. Does this mean the insert is causing problems with the
+remove? Wouldn't we see that in all the other tests, where we do inserts first?
+But those tests never try to insert duplicates...
+
+
+Set Trial 3 (DiffLessEqual)[2 marks]
+-----------
+
+Disjoint sets fail when the second set is empty but not when the first (or both)
+is empty. Disjoint further fails when both sets contain items but are disjoint.
+So, disjoint only fails when the sets are in fact disjoint but there's something
+special that allows it to succeed when the first set is empty. Strange. Must
+have something to do with how disjoint is implemented.
+
+In addition, symmetric difference fails when the two sets have any common items.
+
+But there's only one bug. How are these two related? It doesn't really make
+sense, not when all you have is the interface...
+
+Set Trial 4 (DiffOps_IntersectionErro)[2 mark]
+-----------
+
+Disjoint sets fail in *almost* the same way as in trial 3. Now disjoint works
+with all empty set tests but fails to correctly identify disjoint sets
+containing items. Obviously this is different from trial 5 but what makes for
+such a subtle difference? 
+
+Same as trial 3, symmetric difference fails when the two sets have any common
+items.
+
+
+Set Trial 5 (Leak)[1 mark]
+-----------
+
+There is a memory leak when checking if sets are disjoint. Note that once we
+detect a memory leak we'll keep seeing it in subsequent checks -- memory leaks
+don't go away so the first instance of failure defines where it happened.
+
+
+
+Not knowing the implementation really hampers our ability to figure things out.
+Which is why giving a clear explanation is so important: it gives the developer
+the best chance to reproduce the problem and fix the bug.

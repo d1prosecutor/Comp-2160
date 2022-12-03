@@ -1,0 +1,48 @@
+# a sample Makefile, modified for Lab 4
+
+CC = clang
+CFLAGS = -g -Wall # -DNDEBUG
+
+PROG = lab4
+HDRS = common.h
+SRCS = common.c provinces.c industries.c incomes.c sum.c find.c commands.c lab4main.c
+
+OBJDIR = object
+OBJS = $(OBJDIR)/common.o $(OBJDIR)/provinces.o $(OBJDIR)/industries.o $(OBJDIR)/incomes.o $(OBJDIR)/sum.o $(OBJDIR)/find.o $(OBJDIR)/commands.o $(OBJDIR)/lab4main.o
+
+# compiling rules
+
+# WARNING: *must* have a tab before each definition
+$(PROG): $(OBJDIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(PROG)
+
+$(OBJDIR)/common.o: common.c $(HDRS)
+	$(CC) $(CFLAGS) -c common.c -o $(OBJDIR)/common.o
+
+$(OBJDIR)/provinces.o: provinces.c $(HDRS) province_struct.h provinces.h
+	$(CC) $(CFLAGS) -c provinces.c -o $(OBJDIR)/provinces.o
+
+$(OBJDIR)/industries.o: industries.c $(HDRS) industry_struct.h industries.h
+	$(CC) $(CFLAGS) -c industries.c -o $(OBJDIR)/industries.o
+
+$(OBJDIR)/incomes.o: incomes.c $(HDRS) income_struct.h incomes.h
+	$(CC) $(CFLAGS) -c incomes.c -o $(OBJDIR)/incomes.o
+
+$(OBJDIR)/sum.o: sum.c $(HDRS) province_struct.h industry_struct.h income_struct.h sum.h
+	$(CC) $(CFLAGS) -c sum.c -o $(OBJDIR)/sum.o
+
+$(OBJDIR)/find.o: find.c $(HDRS) province_struct.h income_struct.h find.h
+	$(CC) $(CFLAGS) -c find.c -o $(OBJDIR)/find.o
+
+$(OBJDIR)/commands.o: find.c $(HDRS) sum.h find.h commands.h
+	$(CC) $(CFLAGS) -c commands.c -o $(OBJDIR)/commands.o
+
+$(OBJDIR)/lab4main.o: lab4main.c $(HDRS) provinces.h industries.h incomes.h commands.h
+	$(CC) $(CFLAGS) -c lab4main.c -o $(OBJDIR)/lab4main.o
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
+
+clean:
+	rm -f $(PROG) $(OBJS)
+#	rmdir $(OBJDIR)

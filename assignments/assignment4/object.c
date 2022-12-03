@@ -392,6 +392,9 @@ static void checkState()
     // assert that the number of bytes being used from the memory pool is within the valid range
     assert(currNumBytes >= 0 && currNumBytes < MEMORY_SIZE);
 
+    // assert that the buffers are still valid
+    assert(NULL != heapMemory.buffer1 && NULL != heapMemory.buffer2);
+
     // assert that the current buffer is always pointing to one of the two available buffers
     assert(heapMemory.currentBuffer == heapMemory.buffer1 || heapMemory.currentBuffer == heapMemory.buffer2);
 }
