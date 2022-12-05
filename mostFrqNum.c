@@ -16,7 +16,6 @@ const int MAX_UNIQUE_VALUES = 100000;
 
 void printMostFrequent(Frequency mostFrquent[], int size)
 { // if no input provided
-
     if (size == 0)
     {
         printf("No value is entered");
