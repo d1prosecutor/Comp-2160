@@ -69,10 +69,10 @@ Ref insertObject(const int size)
     Ref refResult = NULL_REF;
 
     // Verify that the size is within the bounds
-    assert(size > 0 && size < MEMORY_SIZE);
-
     if (size > 0 && size < MEMORY_SIZE)
     {
+        assert(size > 0 && size < MEMORY_SIZE);
+
         // If there's no heap memory, compact first then try to allocate memory
         if (heapMemory.freePtr + size >= MEMORY_SIZE)
         {
@@ -102,9 +102,9 @@ Ref insertObject(const int size)
             // Making a new Node for the linked list
             Node *newNode = (Node *)malloc(sizeof(Node));
 
-            assert(NULL != newNode);
             if (NULL != newNode)
             {
+                assert(NULL != newNode);
                 // Initialize the member variables for the new Node
                 newNode->numBytes = size;
                 newNode->startAddress = heapMemory.freePtr;
@@ -153,9 +153,10 @@ void *retrieveObject(const Ref ref)
     Node *curr = heapMemory.top;
 
     // assert that the reference passed in is valid
-    assert(ref > 0);
     if (ref > 0)
     {
+        assert(ref > 0);
+
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
         {
@@ -181,9 +182,10 @@ void addReference(const Ref ref)
     Node *curr = heapMemory.top;
 
     // assert that the reference passed in is valid
-    assert(ref > 0);
     if (ref > 0)
     {
+        assert(ref > 0);
+
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
         {
@@ -209,9 +211,10 @@ void dropReference(const Ref ref)
     Node *prev = NULL;
 
     // assert that the reference passed in is valid
-    assert(ref > 0);
     if (ref > 0)
     {
+        assert(ref > 0);
+
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
         {
