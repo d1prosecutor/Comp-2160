@@ -1,6 +1,7 @@
 #include "ObjectManager.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <assert.h>
 
 /********************
@@ -22,9 +23,9 @@ struct MEMORYPOOL
     Node *top;
     Ref numNodes;
     Ref freePtr;
-    unsigned char *buffer1;
-    unsigned char *buffer2;
-    unsigned char *currentBuffer;
+    uint8_t *buffer1;
+    uint8_t *buffer2;
+    uint8_t *currentBuffer;
 };
 typedef struct MEMORYPOOL memPool;
 
@@ -49,8 +50,8 @@ void initPool()
     // Initialize the member variables of the object manager
     heapMemory.top = NULL;
     heapMemory.numNodes = 1;
-    heapMemory.buffer1 = (unsigned char *)malloc(MEMORY_SIZE);
-    heapMemory.buffer2 = (unsigned char *)malloc(MEMORY_SIZE);
+    heapMemory.buffer1 = (uint8_t *)malloc(MEMORY_SIZE);
+    heapMemory.buffer2 = (uint8_t *)malloc(MEMORY_SIZE);
     heapMemory.currentBuffer = heapMemory.buffer1;
     heapMemory.freePtr = 0;
 
@@ -304,7 +305,7 @@ static void compact()
     Ref prevNumBytes = heapMemory.freePtr;
 
     // Check to see which memory pool is filled and which one should be copied into
-    unsigned char *emptyPool;
+    uint8_t *emptyPool;
 
     if (heapMemory.currentBuffer == heapMemory.buffer1)
     {
@@ -356,8 +357,8 @@ This method copies the contents of a memory block from a full buffer into an emp
 */
 static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 {
-    unsigned char *addressToCopy = &(heapMemory.currentBuffer[memBlock->startAddress]);
-    unsigned char *tempEmptyPool = (unsigned char *)emptyMemPool;
+    uint8_t *addressToCopy = &(heapMemory.currentBuffer[memBlock->startAddress]);
+    uint8_t *tempEmptyPool = (uint8_t *)emptyMemPool;
 
     // Update the start address of each node
     memBlock->startAddress = heapMemory.freePtr;
