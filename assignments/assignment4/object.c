@@ -48,12 +48,13 @@ FUNCTION IMPLEMENTATIONS
 void initPool()
 {
     // Initialize the member variables of the object manager
-    heapMemory.top = NULL;
-    heapMemory.numNodes = 1;
-    heapMemory.buffer1 = (uint8_t *)malloc(MEMORY_SIZE);
-    heapMemory.buffer2 = (uint8_t *)malloc(MEMORY_SIZE);
-    heapMemory.currentBuffer = heapMemory.buffer1;
-    heapMemory.freePtr = 0;
+    heapMemory = (memPool){
+        .top = NULL,
+        .numNodes = 1,
+        .buffer1 = (uint8_t *)malloc(MEMORY_SIZE),
+        .buffer2 = (uint8_t *)malloc(MEMORY_SIZE),
+        .currentBuffer = heapMemory.buffer1,
+        .freePtr = 0};
 
     checkState();
 }
