@@ -8,8 +8,15 @@ typedef struct FREQUENCY
 } Frequency;
 const int MAX_UNIQUE_VALUES = 100000;
 
+// typedef struct NODE
+// {
+//     char *item;
+//     struct NODE *next;
+// } Node, *Nodeptr;
+
 void printMostFrequent(Frequency mostFrquent[], int size)
 { // if no input provided
+
     if (size == 0)
     {
         printf("No value is entered");
@@ -33,7 +40,8 @@ void printMostFrequent(Frequency mostFrquent[], int size)
 }
 
 int main()
-{                                             // Declare array to store input
+{
+    // Declare array to store input
     Frequency mostFrquent[MAX_UNIQUE_VALUES]; // To hold how many unique characters entered
     int uniqueValueCount = 0;                 // Get user input until it finds end of line
     int input;

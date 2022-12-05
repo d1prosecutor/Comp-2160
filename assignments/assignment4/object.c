@@ -301,6 +301,7 @@ void dumpPool()
 static void compact()
 {
     Node *currNode = heapMemory.top;
+    Ref prevNumBytes = heapMemory.freePtr;
 
     // Check to see which memory pool is filled and which one should be copied into
     unsigned char *emptyPool;
@@ -318,7 +319,6 @@ static void compact()
     heapMemory.freePtr = 0;
 
     int numExistingObjects = 0;
-    Ref numExistingBytes = 0;
 
     checkState();
 
@@ -331,7 +331,6 @@ static void compact()
 
         // Save the details of the exisiting blocks
         numExistingObjects += currNode->refCount;
-        numExistingBytes += currNode->numBytes;
 
         currNode = currNode->next;
     }
@@ -341,9 +340,9 @@ static void compact()
 
     printf("\n--------------- GARBAGE COLLECTION STATISTIC ----------------\n");
     printf("Number of existing Objects after Garbage Collection: %d objects\n", numExistingObjects);
-    printf("Current number of Bytes in Use: %lu bytes\n", numExistingBytes);
+    printf("Current number of Bytes in Use: %lu bytes\n", heapMemory.freePtr);
     printf("Number of Bytes Collected: %lu bytes\n", numBytesCollected);
-    printf("Number of Bytes Available/Free: %lu bytes\n", MEMORY_SIZE - numExistingBytes);
+    printf("Number of Bytes Available/Free: %lu bytes\n", prevNumBytes - heapMemory.freePtr);
     printf("-------------------------------------------------------------\n\n");
 
     // Reset the number of bytes collected
