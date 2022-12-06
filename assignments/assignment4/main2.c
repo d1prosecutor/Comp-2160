@@ -7,12 +7,12 @@ struct ALF
 {
   int value;
   double d;
-  char buffer[1024*128];
+  char buffer[1024 * 128];
 };
 
 typedef struct ALF alf;
 
-int main( int argc, char *argv[] )
+int main(int argc, char *argv[])
 {
   initPool();
 

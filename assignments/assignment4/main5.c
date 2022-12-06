@@ -20,43 +20,42 @@ struct ALF
 
 typedef struct ALF alf;
 
-
-void subTester( Object<alf>& obj, Object<lucky> objects[] )
+void subTester(Object<alf> &obj, Object<lucky> objects[])
 {
   int i;
-  Object<alf> more[OBJECTS/4];
+  Object<alf> more[OBJECTS / 4];
 
-  for ( i=0 ; i<OBJECTS ; i++ )
-    fprintf( stderr, "lucky object %d: %d %d\n", i, objects[i]->value1, objects[i]->value2 );
+  for (i = 0; i < OBJECTS; i++)
+    fprintf(stderr, "lucky object %d: %d %d\n", i, objects[i]->value1, objects[i]->value2);
 
   obj->value = 2.71719;
 }
 
-void tester( int stdPrint )
+void tester(int stdPrint)
 {
   int i;
   Object<alf> test;
   Object<lucky> objects[OBJECTS];
 
-  for ( i=0 ; i<OBJECTS ; i++ )
+  for (i = 0; i < OBJECTS; i++)
   {
     objects[i]->value1 = i;
-    objects[i]->value2 = i*2;
+    objects[i]->value2 = i * 2;
   }
 
   test->value = 3.14159;
-  
-  if ( stdPrint )
-    fprintf( stdout, "before: %2.5f\n", test->value );
-  else
-    fprintf( stderr, "before: %2.5f\n", test->value );
 
-  subTester( test, objects );
-
-  if ( stdPrint )
-    fprintf( stdout, "after: %2.5f\n", test->value );
+  if (stdPrint)
+    fprintf(stdout, "before: %2.5f\n", test->value);
   else
-    fprintf( stderr, "after: %2.5f\n", test->value );
+    fprintf(stderr, "before: %2.5f\n", test->value);
+
+  subTester(test, objects);
+
+  if (stdPrint)
+    fprintf(stdout, "after: %2.5f\n", test->value);
+  else
+    fprintf(stderr, "after: %2.5f\n", test->value);
 }
 
 void initialTester()
@@ -65,22 +64,22 @@ void initialTester()
   // lets keep a bunch of object around for a while...
   Object<alf> objects[OBJECTS];
 
-  for ( i=0 ; i<5 ; i++ )
-    tester( (i==4) );
+  for (i = 0; i < 5; i++)
+    tester((i == 4));
 }
 
-int main( int argc, char *argv[] )
+int main(int argc, char *argv[])
 {
   int i;
-  
+
   initPool();
 
-  for ( i=0 ; i<4 ; i++ )
+  for (i = 0; i < 4; i++)
   {
     initialTester();
   }
-  
+
   destroyPool();
-  
+
   return 0;
 }
