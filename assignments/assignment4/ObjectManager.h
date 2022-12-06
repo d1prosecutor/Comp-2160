@@ -1,12 +1,12 @@
-//This is the interface for the object manager.
-//Note: The terms object and block are used interchangably below.
+// This is the interface for the object manager.
+// Note: The terms object and block are used interchangably below.
 
 #ifndef _OBJECT_MANAGER_H
 #define _OBJECT_MANAGER_H
 
 // The number of bytes of memory we have access to -- put here so everyone's consistent.
 #ifndef MEMORY_SIZE
-#define MEMORY_SIZE 1024*512
+#define MEMORY_SIZE 1024 * 512
 #endif
 
 #define NULL_REF 0
@@ -21,17 +21,16 @@ typedef unsigned long Ref;
 // We always assume that an insert always creates a new object...
 // On success it returns the reference number for the block of memory allocated for the object.
 // On failure it returns NULL_REF (0)
-Ref insertObject( const int size );
+Ref insertObject(const int size);
 
 // returns a pointer to the object being requested given by the reference id
-void *retriev
-
+void *retrieveObject(const Ref ref);
 
 // update our index to indicate that we have another reference to the given object
-void addReference( const Ref ref );
+void addReference(const Ref ref);
 
 // update our index to indicate that a reference is gone
-void dropReference( const Ref ref );
+void dropReference(const Ref ref);
 
 // initialize the object manager
 void initPool();
