@@ -51,10 +51,13 @@ void initPool()
     heapMemory = (memPool){
         .top = NULL,
         .numNodes = 1,
+        .freePtr = 0,
         .buffer1 = (uint8_t *)malloc(MEMORY_SIZE),
         .buffer2 = (uint8_t *)malloc(MEMORY_SIZE),
-        .currentBuffer = heapMemory.buffer1,
-        .freePtr = 0};
+    };
+
+    // Initialize the current buffer to the first buffer
+    heapMemory.currentBuffer = heapMemory.buffer1,
 
     checkState();
 }
@@ -165,7 +168,7 @@ void *retrieveObject(const Ref ref)
             {
                 assert(ref == curr->referenceID);
 
-                result = (void *)(&heapMemory.currentBuffer[curr->startAddress]);
+                result = (void *)&(heapMemory.currentBuffer[curr->startAddress]);
                 objectNotFound = 0;
             }
             curr = curr->next;
