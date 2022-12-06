@@ -69,12 +69,13 @@ void initPool()
 // On failure it returns NULL_REF (0)
 Ref insertObject(const int size)
 {
+    // Verify that the size is within the bounds
+    assert(size > 0 && size < MEMORY_SIZE);
+
     Ref refResult = NULL_REF;
 
-    // Verify that the size is within the bounds
     if (size > 0 && size < MEMORY_SIZE)
     {
-        assert(size > 0 && size < MEMORY_SIZE);
 
         // If there's no heap memory, compact first then try to allocate memory
         if (heapMemory.freePtr + size >= MEMORY_SIZE)
@@ -104,10 +105,10 @@ Ref insertObject(const int size)
 
             // Making a new Node for the linked list
             Node *newNode = (Node *)malloc(sizeof(Node));
+            assert(NULL != newNode);
 
             if (NULL != newNode)
             {
-                assert(NULL != newNode);
                 // Initialize the member variables for the new Node
                 newNode->numBytes = size;
                 newNode->startAddress = heapMemory.freePtr;
@@ -150,15 +151,16 @@ Ref insertObject(const int size)
 // returns a pointer to the object being requested given by the reference id
 void *retrieveObject(const Ref ref)
 {
+    // assert that the reference passed in is valid
+    assert(ref > 0);
+
     int objectNotFound = 1; // boolean variable for searching for the object
     void *result = NULL;
 
     Node *curr = heapMemory.top;
 
-    // assert that the reference passed in is valid
     if (ref > 0)
     {
-        assert(ref > 0);
 
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
@@ -180,14 +182,15 @@ void *retrieveObject(const Ref ref)
 // update our index to indicate that we have another reference to the given object
 void addReference(const Ref ref)
 {
+    // assert that the reference passed in is valid
+    assert(ref > 0);
+
     int objectNotFound = 1; // boolean variable for searching for the object
 
     Node *curr = heapMemory.top;
 
-    // assert that the reference passed in is valid
     if (ref > 0)
     {
-        assert(ref > 0);
 
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
@@ -208,15 +211,16 @@ void addReference(const Ref ref)
 // update our index to indicate that a reference is gone
 void dropReference(const Ref ref)
 {
+    // assert that the reference passed in is valid
+    assert(ref > 0);
+
     int objectNotFound = 1; // boolean variable for searching for the object
 
     Node *curr = heapMemory.top;
     Node *prev = NULL;
 
-    // assert that the reference passed in is valid
     if (ref > 0)
     {
-        assert(ref > 0);
 
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
@@ -289,10 +293,12 @@ void destroyPool()
 void dumpPool()
 {
     Node *curr = heapMemory.top;
+    assert(NULL != curr);
 
     checkState();
 
     printf("\n------ BLOCK INFO ------\n");
+
     while (NULL != curr)
     {
         assert(NULL != curr);
@@ -386,18 +392,26 @@ static void checkState()
     assert(heapMemory.freePtr >= 0 && heapMemory.freePtr < MEMORY_SIZE);
 
     Node *temp = heapMemory.top;
-    Ref currNumBytes = 0;
+
+    // Uncomment if assertions are enabled
+    // Ref currNumBytes = 0;
     while (NULL != temp)
     {
         // Verify that the every Node in the linked list is still being used(pointed to)
+        // and has a valid allocated memory
         assert(temp->refCount > 0);
+        assert(temp->numBytes >= 0 && temp->numBytes < MEMORY_SIZE);
 
-        currNumBytes += temp->numBytes;
+        // Uncomment if assertions are enabled
+        // currNumBytes += temp->numBytes;
+
         temp = temp->next;
     }
 
     // assert that the number of bytes being used from the memory pool is within the valid range
-    assert(currNumBytes >= 0 && currNumBytes < MEMORY_SIZE);
+    // Commented out because the variable 'currNumBytes' will give a warning: "variable set but never used"
+    // should be uncommented only when assertions are on so as not to get the warning
+    // assert(currNumBytes >= 0 && currNumBytes < MEMORY_SIZE);
 
     // assert that the buffers are still valid
     assert(NULL != heapMemory.buffer1 && NULL != heapMemory.buffer2);
