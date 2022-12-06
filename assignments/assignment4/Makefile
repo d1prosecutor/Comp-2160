@@ -13,8 +13,8 @@ all: $(PROG)
 $(PROG): $(MAIN) $(HDR) $(OBJ)
 	$(CC) $(CFLAGS) $(MAIN) $(OBJ) -o $(PROG)
 
-$(OBJ): object.c $(HDR)
-		$(CC) $(CFLAGS) -c object.c -o $(OBJ)
+$(OBJ): Object.c $(HDR)
+		$(CC) $(CFLAGS) -c Object.c -o $(OBJ)
 
 clean: 
 	rm $(OBJ) $(PROG) -f
