@@ -388,6 +388,12 @@ static void copyMemBlock(void *emptyMemPool, Node *memBlock)
 
 static void checkState()
 {
+    // assert that the buffers are still valid
+    assert(NULL != heapMemory.buffer1 && NULL != heapMemory.buffer2);
+
+    // assert that the current buffer is always pointing to one of the two available buffers
+    assert(heapMemory.currentBuffer == heapMemory.buffer1 || heapMemory.currentBuffer == heapMemory.buffer2);
+
     // Verify that the free pointer is still within the size limit
     assert(heapMemory.freePtr >= 0 && heapMemory.freePtr < MEMORY_SIZE);
 
@@ -412,10 +418,4 @@ static void checkState()
     // Commented out because the variable 'currNumBytes' will give a warning: "variable set but never used"
     // should be uncommented only when assertions are on so as not to get the warning
     // assert(currNumBytes >= 0 && currNumBytes < MEMORY_SIZE);
-
-    // assert that the buffers are still valid
-    assert(NULL != heapMemory.buffer1 && NULL != heapMemory.buffer2);
-
-    // assert that the current buffer is always pointing to one of the two available buffers
-    assert(heapMemory.currentBuffer == heapMemory.buffer1 || heapMemory.currentBuffer == heapMemory.buffer2);
 }
