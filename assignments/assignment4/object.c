@@ -349,8 +349,8 @@ static void compact()
     printf("\n--------------- GARBAGE COLLECTION STATISTIC ----------------\n");
     printf("Number of existing Objects after Garbage Collection: %d objects\n", numExistingObjects);
     printf("Current number of Bytes in Use: %lu bytes\n", heapMemory.freePtr);
-    printf("Number of Bytes Collected: %lu bytes\n", numBytesCollected);
-    printf("Number of Bytes Available/Free: %lu bytes\n", prevNumBytes - heapMemory.freePtr);
+    printf("Number of Bytes Collected: %lu bytes\n", prevNumBytes - heapMemory.freePtr);
+    printf("Number of Bytes Available/Free: %lu bytes\n", MEMORY_SIZE - heapMemory.freePtr);
     printf("-------------------------------------------------------------\n\n");
 
     // Reset the number of bytes collected
