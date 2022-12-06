@@ -24,7 +24,8 @@ typedef unsigned long Ref;
 Ref insertObject( const int size );
 
 // returns a pointer to the object being requested given by the reference id
-void *retrieveObject( const Ref ref );
+void *retriev
+
 
 // update our index to indicate that we have another reference to the given object
 void addReference( const Ref ref );
