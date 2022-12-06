@@ -17,23 +17,23 @@ void tester()
 
   test->value = 5;
   test2->value = 10;
-  fprintf( stdout, "%d\n", test->value );
+  fprintf(stdout, "%d\n", test->value);
   test = test2;
-  fprintf( stdout, "%d\n", test->value );
+  fprintf(stdout, "%d\n", test->value);
   test2 = NULL;
-  fprintf( stdout, "%d\n", test2->value );
+  fprintf(stdout, "%d\n", test2->value);
 }
 
-int main( int argc, char *argv[] )
+int main(int argc, char *argv[])
 {
   int i;
-  
+
   initPool();
 
-  for ( i=0 ; i<100 ; i++ )
+  for (i = 0; i < 100; i++)
     tester();
 
   destroyPool();
-  
+
   return 0;
 }
