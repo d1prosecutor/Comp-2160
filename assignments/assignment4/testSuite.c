@@ -1,3 +1,12 @@
+/**************************************************************************************
+ * NAME: Chukwunaza Chukwuocha
+ * STUDENT NUMBER: 7928676
+ * COURSE: COMP 2160, SECTION: A01
+ * INSTRUCTOR: Saulo dos Santos
+ * ASSIGNMENT: Assignment 4
+ *
+ * REMARKS: Implements Tests for the functions provided by the Object Manager interface
+ **************************************************************************************/
 #include "ObjectManager.h"
 #include <stdio.h>
 #include <string.h>

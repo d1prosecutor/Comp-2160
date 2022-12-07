@@ -1,3 +1,13 @@
+/***************************************************************************************
+ * NAME: Chukwunaza Chukwuocha
+ * STUDENT NUMBER: 7928676
+ * COURSE: COMP 2160, SECTION: A01
+ * INSTRUCTOR: Saulo dos Santos
+ * ASSIGNMENT: Assignment 4
+ *
+ * REMARKS: Implements a memory pool which mimics the heap memory in languages like Java
+ ***************************************************************************************/
+
 #include "ObjectManager.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -187,12 +197,11 @@ void addReference(const Ref ref)
 
     int objectNotFound = 1; // boolean variable for searching for the object
 
-    Node *curr = heapMemory.top;
-
     if (ref > 0)
     {
-
+        Node *curr = heapMemory.top;
         assert(NULL != curr);
+
         while ((NULL != curr) && objectNotFound)
         {
             checkState();
@@ -216,11 +225,10 @@ void dropReference(const Ref ref)
 
     int objectNotFound = 1; // boolean variable for searching for the object
 
-    Node *curr = heapMemory.top;
-    Node *prev = NULL;
-
     if (ref > 0)
     {
+        Node *curr = heapMemory.top;
+        Node *prev = NULL;
 
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
