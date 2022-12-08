@@ -167,7 +167,7 @@ Ref insertObject(const int size)
 }
 
 /************************************************************************************
- * insertObject
+ * retrieveObject
  *
  * PURPOSE: Returns a pointer to the object being requested given by the reference id
  *
@@ -189,7 +189,6 @@ void *retrieveObject(const Ref ref)
 
     if (ref > 0)
     {
-
         assert(NULL != curr);
         while ((NULL != curr) && objectNotFound)
         {
@@ -207,7 +206,7 @@ void *retrieveObject(const Ref ref)
     }
     else
     {
-        printf("The reference ID passed in is invalid.\n");
+        printf("The reference ID passed in is invalid (The object with ID:%lu does not exist).\n", ref);
         exit(1);
     }
 }
