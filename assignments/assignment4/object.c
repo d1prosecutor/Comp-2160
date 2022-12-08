@@ -204,6 +204,11 @@ void *retrieveObject(const Ref ref)
             curr = curr->next;
         }
     }
+    else
+    {
+        printf("The reference ID passed in is invalid.\n");
+        exit(1);
+    }
     return result;
 }
 
