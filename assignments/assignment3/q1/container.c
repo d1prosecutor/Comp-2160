@@ -484,3 +484,32 @@ static void validateList(Container *tempContainer, Node *currNode)
     // Check that the data of the node is valid
     assert(NULL != currNode->data);
 }
+
+void deletedup(Container *box)
+{
+    Node *head = box->top;
+    assert(head != NULL);
+    Node *first = head;
+    while (first != NULL)
+    {
+        assert(first != NULL);
+        Node *prev = first;
+        Node *second = prev->next;
+        while (second != NULL)
+        {
+            assert(second != NULL);
+            if (strcmp(first->data, second->data) == 0)
+            {
+                assert(strcmp(first->data, second->data) == 0);
+                prev->next = second->next;
+                second = prev->next;
+            }
+            else
+            {
+                prev = prev->next;
+                second = second->next;
+            }
+        }
+        first = first->next;
+    }
+}

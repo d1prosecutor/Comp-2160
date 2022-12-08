@@ -55,4 +55,6 @@ Boolean contains(Container *, char *);
 // Returns the size of the container (if it exists), or -1 if the container doesn't exist.
 int size(Container *);
 
+void deletedup(Container *box);
+
 #endif
