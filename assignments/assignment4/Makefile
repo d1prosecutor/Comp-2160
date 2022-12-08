@@ -5,7 +5,7 @@ CC = clang++
 CFLAGS = -g -Wall -DNDEBUG
 OBJ = ObjectManager.o
 HDR = ObjectManager.h
-MAIN = main4.c
+MAIN = main0.c
 PROG = ObjectManager
 
 all: $(PROG)
