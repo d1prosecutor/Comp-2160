@@ -393,7 +393,7 @@ int size(Container *tempContainer)
     return size;
 }
 
-/************************************************************************************
+/***********************************************************************************************
  * clear
  *
  * PURPOSE:  delete every items inside linkedList (but not the container itself)
@@ -404,7 +404,7 @@ int size(Container *tempContainer)
  *
  *  OUTPUT PARAMETERS:
  *      cleared: Returns if the the contents of the linked list was successfully cleared
- ************************************************************************************/
+ **********************************************************************************************/
 Boolean clear(Container *tempContainer)
 {
     Boolean cleared = false;

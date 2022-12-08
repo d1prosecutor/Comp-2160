@@ -72,11 +72,19 @@ void initPool()
     checkState();
 }
 
-// This function trys to allocate a block of given size from our buffer.
-// It will fire the garbage collector as required.
-// We always assume that an insert always creates a new object...
-// On success it returns the reference number for the block of memory allocated for the object.
-// On failure it returns NULL_REF (0)
+/******************************************************************************
+ * insertObject
+ *
+ * PURPOSE: This function trys to allocate a block of given size from my buffer.
+ *          It will fire the garbage collector as required.
+
+
+ * INPUT PARAMETERS:
+ *      size: The size of bytes to be allocated
+ *
+ *  OUTPUT PARAMETERS:
+ *      refResult: The reference number for the memory block allocated
+ *******************************************************************************/
 Ref insertObject(const int size)
 {
     // Verify that the size is within the bounds
@@ -158,7 +166,17 @@ Ref insertObject(const int size)
     return refResult;
 }
 
-// returns a pointer to the object being requested given by the reference id
+/************************************************************************************
+ * insertObject
+ *
+ * PURPOSE: Returns a pointer to the object being requested given by the reference id
+ *
+ * INPUT PARAMETERS:
+ *      ref: the reference ID for the object being requested
+ *
+ *  OUTPUT PARAMETERS:
+ *      result: a pointer to the object being requested given by the reference id
+ ************************************************************************************/
 void *retrieveObject(const Ref ref)
 {
     // assert that the reference passed in is valid
@@ -189,7 +207,15 @@ void *retrieveObject(const Ref ref)
     return result;
 }
 
-// update our index to indicate that we have another reference to the given object
+/************************************************************************
+ * addReference
+ *
+ * PURPOSE: update the reference count to indicate that another reference
+ *          was added to the given object
+ *
+ * INPUT PARAMETERS:
+ *      ref: the reference ID for the object being requested
+ ************************************************************************/
 void addReference(const Ref ref)
 {
     // assert that the reference passed in is valid
@@ -217,7 +243,15 @@ void addReference(const Ref ref)
     }
 }
 
-// update our index to indicate that a reference is gone
+/******************************************************************
+ * dropReference
+ *
+ * PURPOSE: update the reference count to indicate that a reference
+ *          was removed from the given object
+ *
+ * INPUT PARAMETERS:
+ *      ref: the reference ID for the object being requested
+ ******************************************************************/
 void dropReference(const Ref ref)
 {
     // assert that the reference passed in is valid
@@ -270,7 +304,12 @@ void dropReference(const Ref ref)
     }
 }
 
-// clean up the object manager (before exiting)
+/*******************************************************
+ * destroyPool
+ *
+ * PURPOSE: clean up the object manager (before exiting)
+ *
+ ******************************************************/
 void destroyPool()
 {
     // Free all the Nodes in the linked list
@@ -296,7 +335,13 @@ void destroyPool()
     heapMemory.currentBuffer = NULL;
 }
 
-// This function traverses the index and prints the info in each entry corresponding to a block of allocated memory.
+/******************************************************************************
+ * dumpPool
+ *
+ * PURPOSE: This function traverses the index and prints the info in each entry
+ *          corresponding to a block of allocated memory.
+ *
+ ******************************************************************************/
 // You should print the block's reference id, it's starting address, and it's size (in bytes).
 void dumpPool()
 {
@@ -319,6 +364,14 @@ void dumpPool()
     }
     printf("------------------------\n\n");
 }
+
+/***********************************************************************************
+ * compact
+ *
+ * PURPOSE: This function copies over the objects still in use into the empty buffer,
+ *          effectively freeing the memory taken up by the objects no longer in use
+ *
+ ***********************************************************************************/
 
 static void compact()
 {
@@ -373,6 +426,13 @@ static void compact()
     checkState();
 }
 
+/***************************************************************************************
+ * copyMemBlock
+ *
+ * PURPOSE: This helper function copies a the contents of a single memory block from one
+ *          buffer to another.
+ *
+ ***************************************************************************************/
 /*
 This method copies the contents of a memory block from a full buffer into an empty buffer
 */
@@ -394,6 +454,12 @@ static void copyMemBlock(void *emptyMemPool, Node *memBlock)
     checkState();
 }
 
+/******************************************************************************************
+ * checkState
+ *
+ * PURPOSE: This is the invariant on the object manager that checks that the state is valid
+ *
+ ******************************************************************************************/
 static void checkState()
 {
     // assert that the buffers are still valid
@@ -422,8 +488,10 @@ static void checkState()
         temp = temp->next;
     }
 
-    // assert that the number of bytes being used from the memory pool is within the valid range
-    // Commented out because the variable 'currNumBytes' will give a warning: "variable set but never used"
-    // should be uncommented only when assertions are on so as not to get the warning
+    /*
+     assert that the number of bytes being used from the memory pool is within the valid range
+     commented out because the variable 'currNumBytes' will give a warning: "variable set but never used"
+     should be uncommented only when assertions are on so as not to get the warning
+     */
     // assert(currNumBytes >= 0 && currNumBytes < MEMORY_SIZE);
 }
