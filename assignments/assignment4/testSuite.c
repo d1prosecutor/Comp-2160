@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     structure mixedDataType;
     mixedDataType.intVal = 500000;
     mixedDataType.doubleVal = 0.123456789;
-    mixedDataType.stringVal = "Hello, World!";
+    // mixedDataType.stringVal = "Hello, World!";
 
     id4 = insertObject(sizeof(structure));
     structure *structPtr = (structure *)retrieveObject(id4);

@@ -5,7 +5,7 @@ CC = clang++
 CFLAGS = -g -Wall -DNDEBUG
 OBJ = ObjectManager.o
 HDR = ObjectManager.h
-MAIN = main0.c
+MAIN = main5.c
 PROG = ObjectManager
 
 all: $(PROG)
@@ -13,8 +13,8 @@ all: $(PROG)
 $(PROG): $(MAIN) $(HDR) $(OBJ)
 	$(CC) $(CFLAGS) $(MAIN) $(OBJ) -o $(PROG)
 
-$(OBJ): Object.c $(HDR)
-		$(CC) $(CFLAGS) -c Object.c -o $(OBJ)
+$(OBJ): ObjectManager.c $(HDR)
+		$(CC) $(CFLAGS) -c ObjectManager.c -o $(OBJ)
 
 clean: 
 	rm $(OBJ) $(PROG) -f
