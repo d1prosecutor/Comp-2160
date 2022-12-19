@@ -9,8 +9,8 @@ PROG = main
 
 all: $(PROG)
 
-$(PROG): main0.c $(HDR) $(OBJ)
-	$(CC) $(CFLAGS) main0.c $(OBJ) -o $(PROG)
+$(PROG): main.c $(HDR) $(OBJ)
+	$(CC) $(CFLAGS) main.c $(OBJ) -o $(PROG)
 
 $(OBJ): container.c $(HDR)
 		$(CC) $(CFLAGS) -c container.c -o $(OBJ)
