@@ -475,22 +475,22 @@ static void checkState()
     // Verify that the free pointer is still within the size limit
     assert(heapMemory.freePtr >= 0 && heapMemory.freePtr < MEMORY_SIZE);
 
-    Node *temp = heapMemory.top;
+    // Node *temp = heapMemory.top;
 
     // Uncomment if assertions are enabled
     // Ref currNumBytes = 0;
-    while (NULL != temp)
-    {
-        // Verify that the every Node in the linked list is still being used(pointed to)
-        // and has a valid allocated memory
-        assert(temp->refCount > 0);
-        assert(temp->numBytes >= 0 && temp->numBytes < MEMORY_SIZE);
+    // while (NULL != temp)
+    // {
+    //     // Verify that the every Node in the linked list is still being used(pointed to)
+    //     // and has a valid allocated memory
+    //     assert(temp->refCount > 0);
+    //     assert(temp->numBytes >= 0 && temp->numBytes < MEMORY_SIZE);
 
-        // Uncomment if assertions are enabled
-        // currNumBytes += temp->numBytes;
+    //     // Uncomment if assertions are enabled
+    //     // currNumBytes += temp->numBytes;
 
-        temp = temp->next;
-    }
+    //     temp = temp->next;
+    // }
 
     /*
      assert that the number of bytes being used from the memory pool is within the valid range

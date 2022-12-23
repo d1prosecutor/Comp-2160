@@ -2,10 +2,10 @@
 # insert a '#' infront of the DNDEBUG in the compiler flags to enable assertions 
 
 CC = clang++
-CFLAGS = -g -Wall -DNDEBUG
+CFLAGS = -pg -Wall -DNDEBUG
 OBJ = ObjectManager.o
 HDR = ObjectManager.h
-MAIN = main1.c
+MAIN = main5.c
 PROG = ObjectManager
 
 all: $(PROG)
