@@ -29,7 +29,7 @@ Person newStudent(char *name, int age)
     Student tempStudent = {
         .studentId = 7928676,
         .level = 200,
-        .CGPA = 4.41,
+        .CGPA = 0,
     };
 
     Person newPerson = {
