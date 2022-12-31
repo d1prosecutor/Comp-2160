@@ -316,18 +316,23 @@ void dropReference(const Ref ref)
  ******************************************************/
 void destroyPool()
 {
+    assert(NULL != heapMemory.top);
     // Free all the Nodes in the linked list
     Node *prevNode = NULL;
-    while (NULL != heapMemory.top)
+    if (NULL != heapMemory.top)
     {
-        // Save a reference to each node in order to free it
-        prevNode = heapMemory.top;
+        while (NULL != heapMemory.top)
+        {
+            // Save a reference to each node in order to free it
+            prevNode = heapMemory.top;
 
-        // Move the top to the next Item thereby unlinking the previous item so it can be freed
-        heapMemory.top = heapMemory.top->next;
+            // Move the top to the next Item thereby unlinking the previous item so it can be freed
+            heapMemory.top = heapMemory.top->next;
 
-        free(prevNode);
+            free(prevNode);
+        }
     }
+    assert(NULL == heapMemory.top);
 
     // Free the two buffers and set the current buffer to NULL
     free(heapMemory.buffer1);
@@ -336,7 +341,11 @@ void destroyPool()
     // Reset the global variables
     numBytesCollected = 0;
 
-    heapMemory.currentBuffer = NULL;
+    heapMemory.buffer1 = NULL;
+    heapMemory.buffer2 = NULL;
+
+    assert(NULL == heapMemory.buffer1);
+    assert(NULL == heapMemory.buffer2);
 }
 
 /******************************************************************************
